@@ -64,6 +64,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-o
 .modes{display:grid;gap:12px}
 .mode{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:20px;border:2px solid var(--line);background:var(--surface);box-shadow:0 5px 0 var(--line);cursor:pointer;min-height:76px;-webkit-tap-highlight-color:transparent}
 .mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+a.mode{text-decoration:none;color:inherit}
+a.mode:focus-visible{outline:3px solid #1BA6A6;outline-offset:3px}
 .mode .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px}
 .mode h3{font-size:19px}
 .mode p{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
@@ -325,9 +327,18 @@ function homeScreen() {
       modeCard('✏️', '#F3E7C9', 'Zeichen', '⊥, ∥, ∈ … Was bedeuten die Zeichen?', () => startRound('sign')),
       modeCard('✅', '#DDEFD9', 'Stimmt das?', 'Richtig oder falsch? Tuka erklärt es dir.', () => startRound('fact')),
       modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+    h('h2', { class: 'sec' }, 'Zum Ausdrucken'),
+    h('div', { class: 'modes' },
+      linkCard('📝', '#FFE9D1', 'Spickzettel', 'Alles Wichtige auf einer Seite.', 'spickzettel.html'),
+      linkCard('🖨️', '#E4ECF4', 'Probetest', 'Wie bei der Schularbeit, mit Lösungen.', 'probetest.html')),
     h('p', { class: 'note', style: 'margin-top:12px' }, safe + ' von ' + ALL_IDS.length + ' Aufgaben kannst du schon sicher.'),
     h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
+}
+function linkCard(icon, bg, title, text, href) {
+  return h('a', { class: 'mode', href },
+    h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
+    h('span', null, h('h3', null, title), h('p', null, text)));
 }
 function modeCard(icon, bg, title, text, fn) {
   return h('button', { type: 'button', class: 'mode', onclick: fn },

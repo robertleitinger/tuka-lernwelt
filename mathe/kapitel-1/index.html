@@ -64,6 +64,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-o
 .modes{display:grid;gap:12px}
 .mode{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:20px;border:2px solid var(--line);background:var(--surface);box-shadow:0 5px 0 var(--line);cursor:pointer;min-height:76px;-webkit-tap-highlight-color:transparent}
 .mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+a.mode{text-decoration:none;color:inherit}
+a.mode:focus-visible{outline:3px solid #1BA6A6;outline-offset:3px}
 .mode .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px}
 .mode h3{font-size:19px}
 .mode p{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
@@ -156,7 +158,7 @@ function screen(...kids) { rc(view, ...kids); window.scrollTo(0, 0); }
 const PRAISE = ['Super!', 'Richtig!', 'Genau!', 'Stark gemacht!', 'Bravo!', 'Jawohl!'];
 const SOFT = ['Kein Problem.', 'Guter Versuch!', 'Das merkst du dir jetzt.'];
 /* Zahlen in Dreierpäckchen: 4 702 315 */
-function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+function fmt(n) { const s = String(n); return s.length <= 4 ? s : s.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0'); } // wie im Buch: vierstellig ohne Lücke
 /* Optionen: die richtige plus bis zu k eindeutige falsche */
 function opts(ok, cands, k) {
   const out = [];
@@ -187,7 +189,7 @@ function einhStr(n, mix) {
 }
 function sumStr(n) {
   const d = digitsOf(n), parts = [];
-  for (let p = d.length - 1; p >= 0; p--) if (d[p]) parts.push(p === 0 ? String(d[p]) : d[p] + '·' + fmt(PL[p].v));
+  for (let p = d.length - 1; p >= 0; p--) if (d[p]) parts.push(d[p] + '·' + fmt(PL[p].v));
   return parts.join(' + ');
 }
 
@@ -348,7 +350,7 @@ function fmtMarked(n, pos) {
   for (let i = 0; i < s.length; i++) {
     const fromRight = s.length - 1 - i;
     out += i === pos ? '<span class="mark">' + s[i] + '</span>' : s[i];
-    if (fromRight > 0 && fromRight % 3 === 0) out += ' ';
+    if (s.length > 4 && fromRight > 0 && fromRight % 3 === 0) out += '\u00A0';
   }
   return out;
 }
@@ -377,9 +379,18 @@ function homeScreen() {
     h('div', { class: 'modes' },
       ...Object.entries(GAMES).map(([k, g]) => modeCard(g.icon, g.bg, g.title, g.text, () => startRound(k))),
       modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+    h('h2', { class: 'sec' }, 'Zum Ausdrucken'),
+    h('div', { class: 'modes' },
+      linkCard('📝', '#FFE9D1', 'Spickzettel', 'Alles Wichtige auf einer Seite.', 'spickzettel.html'),
+      linkCard('🖨️', '#E4ECF4', 'Probetest', 'Wie bei der Schularbeit, mit Lösungen.', 'probetest.html')),
     h('p', { class: 'note', style: 'margin-top:12px' }, safe + ' von ' + ALL_TYPES.length + ' Aufgabenarten kannst du schon sicher.'),
     h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
+}
+function linkCard(icon, bg, title, text, href) {
+  return h('a', { class: 'mode', href },
+    h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
+    h('span', null, h('h3', null, title), h('p', null, text)));
 }
 function modeCard(icon, bg, title, text, fn) {
   return h('button', { type: 'button', class: 'mode', onclick: fn },

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Probetest Kapitel 1</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F5E3B">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C2B24;--soft:#4A5A51;--green:#1F5E3B;--deep:#16452B;--orange:#F28C28;--teal:#1BA6A6;--sand:#F6EBD5;--paper:#FFFBF1;--line:#D9CBAA;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font:16px/1.45 "Atkinson Hyperlegible",Verdana,system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#16452B;padding:calc(env(safe-area-inset-top,0px) + 6px) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px))}
+.bar a,.bar button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:0;background:#F6EBD5;color:#16452B;font:600 16px/1 Fredoka,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.bar button.print{background:#F28C28;color:#1C2B24}
+.bar .sp{flex:1}
+.sheet{max-width:820px;margin:12px auto 40px;background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
+h1{font:600 24px/1.15 Fredoka,system-ui,sans-serif;margin:0;color:var(--deep)}
+.head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.head img{width:48px;height:48px;border-radius:12px}
+.head p{margin:2px 0 0;color:var(--soft);font-size:14px}
+.grid{display:grid;gap:10px}
+.box{border:2px solid var(--line);border-radius:12px;padding:8px 12px;break-inside:avoid;page-break-inside:avoid}
+.box h2{font:600 17px/1.2 Fredoka,system-ui,sans-serif;margin:0 0 4px;color:#fff;background:var(--green);display:inline-block;padding:2px 10px;border-radius:8px}
+.box.o h2{background:var(--orange);color:var(--ink)}.box.t h2{background:var(--teal)}
+.box p{margin:3px 0}
+.box ul{margin:3px 0;padding-left:18px}.box li{margin:1px 0}
+.ex{color:var(--green);font-weight:700}
+.merk{background:#FFE9D1;border-radius:8px;padding:2px 8px;display:inline-block;margin:3px 0;font-weight:700}
+.ov{text-decoration:overline}
+table.tafel{border-collapse:collapse;margin:4px 0;font-size:14px}
+table.tafel td,table.tafel th{border:1.5px solid var(--ink);padding:2px 7px;text-align:center;min-width:26px}
+table.tafel th{background:var(--sand)}
+svg{display:block;max-width:100%;height:auto}
+.figs{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end}
+.figs figure{margin:0;text-align:center;font-size:13px;font-weight:700}
+/* Probetest */
+.namerow{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 10px;font-size:15px}
+.namerow span{border-bottom:1.5px solid var(--ink);min-width:110px;display:inline-block}
+.task{border-top:1.5px solid var(--line);padding:8px 0 10px;break-inside:avoid;page-break-inside:avoid}
+.task .q{display:flex;gap:8px}
+.part{font:600 18px Fredoka,system-ui,sans-serif;color:var(--deep);margin:6px 0 2px}
+.task .nr{font:600 17px Fredoka,system-ui,sans-serif;color:var(--deep);min-width:26px}
+.task .pt{margin-left:auto;font-size:13px;color:var(--soft);white-space:nowrap}
+.lines{margin:6px 0 0 34px}
+.ln{border-bottom:1.5px dotted #8A9690;height:26px}
+.kast{margin:8px 0 0 34px;height:var(--h,110px);border:1px solid #B9C9D4;background-image:linear-gradient(#DCE6EE 1px,transparent 1px),linear-gradient(90deg,#DCE6EE 1px,transparent 1px);background-size:5mm 5mm}
+.opts{margin:4px 0 0 34px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.gap{display:inline-block;min-width:44px;border-bottom:1.5px solid var(--ink)}
+.sol{color:#B5121B;font-weight:700}
+.total{margin-top:10px;font-weight:700}
+.pb{break-before:page;page-break-before:always}
+body[data-mode="test"] .loes{display:none}
+body[data-mode="loes"] .test{display:none}
+@media (min-width:700px){.grid{grid-template-columns:1fr 1fr}.box.wide{grid-column:1/-1}}
+@media print{
+  @page{size:A4;margin:11mm}
+  body{background:#fff;font-size:11pt;line-height:1.35}
+  .bar{display:none}
+  .sheet{max-width:none;margin:0;padding:0;box-shadow:none;border-radius:0}
+  .grid{grid-template-columns:1fr 1fr;gap:7px}.box.wide{grid-column:1/-1}
+  .box{padding:5px 9px}
+  .head{margin-bottom:6px}
+  .ln{height:27px}
+  .screen-only{display:none}
+}
+@media screen{.pb{border-top:3px dashed var(--line);margin-top:14px;padding-top:6px}}
+</style>
+</head>
+<body data-mode="test">
+<nav class="bar"><a href="./">← Kapitel 1</a><span class="sp"></span><button type="button" id="toggle">Lösungen zeigen</button><button type="button" class="print" data-m="test">🖨️ Test</button><button type="button" class="print" data-m="loes">🖨️ Lösungen</button></nav>
+<main class="sheet">
+<div class="test"><div class="head"><img src="../../tuka.svg" alt=""><div><h1>Probetest: Natürliche Zahlen</h1><p>Mathe Kapitel 1</p></div></div>
+<div class="namerow">Name: <span></span> Datum: <span></span> Punkte: <span style="min-width:70px"></span> / 32</div><div class="task"><div class="q"><span class="nr">1</span><div>Schreib in Ziffern: a) 3HT 5T 2Z 6E &nbsp; b) 7M 4ZT 9H</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">2</span><div>Schreib 60 308 in Summenschreibweise.</div><span class="pt">1 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">3</span><div>Welchen Wert hat die Ziffer 8 in 4 815 302?</div><span class="pt">1 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">4</span><div>Schreib in Ziffern: zwei Millionen vierzigtausendfünf</div><span class="pt">1 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">5</span><div>Setze &lt;, &gt; oder = ein:<br>a) 45 609 <span class="gap"></span> 45 690 &nbsp; b) 1 000 000 <span class="gap"></span> 999 999 &nbsp; c) 7080 <span class="gap"></span> 7008</div><span class="pt">3 P.</span></div></div><div class="task"><div class="q"><span class="nr">6</span><div>Ordne zu einer Kleinerkette: 5602; 5260; 5620; 5026</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">7</span><div>Gib die Lösungsmenge an: a) 12 &lt; x &lt; 16 &nbsp; b) 7 ≤ n &lt; 11</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">8</span><div>Gib den Vorgänger und den Nachfolger von 300 000 an.</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="pb"></div><div class="task"><div class="q"><span class="nr">9</span><div>Welche Zahlen zeigen die Pfeile A und B?<svg viewBox="0 0 320 66" width="320" role="img" aria-label="Zahlenstrahl"><line x1="16" y1="34" x2="308" y2="34" stroke="#1C2B24" stroke-width="2.4"/><path d="M312,34 l-8,-5 v10 z" fill="#1C2B24"/><line x1="16.0" y1="25" x2="16.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><line x1="44.2" y1="28" x2="44.2" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="72.4" y1="28" x2="72.4" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="100.6" y1="28" x2="100.6" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="128.8" y1="28" x2="128.8" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="157.0" y1="25" x2="157.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><line x1="185.2" y1="28" x2="185.2" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="213.4" y1="28" x2="213.4" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="241.6" y1="28" x2="241.6" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="269.8" y1="28" x2="269.8" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="298.0" y1="25" x2="298.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><text x="16.0" y="60" font-size="13" font-weight="700" text-anchor="middle" fill="#1C2B24">0</text><text x="298.0" y="60" font-size="13" font-weight="700" text-anchor="middle" fill="#1C2B24">200</text><path d="M100.6,22 l-6,-11 h12 z" fill="#F28C28" stroke="#1C2B24" stroke-width="1.2"/><text x="100.6" y="8" font-size="13" font-weight="700" text-anchor="middle">A</text><path d="M213.4,22 l-6,-11 h12 z" fill="#F28C28" stroke="#1C2B24" stroke-width="1.2"/><text x="213.4" y="8" font-size="13" font-weight="700" text-anchor="middle">B</text></svg></div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">10</span><div>Runde 47 852 auf a) Zehner b) Hunderter c) Tausender d) Zehntausender.</div><span class="pt">4 P.</span></div><div class="lines"><div class="ln"></div><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">11</span><div>Runde 3649 auf Hunderter und gib den Rundungsfehler (RF) an.</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">12</span><div>Eine Zahl ist auf Tausender gerundet 6000. Wie heißen die kleinste und die größte mögliche Zahl?</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">13</span><div>Schreib römisch: a) 14 &nbsp; b) 49 &nbsp; c) 1994</div><span class="pt">3 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">14</span><div>Schreib als Zahl: a) XXIV &nbsp; b) CDXC &nbsp; c) MMXXVI</div><span class="pt">3 P.</span></div><div class="lines"><div class="ln"></div></div></div><div class="task"><div class="q"><span class="nr">15</span><div>Tuka sagt: „2548 auf Hunderter gerundet ist 2600. Ich runde zuerst 48 auf 50 und dann auf 100.“ Stimmt das? Erkläre.</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln"></div><div class="ln"></div></div></div></div>
+<div class="loes"><div class="head"><img src="../../tuka.svg" alt=""><div><h1>Lösungen: Probetest Natürliche Zahlen</h1><p>Für Eltern · 32 Punkte</p></div></div>
+<ol>
+<li><span class="sol">a) 305 026 &nbsp; b) 7 040 900</span> (je 1 P.) Leere Stellen bekommen eine 0.</li>
+<li><span class="sol">6·10 000 + 3·100 + 8·1</span> (1 P.) Auch richtig: 60 000 + 300 + 8.</li>
+<li><span class="sol">800 000</span> (1 P.) Die 8 steht bei den Hunderttausendern. Auch richtig: 8 HT.</li>
+<li><span class="sol">2 040 005</span> (1 P.)</li>
+<li><span class="sol">a) &lt; &nbsp; b) &gt; &nbsp; c) &gt;</span> (je 1 P.)</li>
+<li><span class="sol">5026 &lt; 5260 &lt; 5602 &lt; 5620</span> (2 P., 1 P. bei einem Fehler)</li>
+<li><span class="sol">a) {13; 14; 15} &nbsp; b) {7; 8; 9; 10}</span> (je 1 P.)</li>
+<li><span class="sol">Vorgänger 299 999, Nachfolger 300 001</span> (je 1 P.)</li>
+<li><span class="sol">A = 60, B = 140</span> (je 1 P.) 1 Schritt = 200 : 10 = 20.</li>
+<li><span class="sol">a) 47 850 &nbsp; b) 47 900 &nbsp; c) 48 000 &nbsp; d) 50 000</span> (je 1 P.)</li>
+<li><span class="sol">3649 ≈ 3600 (H), RF: 49</span> (je 1 P.)</li>
+<li><span class="sol">kleinste 5500, größte 6499</span> (je 1 P.)</li>
+<li><span class="sol">a) XIV &nbsp; b) XLIX &nbsp; c) MCMXCIV</span> (je 1 P.) 1994 = M CM XC IV.</li>
+<li><span class="sol">a) 24 &nbsp; b) 490 &nbsp; c) 2026</span> (je 1 P.)</li>
+<li><span class="sol">Stimmt nicht. Richtig ist 2500.</span> (1 P.) Nur die 4 rechts neben der Hunderterstelle entscheidet, also abrunden. Nicht von hinten runden. (1 P.)</li>
+</ol>
+<p class="total">Gesamt: 32 Punkte</p></div>
+</main>
+<script>
+const b=document.body, t=document.getElementById('toggle');
+t.addEventListener('click',()=>{b.dataset.mode=b.dataset.mode==='test'?'loes':'test';t.textContent=b.dataset.mode==='test'?'Lösungen zeigen':'Test zeigen';scrollTo(0,0);});
+document.querySelectorAll('button.print').forEach(x=>x.addEventListener('click',()=>{const m=b.dataset.mode;b.dataset.mode=x.dataset.m;setTimeout(()=>{print();b.dataset.mode=m;},50);}));
+</script>
+</body>
+</html>
