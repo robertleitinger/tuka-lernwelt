@@ -6,9 +6,9 @@
 <title>Tukas English</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1F5E3B">
-<meta name="description" content="Englisch mit Tuka: Wörter schreiben und Sätze üben, MORE! 1 Unit 1 bis 3.">
+<meta name="description" content="Englisch mit Tuka: Vokabeln auswählen und schreiben, MORE! 1 Unit 1 bis 3.">
 <meta property="og:title" content="Tukas English">
-<meta property="og:description" content="Englisch mit Tuka: Wörter schreiben und Sätze üben, MORE! 1 Unit 1 bis 3.">
+<meta property="og:description" content="Englisch mit Tuka: Vokabeln auswählen und schreiben, MORE! 1 Unit 1 bis 3.">
 <meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/englisch/">
 <meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
 <meta property="og:type" content="website">
@@ -341,7 +341,7 @@ function homeScreen() {
   unitsEl.append(uButton('all', 'Alle Units', 'Unit 1 bis 3'));
   const unitTitle = h('span', null, unitLabel(unit));
   const progLine = h('p', { class: 'note', style: 'margin-top:12px' });
-  function paintProg(id) { const p = unitProgress(id); progLine.textContent = p.safe + ' von ' + p.total + ' Wörtern kannst du schon sicher schreiben.'; }
+  function paintProg(id) { const p = unitProgress(id); progLine.textContent = p.safe + ' von ' + p.total + ' Wörtern kannst du schon sicher.'; }
   function select(id) {
     store.unit = id; save();
     ubtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.u === id)));
@@ -354,9 +354,9 @@ function homeScreen() {
     h('h2', { class: 'sec' }, '1. Wähle eine Unit'), unitsEl,
     h('h2', { class: 'sec' }, '2. Wähle ein Spiel: ', unitTitle),
     h('div', { class: 'modes' },
+      modeCard('👆', '#DCEFEF', 'Wörter auswählen', 'Du siehst das deutsche Wort. Wähle das englische.', () => startRound('choose')),
       modeCard('✏️', '#F3E7C9', 'Wörter schreiben', 'Du siehst das deutsche Wort. Schreib es auf Englisch.', () => startRound('words')),
-      modeCard('🧩', '#DCEFEF', 'Sätze', 'Welches Wort passt in den Satz?', () => startRound('sent')),
-      modeCard('🎯', '#E4ECF4', 'Test', 'Wörter und Sätze gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+      modeCard('🎯', '#E4ECF4', 'Test', 'Auswählen und Schreiben gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
     progLine,
     h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
@@ -380,11 +380,11 @@ function startRound(mode) {
   const unit = store.unit || 'u3';
   const q = [];
   function add(type, n) {
-    const ids = idsOf(unit, type === 'words' ? WORDS : SENTS);
+    const ids = idsOf(unit, type === 'sent' ? SENTS : WORDS);
     for (let i = 0; i < Math.min(n, ids.length); i++) q.push({ type, id: weightedPick(ids, q.map(x => x.id)) });
   }
-  if (mode === 'test') { add('words', 8); add('sent', 4); q.splice(0, q.length, ...shuffle(q)); }
-  else add(mode, mode === 'words' ? 10 : 8);
+  if (mode === 'test') { add('choose', 6); add('words', 6); q.splice(0, q.length, ...shuffle(q)); }
+  else add(mode, 10);
   const round = { mode, q, i: 0, done: 0, total: q.length, first: 0, missed: [] };
   nextQuestion(round);
 }
@@ -427,7 +427,41 @@ function nextQuestion(round) {
   }
 
   let doHint = () => {}, doSkip = () => {};
-  if (qq.type === 'words') {
+  if (qq.type === 'choose') {
+    const w = BYID[qq.id];
+    const main = w.en[0];
+    // drei falsche Antworten aus derselben Unit, nie eine, die auch richtig wäre
+    const pool = shuffle(WORDS.filter(o => o.unit === w.unit && o.id !== w.id && !o.en.some(e => w.en.includes(e)) && !(o.de === w.de && o.note === w.note)));
+    const wrongs = [];
+    for (const o of pool) { if (!wrongs.includes(o.en[0])) wrongs.push(o.en[0]); if (wrongs.length === 3) break; }
+    const opts = h('div', { class: 'opts' });
+    shuffle([main, ...wrongs]).forEach(v => { const b = h('button', { type: 'button', class: 'opt', onclick: () => pickIt(v, b) }, v); b.dataset.v = v; opts.append(b); });
+    rc(answers, opts);
+    const sayBtn = () => canSpeak ? h('button', { type: 'button', class: 'say', onclick: () => say(main) }, '🔊 Anhören') : null;
+    const lock = mark => opts.querySelectorAll('button').forEach(x => { x.disabled = true; if (mark && x.dataset.v === main) x.classList.add('ok'); });
+    function pickIt(v, b) {
+      if (answered) return;
+      if (v === main) { b.classList.add('ok'); lock(false); finish(true, pick(PRAISE), h('div', { class: 'word' }, main), sayBtn()); return; }
+      firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
+      if (wrong >= 2) { lock(true); finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist:'), h('div', { class: 'word' }, main), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal.')), sayBtn()); return; }
+      const o = WORDS.find(x => x.unit === w.unit && x.en[0] === v);
+      hintBox.hidden = false; rc(hintBox, o ? '„' + v + '“ heißt ' + o.de + (o.note ? ' (' + o.note + ')' : '') + '. Versuch es nochmal!' : 'Noch nicht. Versuch es nochmal!');
+    }
+    doHint = function () {
+      if (answered) return; hintUsed = true; hintBtn.disabled = true;
+      const wr = [...opts.querySelectorAll('.opt:not([disabled])')].filter(x => x.dataset.v !== main);
+      shuffle(wr).slice(0, Math.max(0, wr.length - 1)).forEach(x => { x.disabled = true; x.style.visibility = 'hidden'; });
+      hintBox.hidden = false; rc(hintBox, '💡 Tuka hat falsche Antworten weggenommen.');
+    };
+    doSkip = function () {
+      if (answered) return; firstTry = false; lock(true);
+      finish(false, 'Kein Problem!', h('div', null, h('div', { class: 'word' }, main), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal.')), sayBtn());
+    };
+    screen(top,
+      h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }),
+        h('div', null, h('div', { class: 'qlabel' }, 'Wähle das englische Wort:'), h('div', { class: 'qtext' }, w.de), w.note ? h('div', { class: 'qsub' }, '(' + w.note + ')') : null)),
+      answers, hintBox, fb, helpers);
+  } else if (qq.type === 'words') {
     const w = BYID[qq.id];
     const main = w.en[0];
     const inp = h('input', { type: 'text', autocomplete: 'off', autocorrect: 'off', autocapitalize: 'none', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Englisches Wort', placeholder: 'auf Englisch …' });
@@ -499,7 +533,7 @@ function endScreen(round) {
   const share = round.first / round.total;
   const title = share >= 1 ? 'Alles richtig!' : share >= 0.8 ? 'Wow, fast alles!' : share >= 0.5 ? 'Geschafft, super!' : 'Geschafft!';
   const starsN = share >= 0.8 ? 3 : share >= 0.5 ? 2 : 1;
-  const row = m => m.type === 'words'
+  const row = m => m.type !== 'sent'
     ? h('div', { class: 'row' }, h('span', null, BYID[m.id].de + (BYID[m.id].note ? ' (' + BYID[m.id].note + ')' : '')), h('span', null, BYID[m.id].en[0]))
     : (s => h('div', { class: 'row' }, h('span', null, s.text.replace('___', '…')), h('span', null, s.ok)))(SENTS.find(x => x.id === m.id));
   screen(h('div', { class: 'end' },
