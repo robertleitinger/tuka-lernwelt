@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1F5E3B">
-<meta name="description" content="Lernen mit Tuka: Mathematik und Geografie, nach Tests sortiert.">
+<meta name="description" content="Lernen mit Tuka: Mathematik, Englisch und Geografie.">
 <meta property="og:title" content="Tukas Lernwelt">
-<meta property="og:description" content="Lernen mit Tuka: Mathematik und Geografie, nach Tests sortiert.">
-<meta property="og:url" content="https://tuka-lernwelt-vgbnn.netlify.app/">
-<meta property="og:image" content="https://tuka-lernwelt-vgbnn.netlify.app/og.png">
+<meta property="og:description" content="Lernen mit Tuka: Mathematik, Englisch und Geografie.">
+<meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/">
+<meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -48,7 +48,9 @@ a.card:focus-visible{outline:3px solid var(--lagoon);outline-offset:3px}
 .meta{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
 .pill{font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--sand);color:var(--deep)}
 .go{font-family:Fredoka,"Atkinson Hyperlegible",system-ui,sans-serif;font-weight:600;color:#fff;background:var(--sun);border-radius:999px;padding:3px 12px;font-size:15px}
-.tip{margin-top:22px;background:#fff8;border:2px dashed var(--line);border-radius:18px;padding:14px 16px;font-size:16px;color:var(--muted)}
+.fach{font-family:Fredoka,"Atkinson Hyperlegible",system-ui,sans-serif;font-weight:600;font-size:22px;margin:26px 4px 12px;color:var(--deep)}
+.fach:first-child{margin-top:8px}
+.tip{margin-top:26px;background:#fff8;border:2px dashed var(--line);border-radius:18px;padding:14px 16px;font-size:16px;color:var(--muted)}
 .tip b{color:var(--ink)}
 .note{margin:18px 4px 0;font-size:14px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){a.card{transition:none}}
@@ -69,25 +71,26 @@ a.card:focus-visible{outline:3px solid var(--lagoon);outline-offset:3px}
 
 <main>
   <div class="wrap">
+    <h2 class="fach">Mathematik</h2>
     <div class="cards">
       <a class="card" href="mathe/">
         <span class="badge b2" aria-hidden="true">
           <svg viewBox="0 0 40 40"><text x="20" y="28" text-anchor="middle" font-family="Fredoka, system-ui, sans-serif" font-size="22" font-weight="700" fill="#F28C28">1+2</text></svg>
         </span>
         <span>
-          <h2>Mathematik</h2>
-          <p>Training, Tempel-Abenteuer und Probetest. Sortiert nach Tests.</p>
-          <span class="meta"><span class="pill">Block 1: Natürliche Zahlen</span><span class="go">Los geht's</span></span>
+          <h2>Mathe-Training</h2>
+          <p>Training, Tempel-Abenteuer und Probetest.</p>
+          <span class="meta"><span class="pill">Kapitel 1: Natürliche Zahlen</span><span class="go">Los geht's</span></span>
         </span>
       </a>
-      <a class="card" href="gw/">
+      <a class="card" href="geometrie/">
         <span class="badge b3" aria-hidden="true">
-          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="#1BA6A6"/><path d="M13 12c3 1 4 4 7 4s3 3 1 5-5 1-6 4-1 5-3 4c-2-2-3-6-3-9 0-3 2-7 4-8zM24 9c2 0 6 2 7 5s-2 3-4 2-4-1-4-3 0-4 1-4zM25 24c2-1 5 0 5 2s-2 5-4 5-2-2-2-4 0-2 1-3z" fill="#DDEFD9"/></svg>
+          <svg viewBox="0 0 40 40"><line x1="6" y1="32" x2="34" y2="32" stroke="#1F5E3B" stroke-width="3" stroke-linecap="round"/><line x1="10" y1="32" x2="10" y2="6" stroke="#1BA6A6" stroke-width="3" stroke-linecap="round"/><path d="M10 25 A7 7 0 0 0 17 32" fill="none" stroke="#1C2B24" stroke-width="1.6"/><circle cx="13" cy="29" r="1.4" fill="#1C2B24"/></svg>
         </span>
         <span>
-          <h2>Geografie (GW)</h2>
-          <p>Länder und Hauptstädte Europas. Mit Karte zum Antippen.</p>
-          <span class="meta"><span class="pill">Block 1: Europa</span><span class="go">Los geht's</span></span>
+          <h2>Geometrie</h2>
+          <p>Strecke, Strahl, Gerade, parallel, normal, Abstand, Rechteck.</p>
+          <span class="meta"><span class="pill">Kapitel 2: Grundbegriffe</span><span class="go">Los geht's</span></span>
         </span>
       </a>
       <a class="card" href="expedition/">
@@ -97,7 +100,35 @@ a.card:focus-visible{outline:3px solid var(--lagoon);outline-offset:3px}
         <span>
           <h2>Expedition Zahlendschungel</h2>
           <p>7 Stationen bis zur Schatzkammer. Tuka verrechnet sich. Du findest den Fehler.</p>
-          <span class="meta"><span class="pill">ca. 15 Min.</span><span class="go">Los geht's</span></span>
+          <span class="meta"><span class="pill">Kapitel 1</span><span class="go">Los geht's</span></span>
+        </span>
+      </a>
+    </div>
+
+    <h2 class="fach">Englisch</h2>
+    <div class="cards">
+      <a class="card" href="englisch/">
+        <span class="badge b2" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><text x="20" y="27" text-anchor="middle" font-family="Fredoka, system-ui, sans-serif" font-size="17" font-weight="700" fill="#1F5E3B">ABC</text></svg>
+        </span>
+        <span>
+          <h2>Tukas English</h2>
+          <p>Wörter auf Englisch schreiben und Sätze üben.</p>
+          <span class="meta"><span class="pill">MORE! 1, Unit 1 bis 3</span><span class="go">Let's go</span></span>
+        </span>
+      </a>
+    </div>
+
+    <h2 class="fach">Geografie</h2>
+    <div class="cards">
+      <a class="card" href="gw/">
+        <span class="badge b3" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#1BA6A6"/><path d="M13 13 Q18 10 22 14 Q20 19 15 18 Z M21 22 Q27 20 29 25 Q25 31 21 28 Z" fill="#3FA34D"/></svg>
+        </span>
+        <span>
+          <h2>Europa-Reise</h2>
+          <p>Länder, Hauptstädte und Karte.</p>
+          <span class="meta"><span class="pill">46 Länder</span><span class="go">Los geht's</span></span>
         </span>
       </a>
     </div>

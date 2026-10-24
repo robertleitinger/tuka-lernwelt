@@ -3,20 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tukas Geo-Reise</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1F5E3B">
-<meta name="description" content="Geografie mit Tuka: Länder und Hauptstädte Europas, mit Karte zum Antippen.">
+<meta name="description" content="Geografie mit Tuka: Länder und Hauptstädte Europas in drei Spielen.">
 <meta property="og:title" content="Tukas Geo-Reise">
-<meta property="og:description" content="Geografie mit Tuka: Länder und Hauptstädte Europas, mit Karte zum Antippen.">
-<meta property="og:url" content="https://tuka-lernwelt-vgbnn.netlify.app/gw/">
-<meta property="og:image" content="https://tuka-lernwelt-vgbnn.netlify.app/og.png">
+<meta property="og:description" content="Geografie mit Tuka: Länder und Hauptstädte Europas in drei Spielen.">
+<meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/gw/">
+<meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
 <meta property="og:type" content="website">
-<title>Tukas Geo-Reise</title>
 <link rel="icon" href="../favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<script src="../music.js" defer></script>
+</head>
+<body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
-<script src="../music.js" defer></script>
 <style>
 :root{
   --bg:#F6EBD5; --surface:#FFFBF1; --surface-2:#EFE0C1; --ink:#1C2B24; --ink-soft:#4A5A51;
@@ -42,14 +44,25 @@
   --r-mitte:#76632A; --r-west:#2A615A; --r-nord:#3F5C32; --r-sued:#76472B; --r-suedost:#5C5039; --r-ost:#2F4C63;
   color-scheme:dark;}
 }
+:root[data-theme="dark"]{
+  --bg:#13221B; --surface:#1B2E25; --surface-2:#243C30; --ink:#F4EDDC; --ink-soft:#BFCBBF;
+  --green:#5BC46A; --deep:#0E1B15; --leaf:#5BC46A; --orange:#F5A04A; --teal:#41C7C7; --sun:#FFD25E;
+  --btn:#2F8250; --btn-ink:#FFFFFF; --line:rgba(244,237,220,.16); --track:#2C4637;
+  --good-bg:#1F4A2C; --good-ink:#C9F0CF; --hint-bg:#4A2E12; --hint-ink:#FFD7AE; --bad:#FF7A45; --bad-bg:#4A2416;
+  --shadow:0 3px 0 rgba(0,0,0,.35);
+  --sea:#102A30; --ctx:#27312C; --border:#13221B;
+  --c0:#3F5F3A; --c1:#6E5F2C; --c2:#73492B; --c3:#2C5E59; --c4:#5A4E37;
+  --r-mitte:#76632A; --r-west:#2A615A; --r-nord:#3F5C32; --r-sued:#76472B; --r-suedost:#5C5039; --r-ost:#2F4C63;
+  color-scheme:dark;}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#16452B}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--f-text);min-height:100vh}
 button{font:inherit;color:inherit}
 [hidden]{display:none!important}
 
 /* Navigation wie in den anderen Tuka-Apps */
-nav.tl-nav{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:10px;background:#16452B;color:#F6EBD5;box-shadow:0 2px 0 rgba(0,0,0,.18);padding-top:env(safe-area-inset-top,0px);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));min-height:52px;font-family:var(--f-disp)}
+nav.tl-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;display:flex;align-items:center;gap:10px;background:#16452B;color:#F6EBD5;box-shadow:0 2px 0 rgba(0,0,0,.18);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));min-height:52px;font-family:var(--f-disp)}
 nav.tl-nav a.tl-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 14px 4px 5px;border-radius:999px;background:#F6EBD5;color:#16452B;text-decoration:none;font-weight:600;font-size:16px;line-height:1;white-space:nowrap;flex:none;margin:4px 0}
 nav.tl-nav a.tl-home:focus-visible{outline:3px solid #1BA6A6;outline-offset:2px}
 nav.tl-nav a.tl-home img{width:34px;height:34px;border-radius:50%;display:block}
@@ -86,6 +99,7 @@ svg.map .mk{stroke:var(--ink);stroke-width:1.4;vector-effect:non-scaling-stroke}
 svg.map .mk.hl,svg.map .mk.sel{fill:var(--orange)!important;stroke-width:2.5}
 svg.map .mk.ok{fill:var(--leaf)!important} svg.map .mk.bad{fill:var(--bad)!important}
 svg.map .hit{fill:transparent}
+svg.map.nomk .mk,svg.map.nomk .hit{display:none}
 svg.map .cap{fill:var(--ink);stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke}
 svg.map .cap.big{fill:#C0392B}
 svg.map text{font-family:var(--f-disp);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
@@ -144,6 +158,9 @@ button:focus-visible,.mode:focus-visible,.rbtn:focus-visible{outline:3px solid v
 .list button{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;text-align:left}
 .list button span:first-child{font-weight:700}
 .list button span:last-child{color:var(--green);font-family:var(--f-disp);font-weight:600;text-align:right}
+.list .row{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface)}
+.list .row span:first-child{font-weight:700}
+.list .row span:last-child{color:var(--green);font-family:var(--f-disp);font-weight:600;text-align:right}
 .list button.on{border-color:var(--orange);background:var(--hint-bg)}
 .list .ok-mark{color:var(--leaf)}
 
@@ -200,8 +217,6 @@ button:focus-visible,.mode:focus-visible,.rbtn:focus-visible{outline:3px solid v
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-</head>
-<body>
 <nav class="tl-nav" aria-label="Navigation"><a class="tl-home" href="../"><img src="../tuka.svg" alt="" width="34" height="34"><span>Übersicht</span></a><span class="tl-title">Tukas Geo-Reise</span><button type="button" class="tl-music" aria-pressed="false" aria-label="Musik einschalten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 18.5a3 3 0 1 1-2-2.83V5.5l11-2.5v12a3 3 0 1 1-2-2.83V7.6L9 9.2z" fill="currentColor"/></svg><span class="tl-music-label">Musik aus</span></button></nav>
 <main class="app" id="view" aria-live="polite"></main>
 <script>
@@ -213,7 +228,7 @@ const BLOCK = { id: 'europa', title: 'Block 1', sub: 'Länder und Hauptstädte' 
 const BY = {}; COUNTRIES.forEach(c => { BY[c.id] = c; });
 const RNAME = {}; REGIONS.forEach(r => { RNAME[r.id] = r.name; });
 const CAP_TO = {}; COUNTRIES.forEach(c => { CAP_TO[c.cap] = c.id; });
-const TUKA = '../tuka.svg';
+const TUKA = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzFGNUUzQiIvPgogIDxwYXRoIGQ9Ik0wIDk2IFEyOCA4MiA1MiA5MiBUMTIwIDg4IEwxMjAgMTIwIEwwIDEyMCBaIiBmaWxsPSIjM0ZBMzREIi8+CiAgPHBhdGggZD0iTTMwIDEwNCBMOTIgMTA0IiBzdHJva2U9IiM2QjRBMkIiIHN0cm9rZS13aWR0aD0iNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNzAiIHJ4PSIyMSIgcnk9IjI5IiBmaWxsPSIjMTQyMDFBIi8+CiAgPHBhdGggZD0iTTM4IDk2IEwzMiAxMTAgTTQ2IDk4IEw0NCAxMTEiIHN0cm9rZT0iIzE0MjAxQSIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8ZWxsaXBzZSBjeD0iNTQiIGN5PSI1NiIgcng9IjEyIiByeT0iMTQiIGZpbGw9IiNGNkVCRDUiLz4KICA8cGF0aCBkPSJNNjAgNDAgQzc4IDMwIDEwNCAzNiAxMTAgNTAgQzEwMCA1OCA3OCA2MCA2MiA1NiBaIiBmaWxsPSIjRjI4QzI4Ii8+CiAgPHBhdGggZD0iTTYyIDU2IEM3OCA2MCAxMDAgNTggMTEwIDUwIEMxMDQgNjIgODIgNjggNjQgNjIgWiIgZmlsbD0iI0UwNjYxQiIvPgogIDxwYXRoIGQ9Ik0xMDAgNDQgQzEwNiA0NiAxMDkgNDggMTEwIDUwIEMxMDYgNTEgMTAyIDUxIDk5IDUwIFoiIGZpbGw9IiMxQzJCMjQiLz4KICA8Y2lyY2xlIGN4PSI1NyIgY3k9IjQ1IiByPSI2LjUiIGZpbGw9IiMxQkE2QTYiLz4KICA8Y2lyY2xlIGN4PSI1OCIgY3k9IjQ1IiByPSIzLjMiIGZpbGw9IiMxNDIwMUEiLz4KICA8Y2lyY2xlIGN4PSI1OS4yIiBjeT0iNDMuOCIgcj0iMS4xIiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPgo=';
 const SVGNS = 'http://www.w3.org/2000/svg';
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -373,7 +388,7 @@ function createMap() {
         // Auf einem Land: nur sehr nah am Punkt zaehlt der Mini-Staat. Auf Meer oder Rand: grosszuegiger.
         const onLand = !!(t && t.dataset && t.dataset.id && !BY[t.dataset.id].micro);
         let best = null, bd = onLand ? 9 : 18;
-        for (const mid in marks) {
+        if (!svg.classList.contains('nomk')) for (const mid in marks) {
           const q = MAP.countries[mid].cap;
           const x = ctm.a * q[0] + ctm.c * q[1] + ctm.e, y = ctm.b * q[0] + ctm.d * q[1] + ctm.f;
           const d = Math.hypot(x - start.x, y - start.y); if (d < bd) { bd = d; best = mid; }
@@ -471,54 +486,23 @@ function rc(el, ...kids) { el.replaceChildren(...kids.flat().filter(k => k !== n
 function screen(...kids) { rc(view, ...kids); window.scrollTo(0, 0); }
 
 function homeScreen() {
-  const region = store.region || 'mitte';
+  store.region = 'all';
   const total = COUNTRIES.length, safe = COUNTRIES.filter(c => isSafe(c.id)).length;
-  const wackel = COUNTRIES.filter(c => isWackel(c.id)).map(c => c.id);
-  const mapSlot = h('div');
-  const rbtns = [];
-  const regionsEl = h('div', { class: 'regions', role: 'group', 'aria-label': 'Gebiet wählen' });
-  function rButton(id, name, n, prog) {
-    const b = h('button', { type: 'button', class: 'rbtn' + (id === 'all' ? ' all' : ''), 'aria-pressed': String(id === region), onclick: () => select(id) },
-      h('b', null, id === 'all' ? null : h('span', { class: 'dot', style: 'background:var(--r-' + id + ')' }), name),
-      h('small', null, n + ' Länder'),
-      h('span', { class: 'bar' }, h('i', { style: 'width:' + Math.round(prog * 100) + '%' })));
-    b.dataset.r = id; rbtns.push(b); return b;
-  }
-  REGIONS.forEach(r => regionsEl.append(rButton(r.id, r.name, idsOf(r.id).length, regionProgress(r.id))));
-  regionsEl.append(rButton('all', 'Ganz Europa', total, regionProgress('all')));
-  const regionTitle = h('span', null, regionLabel(region));
-  function select(id) {
-    store.region = id; save();
-    rbtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === id)));
-    regionTitle.textContent = regionLabel(id);
-    map.focus(id === 'all' ? null : idsOf(id));
-    map.viewRegion(id === 'all' ? 'all' : id, true);
-  }
   const modes = h('div', { class: 'modes' },
-    modeCard('🗺️', '#DCEFEF', 'Karte entdecken', 'Tippe Länder an und lerne die Hauptstädte.', () => exploreScreen()),
-    modeCard('🏛️', '#FFE6CC', 'Hauptstadt-Quiz', 'Welche Hauptstadt gehört zu welchem Land?', () => startQuiz('cap')),
-    modeCard('📍', '#DDEFD9', 'Wo liegt das?', 'Finde das Land auf der Karte.', () => startQuiz('map')),
-    modeCard('✏️', '#F3E7C9', 'Schreib-Training', 'Schreib die Hauptstadt richtig.', () => startQuiz('write')),
-    modeCard('📝', '#E4ECF4', 'Probetest', '15 Fragen ohne Tipps. Wie beim Test.', () => startQuiz('test'))
+    modeCard('🌍', '#DCEFEF', 'Länder', 'Ein Land leuchtet auf der Karte. Wie heißt es?', () => startQuiz('land')),
+    modeCard('🏛️', '#FFE6CC', 'Hauptstädte', 'Was ist die Hauptstadt von diesem Land?', () => startQuiz('cap')),
+    modeCard('📍', '#DDEFD9', 'Karte', 'Tuka nennt ein Land. Tippe es auf der Karte an.', () => startQuiz('map')),
+    modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Wie beim echten Test.', () => startQuiz('test'))
   );
-  if (wackel.length) modes.prepend(modeCard('🔁', '#FFE9D1', 'Nochmal üben', wackel.length === 1 ? '1 Land übst du nochmal.' : wackel.length + ' Länder übst du nochmal.', () => startQuiz('wackel'), true));
-
   screen(
     h('div', { class: 'hero' }, h('img', { src: TUKA, alt: 'Tuka, die Tukan-Dame', width: 72, height: 72 }),
-      h('div', null, h('h1', null, 'Europa-Reise'), h('p', null, BLOCK.title + ': ' + BLOCK.sub))),
+      h('div', null, h('h1', null, 'Europa-Reise'), h('p', null, 'Länder und Hauptstädte'))),
     h('div', { class: 'card prog' },
       h('div', null, h('span', { class: 'big' }, safe + ' von ' + total), ' Ländern kannst du sicher.'),
-      h('div', { class: 'bar' }, h('i', { style: 'width:' + Math.round(regionProgress('all') * 100) + '%' })),
-      h('small', { class: 'muted' }, 'Sicher heißt: Du weißt die Hauptstadt und findest das Land auf der Karte.')),
-    h('div', { class: 'homegrid' },
-      h('div', null, h('h2', { class: 'sec' }, '1. Wähle ein Gebiet'), mapSlot, regionsEl),
-      h('div', null, h('h2', { class: 'sec' }, '2. Wähle eine Übung: ', regionTitle), modes,
-        h('p', { class: 'note' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')))
+      h('div', { class: 'bar' }, h('i', { style: 'width:' + Math.round(regionProgress('all') * 100) + '%' }))),
+    h('h2', { class: 'sec' }, 'Wähle ein Spiel'), modes,
+    h('p', { class: 'note' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
-  map.mount(mapSlot, { height: '38vh', pan: false, byRegion: true, onTap: (id) => { if (id) select(BY[id].region); } });
-  map.note('Tippe auf ein Gebiet');
-  map.focus(region === 'all' ? null : idsOf(region));
-  map.viewRegion('all', false);
 }
 function modeCard(icon, bg, title, text, fn, wackel) {
   return h('button', { type: 'button', class: 'mode' + (wackel ? ' wackel' : ''), onclick: fn },
@@ -526,78 +510,6 @@ function modeCard(icon, bg, title, text, fn, wackel) {
     h('span', null, h('h3', null, title), h('p', null, text)));
 }
 
-/* ---------- Entdecken ---------- */
-function exploreScreen(startId) {
-  let region = store.region || 'mitte';
-  const mapSlot = h('div');
-  const info = h('div', { class: 'card info' });
-  const list = h('div', { class: 'list' });
-  const chips = h('div', { class: 'chips', role: 'group', 'aria-label': 'Gebiet' });
-  const all = [...REGIONS.map(r => [r.id, r.short]), ['all', 'Ganz Europa']];
-  all.forEach(([id, name]) => chips.append(h('button', { type: 'button', class: 'chip', 'aria-pressed': String(id === region), 'data-r': id, onclick: () => setRegion(id) }, name)));
-  let selected = null;
-
-  function emptyInfo() {
-    rc(info, h('h3', null, 'Tippe auf ein Land.'), h('p', { class: 'muted', style: 'margin:6px 0 0' }, 'Mit zwei Fingern kannst du die Karte größer machen. Oder tippe unten auf ein Land in der Liste.'));
-  }
-  function show(id, fly) {
-    const c = BY[id]; selected = id;
-    if (fly === undefined) fly = false;
-    if (region !== 'all' && c.region !== region) { setRegion(c.region, true); fly = true; }
-    map.clearMarks(); map.clearLabels(); map.clearCaps();
-    map.caps(idsOf(region === 'all' ? c.region : region));
-    map.mark(id, 'sel');
-    if (fly) map.viewCountry(id, false);
-    map.nameAndCap(id);
-    const nbs = MAP.countries[id].nb;
-    rc(info, 
-      h('h3', { class: 'cname' }, c.name),
-      c.aka ? h('div', { class: 'aka' }, c.aka) : null,
-      h('div', { class: 'capline' }, 'Hauptstadt: ', h('b', null, c.cap)),
-      c.tip ? h('div', { class: 'tipbox' }, '🦜 ' + c.tip) : null,
-      h('div', { class: 'nbs' }, nbs.length ? 'Nachbarn in deiner Liste:' : (id === 'IS' || id === 'MT' || id === 'CY' ? 'Eine Insel. Keine Nachbarn an Land.' : ''),
-        ...nbs.map(n => h('button', { type: 'button', onclick: () => show(n, true) }, BY[n].name)))
-    );
-    [...list.children].forEach(b => b.classList.toggle('on', b.dataset.id === id));
-  }
-  function renderList() {
-    rc(list, ...idsOf(region).map(id => {
-      const c = BY[id];
-      const b = h('button', { type: 'button', onclick: () => { show(id, true); map.el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); } },
-        h('span', null, c.name, isSafe(id) ? h('span', { class: 'ok-mark', 'aria-label': 'sicher' }, ' ✓') : null), h('span', null, c.cap));
-      b.dataset.id = id; return b;
-    }));
-  }
-  function setRegion(id, keep) {
-    region = id; store.region = id; save();
-    [...chips.children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === id)));
-    map.clear(); map.focus(id === 'all' ? null : idsOf(id));
-    map.caps(idsOf(id === 'all' ? 'all' : id));
-    renderList();
-    if (keep) return;
-    map.viewRegion(id, true); emptyInfo(); selected = null;
-  }
-  screen(
-    h('div', { class: 'toprow' }, h('button', { type: 'button', class: 'back', onclick: homeScreen }, '← Zurück'), h('h2', null, 'Karte entdecken')),
-    chips,
-    h('div', { class: 'split' }, mapSlot, h('div', null, info, h('h3', { style: 'margin:16px 2px 0;font-size:18px' }, 'Alle Länder im Gebiet'), list))
-  );
-  map.mount(mapSlot, {
-    height: '50vh', pan: true, onTap: (id, ctx) => {
-      if (id) show(id, false);
-      else if (ctx) {
-        const c = MAP.context.find(x => x.ne === ctx);
-        map.clearMarks(); map.clearLabels();
-        rc(info, h('h3', null, c && c.de ? c.de : 'Dieses Gebiet'), h('p', { class: 'muted', style: 'margin:6px 0 0' }, (c && c.note) || 'Das gehört nicht zu deinen Ländern in Europa.'));
-      }
-    }
-  });
-  map.focus(region === 'all' ? null : idsOf(region));
-  map.caps(idsOf(region));
-  map.viewRegion(region, false);
-  renderList(); emptyInfo();
-  if (startId) show(startId, true);
-}
 
 /* ---------- Quiz ---------- */
 const PRAISE = ['Super!', 'Richtig!', 'Genau!', 'Stark gemacht!', 'Bravo!', 'Klasse, du hast es gewusst!', 'Jawohl!'];
@@ -632,7 +544,7 @@ function countryDistractors(id, n) {
 function makeQuestion(type, id) { return { type, id }; }
 
 function buildRound(mode) {
-  const region = store.region || 'mitte';
+  const region = 'all';
   const ids = idsOf(region);
   const q = [];
   if (mode === 'wackel') {
@@ -641,7 +553,7 @@ function buildRound(mode) {
     return { mode, region: 'all', q: shuffle(q).slice(0, 12) };
   }
   if (mode === 'test') {
-    const plan = shuffle(['capMC', 'capMC', 'capMC', 'countryMC', 'countryMC', 'mapFind', 'mapFind', 'mapFind', 'mapFind', 'mapName', 'mapName', 'write', 'write', 'write', 'write']);
+    const plan = shuffle(['capMC', 'capMC', 'capMC', 'capMC', 'mapName', 'mapName', 'mapName', 'mapName', 'mapFind', 'mapFind', 'mapFind', 'mapFind']);
     let used = [];
     plan.forEach(t => {
       let pool = ids.filter(id => !used.includes(id)); if (!pool.length) { used = []; pool = ids; }
@@ -650,9 +562,9 @@ function buildRound(mode) {
     });
     return { mode, region, q };
   }
-  const len = mode === 'write' ? Math.min(8, ids.length * 2) : Math.min(10, ids.length * 3);
-  const types = mode === 'cap' ? ['capMC', 'capMC', 'countryMC', 'tuka'] : mode === 'map' ? ['mapFind', 'mapFind', 'mapFind', 'mapName'] : ['write'];
-  const kind = mode === 'map' ? 'm' : 'c';
+  const len = Math.min(10, ids.length * 3);
+  const types = mode === 'land' ? ['mapName'] : mode === 'map' ? ['mapFind'] : ['capMC'];
+  const kind = mode === 'cap' ? 'c' : 'm';
   let last = null; const count = {};
   const maxPer = Math.ceil(len / ids.length) + 1;
   for (let i = 0; i < len; i++) {
@@ -704,14 +616,16 @@ function nextQuestion(round) {
     h('div', { class: 'qtop' },
       h('button', { type: 'button', class: 'back', onclick: () => { if (round.done === 0 || confirmLeave()) homeScreen(); } }, '✕', h('span', { style: 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)' }, 'Beenden')),
       h('span', { class: 'bar' }, bar), h('span', { class: 'count' }, (round.done + 1) + '/' + round.total), stars),
+    h('div', { class: 'qcard', style: 'margin:0 0 10px' }, h('img', { src: TUKA, alt: '' }), h('div', null, qtext, qsub)),
     h('div', { class: 'split' }, mapSlot,
-      h('div', null, h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }), h('div', null, qtext, qsub)), answers, hintBox, fb, helpers))
+      h('div', null, answers, hintBox, fb, helpers))
   );
 
   const region = round.region;
   const focusIds = region === 'all' ? null : idsOf(region);
-  const mapH = qq.type === 'mapFind' ? '54vh' : qq.type === 'write' ? '28vh' : '36vh';
-  map.mount(mapSlot, { height: mapH, pan: true, onTap: (id, ctx) => onMapTap(id, ctx) });
+  const mapH = qq.type === 'mapFind' ? '52vh' : '36vh';
+  map.mount(mapSlot, { height: mapH, pan: false, onTap: (id, ctx) => onMapTap(id, ctx) });
+  map.svg.classList.toggle('nomk', !c.micro);
   map.focus(focusIds);
   if ((qq.type === 'mapFind' || qq.type === 'mapName') && c.micro) {
     const around = MAP.countries[qq.id].nb.length ? MAP.countries[qq.id].nb : ['IT'];
@@ -839,7 +753,7 @@ function nextQuestion(round) {
   }
   else if (qq.type === 'mapFind') {
     qtext.textContent = 'Tippe auf ' + acc(c) + '.';
-    qsub.textContent = c.micro ? 'Kleine Länder sind als Punkt eingezeichnet.' : 'Du kannst die Karte größer machen.';
+    qsub.textContent = c.micro ? 'Kleine Länder sind als Punkt eingezeichnet.' : '';
     rc(answers);
     const nbs = MAP.countries[qq.id].nb;
     if (nbs.length) { const two = shuffle(nbs).slice(0, 2).map(n => nom(BY[n])); hintText = (two.length > 1 ? 'Zwei Nachbarländer: ' : 'Nachbarland: ') + two.join(' und ') + '.'; }
@@ -970,7 +884,7 @@ function endScreen(round) {
   const starsN = share >= 0.9 ? 3 : share >= 0.6 ? 2 : 1;
   const again = round.missed.length ? h('div', { class: 'card again' },
     h('h3', { style: 'font-size:19px;margin-bottom:8px' }, 'Das übst du nochmal:'),
-    h('div', { class: 'list', style: 'margin-top:0' }, ...round.missed.map(id => h('button', { type: 'button', onclick: () => exploreScreen(id) }, h('span', null, BY[id].name), h('span', null, BY[id].cap))))) : null;
+    h('div', { class: 'list', style: 'margin-top:0' }, ...round.missed.map(id => h('div', { class: 'row' }, h('span', null, BY[id].name), h('span', null, BY[id].cap))))) : null;
   screen(h('div', { class: 'end' },
     h('img', { src: TUKA, alt: 'Tuka freut sich' }),
     h('h2', null, title),
@@ -979,7 +893,7 @@ function endScreen(round) {
     h('p', { class: 'muted', style: 'margin:0' }, round.missed.length ? 'Fehler sind Hinweise. Genau diese Länder kommen bald wieder.' : 'Du hast dich richtig angestrengt. Tuka ist stolz auf dich!'),
     again,
     h('div', { class: 'btns' },
-      h('button', { type: 'button', class: 'next', onclick: () => startQuiz(round.mode === 'wackel' && !COUNTRIES.some(c => isWackel(c.id)) ? 'cap' : round.mode) }, 'Nochmal'),
+      h('button', { type: 'button', class: 'next', onclick: () => startQuiz(round.mode) }, 'Nochmal'),
       h('button', { type: 'button', class: 'ghost', onclick: homeScreen }, 'Zur Übersicht'))));
 }
 
