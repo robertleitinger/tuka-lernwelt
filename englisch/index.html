@@ -136,27 +136,27 @@ const UNITS = [
     ['rosa', 'pink'], ['weiß', 'white'], ['schwarz', 'black'], ['grau', 'grey'],
     ['hell', 'light', 'z. B. hellblau'], ['dunkel', 'dark', 'z. B. dunkelblau'],
     ['der Klebestift', 'glue stick'], ['das Heft', 'exercise book'], ['das Federpenal', 'pencil case'],
-    ['der Radiergummi', 'rubber'], ['die Wasserfarben', 'watercolours'], ['der Pinsel', 'paintbrush'],
-    ['der Spitzer', 'pencil sharpener'], ['das Lineal', 'ruler'], ['der Bleistift', 'pencil'],
+    ['der Radiergummi', 'rubber|eraser'], ['die Wasserfarben', 'watercolours'], ['der Pinsel', 'paintbrush'],
+    ['der Spitzer', 'pencil sharpener|sharpener'], ['das Lineal', 'ruler'], ['der Bleistift', 'pencil'],
     ['der Kugelschreiber', 'pen'], ['die Schere', 'scissors'],
-    ['das Fenster', 'window'], ['der Beamer', 'projector'], ['die Tür', 'door'], ['die Tafel', 'board'],
+    ['das Fenster', 'window'], ['der Beamer', 'projector'], ['die Tür', 'door'], ['die Tafel', 'board|blackboard|whiteboard'],
     ['der Schultisch', 'desk'], ['der Sessel', 'chair', 'zum Sitzen'], ['das Englischbuch', 'English book'],
     ['der Fußboden', 'floor'], ['die Schultasche', 'school bag'],
     ['das Haarband', 'hairband'], ['der Hut', 'hat'], ['das Hemd', 'shirt'], ['der Rock', 'skirt'],
     ['die Socken', 'socks'], ['die Sonnenbrille', 'sunglasses'], ['die Krawatte', 'tie'],
-    ['der Pullover', 'sweater'], ['die Schuhe', 'shoes'], ['die Schuluniform', 'school uniform'],
+    ['der Pullover', 'sweater|jumper|pullover'], ['die Schuhe', 'shoes'], ['die Schuluniform', 'school uniform'],
     ['geben', 'give'], ['die Zeit', 'time'], ['verstehen', 'understand'], ['schreiben', 'write'],
     ['genießen', 'enjoy'], ['zuhören', 'listen'], ['lieben', 'love'], ['mehr', 'more'], ['lesen', 'read'],
     ['ihr / ihre', 'their', 'von mehreren Personen'], ['fragen', 'ask'], ['die Adresse', 'address'],
-    ['Wie geht es dir?', 'How are you'], ['Mir geht es gut.', "I'm fine|I am fine"], ['treffen', 'meet'],
+    ['Wie geht es dir?', 'How are you'], ['Mir geht es gut.', "I'm fine|I am fine|I'm OK|I am OK|I'm okay"], ['treffen', 'meet'],
     ['dann', 'then'], ['dein / deine', 'your'], ['schauen', 'look'], ['oder', 'or'], ['essen', 'eat'],
-    ['gehen', 'go'], ['müssen', 'must'], ['wie viele', 'how many'], ['hassen', 'hate'], ['hier', 'here'],
+    ['gehen', 'go'], ['müssen', 'must|have to'], ['wie viele', 'how many'], ['hassen', 'hate'], ['hier', 'here'],
     ['es', 'it'], ['Lass uns …', "Let's|let us"], ['die Mitternacht', 'midnight'], ['unser / unsere', 'our'],
     ['Lieblings-', 'favourite', 'z. B. Lieblingsfarbe'], ['finden', 'find'], ['das Kind', 'child'],
-    ['die Kinder', 'children'], ['putzen', 'clean'], ['schließen', 'close'], ['öffnen', 'open'],
-    ['das Bild', 'picture'], ['sich hinsetzen', 'sit down'], ['sprechen', 'speak'], ['aufstehen', 'stand up'],
-    ['herausnehmen', 'take out'], ['die Klasse', 'class'], ['einschalten', 'switch on'],
-    ['ausschalten', 'switch off'], ['buchstabieren', 'spell'], ['Entschuldigung!', 'sorry']
+    ['die Kinder', 'children'], ['putzen', 'clean'], ['schließen', 'close|shut'], ['öffnen', 'open'],
+    ['das Bild', 'picture'], ['sich hinsetzen', 'sit down'], ['sprechen', 'speak|talk'], ['aufstehen', 'stand up|get up'],
+    ['herausnehmen', 'take out'], ['die Klasse', 'class'], ['einschalten', 'switch on|turn on'],
+    ['ausschalten', 'switch off|turn off'], ['buchstabieren', 'spell'], ['Entschuldigung!', 'sorry|excuse me']
   ], sentences: [
     ['one dog, two ___', 'dogs', ['doges', 'dog'], 'Mehrzahl: meistens einfach -s.'],
     ['one pencil, five ___', 'pencils', ['pencil', 'penciles'], 'Mehrzahl: meistens einfach -s.'],
@@ -165,35 +165,35 @@ const UNITS = [
     ['one boy, two ___', 'boys', ['boies', 'boy'], 'Selbstlaut + y: nur -s.'],
     ['one child, four ___', 'children', ['childs', 'childrens'], 'Ausnahme: child, children.'],
     ['one fish, six ___', 'fish', ['fishs', 'fishies'], 'Ausnahme: fish bleibt fish.'],
-    ['___ your books, please! (Öffnet)', 'Open', ['Opens', 'Opening'], 'Befehl: Das Verb steht am Anfang.'],
+    ['___ your book, please! (Öffne)', 'Open', ['Opens', 'Opening'], 'Befehl: Das Verb steht am Anfang.'],
     ['___ the door, please. (Schließ)', 'Close', ['Closes', 'Open'], 'Befehl: Das Verb steht am Anfang.'],
     ['___ stand up! (Nicht)', "Don't", ['Not', 'No'], "Verneinter Befehl: Don't + Verb."],
     ["Don't ___ ! (sprechen)", 'speak', ['speaks', 'speaking'], "Nach Don't kommt das Verb ohne -s."],
-    ['Sit ___ , please.', 'down', ['up', 'on'], 'sit down = sich hinsetzen'],
-    ['Stand ___ , please.', 'up', ['down', 'in'], 'stand up = aufstehen'],
+    ['Sit ___ , please. (hinsetzen)', 'down', ['up', 'on'], 'sit down = sich hinsetzen'],
+    ['Stand ___ , please. (aufstehen)', 'up', ['down', 'in'], 'stand up = aufstehen'],
     ["What's ___ name? (dein)", 'your', ['you', 'yours'], 'your = dein'],
     ["___ name's Lea. (Mein)", 'My', ['I', 'Me'], 'my = mein'],
     ['How ___ you?', 'are', ['is', 'am'], 'How are you? = Wie geht es dir?'],
     ['How ___ pencils are there?', 'many', ['much', 'more'], 'how many = wie viele'],
-    ['Can you ___ it, please?', 'spell', ['spells', 'speak'], 'spell = buchstabieren'],
+    ['Can you ___ it, please? (buchstabieren)', 'spell', ['spells', 'speak'], 'spell = buchstabieren'],
     ['Nice to ___ you.', 'meet', ['meat', 'meets'], 'meet = treffen, kennenlernen'],
-    ['I ___ fine, thanks.', "'m", ["'s", "'re"], "I'm = I am"]
+    ['I ___ fine, thanks.', 'am', ['is', 'are'], "I'm fine = I am fine"]
   ]},
   { id: 'u2', name: 'Unit 2', title: 'At the zoo', words: [
     ['der Frosch', 'frog'], ['der Bär', 'bear'], ['das Krokodil', 'crocodile'], ['das Insekt', 'insect'],
     ['der Papagei', 'parrot'], ['der Affe', 'monkey'], ['der Pinguin', 'penguin'], ['der Löwe', 'lion'],
     ['der Hund', 'dog'], ['die Katze', 'cat'], ['der Fisch', 'fish'], ['der Baum', 'tree'], ['der Zug', 'train'],
-    ['der Tierpark', 'wildlife park'], ['der Führer / die Führerin', 'guide', 'im Tierpark'],
+    ['der Tierpark', 'wildlife park|zoo'], ['die Führerin', 'guide', 'im Tierpark'],
     ['schön', 'beautiful'], ['groß', 'big', 'Ding oder Tier'], ['klein', 'small', 'Ding oder Tier'],
     ['hinter', 'behind'], ['vor', 'in front of', 'Ort: vor dem Haus'], ['neben', 'next to'], ['auf', 'on'],
     ['unter', 'under'], ['jetzt', 'now'], ['wo', 'where'], ['es gibt', "there is|there's", 'eine Sache'],
-    ['es gibt', 'there are', 'mehrere Sachen'], ['Was ist das?', "What is it|What's it"],
+    ['es gibt', 'there are', 'mehrere Sachen'], ['Was ist das?', "What is it|What's this|What is this|What's that|What is that"],
     ['der / die Erwachsene', 'adult'], ['bringen', 'bring'], ['aber', 'but'], ['füttern', 'feed'],
     ['herumlaufen', 'run around'], ['willkommen', 'welcome'], ['aus', 'from', 'Ich komme aus Österreich.'],
     ['das Jahr', 'year'], ['er', 'he'], ['sie', 'she', 'eine Person'], ['sie', 'they', 'mehrere'],
-    ['wir', 'we'], ['uns', 'us'], ['reden', 'talk'], ['für', 'for'], ['glücklich', 'happy'],
-    ['das Auto', 'car'], ['der Stein', 'stone'], ['Endlich!', 'At last'], ['Wie seltsam!', 'How strange'],
-    ['Lass mich mal sehen.', 'Let me see'], ['jemanden hinauslassen', 'let somebody out']
+    ['wir', 'we'], ['uns', 'us'], ['reden', 'talk|speak'], ['für', 'for'], ['glücklich', 'happy'],
+    ['das Auto', 'car'], ['der Stein', 'stone'], ['Endlich!', 'At last|finally'], ['Wie seltsam!', 'How strange'],
+    ['Lass mich mal sehen.', 'Let me see'], ['jemanden hinauslassen', 'let somebody out|let someone out']
   ], sentences: [
     ['I ___ ten years old.', 'am', ['is', 'are'], 'I am (I\'m)'],
     ['She ___ from Austria.', 'is', ['am', 'are'], 'he / she / it is'],
@@ -223,12 +223,12 @@ const UNITS = [
     ['das Holzbein', 'wooden leg'], ['groß', 'tall', 'Person'], ['klein', 'short', 'Person'], ['lang', 'long'],
     ['kurz', 'short', 'z. B. Haare'], ['der Pirat', 'pirate'], ['der Schatz', 'treasure'], ['das Meer', 'sea'],
     ['der Haken', 'hook'], ['das Schiff', 'ship'], ['der Kapitän', 'captain'],
-    ['haben', 'have got|has got', 'Ich ___ einen Hund.'], ['auch', 'also'], ['berühmt', 'famous'],
-    ['ihn / ihm', 'him'], ['sein / seine', 'his'], ['Angst haben', 'be scared|be scared of'], ['sehr', 'very'],
-    ['stark', 'strong'], ['hübsch', 'pretty'], ['lila', 'purple'], ['viel / viele', 'a lot of|lots of'],
+    ['haben', 'have got|has got|have|has', 'Ich ___ einen Hund.'], ['auch', 'also|too'], ['berühmt', 'famous'],
+    ['ihn / ihm', 'him'], ['sein / seine', 'his'], ['Angst haben', 'be scared|be scared of|scared|be afraid|afraid'], ['sehr', 'very'],
+    ['stark', 'strong'], ['hübsch', 'pretty'], ['lila', 'purple'], ['viel / viele', 'a lot of|lots of|many|much'],
     ['das Bett', 'bed'], ['der Traum', 'dream'], ['müde', 'tired'], ['raten', 'guess'],
     ['Du bist dran.', "It's your turn|It is your turn"], ['der Bruder', 'brother'], ['blond', 'blonde|blond'],
-    ['echt', 'real'], ['falsch', 'wrong'], ['Gute Idee!', 'Good idea'], ['wahr', 'true']
+    ['echt', 'real'], ['falsch', 'wrong|false'], ['Gute Idee!', 'Good idea'], ['wahr', 'true']
   ], sentences: [
     ['I ___ got a dog.', 'have', ['has', 'am'], 'I / you / we / they have got'],
     ['She ___ got long hair.', 'has', ['have', 'is'], 'he / she / it has got'],
@@ -310,10 +310,12 @@ function check(w, input) {
   if (goals.includes(x)) return 'ok';
   const flat = s => s.replace(/[\s-]/g, '');
   if (goals.some(g => flat(g) === flat(x))) return 'close';
+  // anderes Wort erkannt? Zuerst dieselbe Unit, dann alle Units
+  const isOther = o => o.id !== w.id && o.en.map(core).includes(x) && !o.en.some(e => w.en.includes(e));
+  const other = WORDS.find(o => o.unit === w.unit && isOther(o)) || WORDS.find(isOther);
+  if (other) return { other };
   if (goals.some(g => g.length >= 4 && dist(g, x) === 1)) return 'close';
-  // anderes Wort aus derselben Unit erkannt?
-  const other = WORDS.find(o => o.unit === w.unit && o.id !== w.id && o.en.map(core).includes(x) && !o.en.some(e => w.en.includes(e)));
-  return other ? { other } : 'wrong';
+  return 'wrong';
 }
 function pattern(word) { return word.split(' ').map(p => [...p].map((ch, i) => i === 0 || ch === '-' || ch === "'" ? ch : '_').join(' ')).join('   '); }
 
@@ -424,6 +426,7 @@ function nextQuestion(round) {
     setTimeout(() => { try { nextBtn.focus({ preventScroll: true }); fb.scrollIntoView({ block: 'nearest' }); } catch (e) {} }, 60);
   }
 
+  let doHint = () => {}, doSkip = () => {};
   if (qq.type === 'words') {
     const w = BYID[qq.id];
     const main = w.en[0];
@@ -441,16 +444,16 @@ function nextQuestion(round) {
       firstTry = false; wrong++;
       if (wrong >= 2) { inp.disabled = go.disabled = true; finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist:'), wordBox(), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal.')), sayBtn()); return; }
       hintBox.hidden = false;
-      rc(hintBox, res.other ? '„' + inp.value.trim() + '“ heißt ' + res.other.de + '. Versuch es nochmal!' : 'Noch nicht ganz. Versuch es nochmal!');
+      rc(hintBox, res.other ? '„' + inp.value.trim() + '“ heißt ' + res.other.de + (res.other.note ? ' (' + res.other.note + ')' : '') + '. Versuch es nochmal!' : 'Noch nicht ganz. Versuch es nochmal!');
       inp.select();
     }
-    function doHint() {
+    doHint = function () {
       if (answered) return; hintUsed = true; hintBtn.disabled = true;
       hintBox.hidden = false;
       rc(hintBox, '💡 So beginnt es: ', h('span', { class: 'pat' }, pattern(main)));
       inp.focus();
     }
-    function doSkip() {
+    doSkip = function () {
       if (answered) return; firstTry = false; inp.disabled = go.disabled = true;
       finish(false, 'Kein Problem!', h('div', null, wordBox(), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal. Dann weißt du es.')), sayBtn());
     }
@@ -476,11 +479,11 @@ function nextQuestion(round) {
         finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + full()), h('div', { class: 'fx' }, s.rule)));
         return;
       }
-      hintBox.hidden = false; rc(hintBox, 'Noch nicht. 💡 ' + s.rule);
-      hintUsed = true; hintBtn.disabled = true;
+      hintBox.hidden = false; rc(hintBox, round.mode === 'test' ? 'Noch nicht. Versuch es nochmal!' : 'Noch nicht. 💡 ' + s.rule);
+      if (round.mode !== 'test') { hintUsed = true; hintBtn.disabled = true; }
     }
-    function doHint() { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + s.rule); }
-    function doSkip() {
+    doHint = function () { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + s.rule); };
+    doSkip = function () {
       if (answered) return; firstTry = false;
       opts.querySelectorAll('button').forEach(x => { x.disabled = true; if (x.dataset.v === s.ok) x.classList.add('ok'); });
       finish(false, 'Kein Problem!', h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + full()), h('div', { class: 'fx' }, s.rule)));

@@ -216,23 +216,23 @@ const PICS = {
   kurve: { short: 'macht Bögen', name: 'gekrümmte Linie', hint: 'Die Linie ist nicht gerade, sie macht Bögen.', draw(s) {
     const y = rnd(80, 120), a = rnd(30, 60); s.append(svgEl('path', { d: `M40,${y} C100,${y - a} 140,${y + a} 180,${y} S260,${y - a} 285,${y + 10}`, fill: 'none', stroke: INK, 'stroke-width': 3, 'stroke-linecap': 'round' })); label(s, [290, y + 30], 'b'); }, opts: ['gekrümmte Linie', 'Gerade', 'Strecke'] },
   geschlossen: { short: 'kommt zu sich zurück', name: 'geschlossene Linie', hint: 'Die Linie hat keinen Anfang und kein Ende. Sie kommt wieder zu sich zurück.', draw(s) {
-    const cx = rnd(140, 180), cy = 100, r1 = rnd(55, 75), r2 = rnd(40, 60); s.append(svgEl('path', { d: `M${cx - r1},${cy} C${cx - r1},${cy - r2 * 1.3} ${cx + r1},${cy - r2 * 1.1} ${cx + r1},${cy} C${cx + r1},${cy + r2 * 1.4} ${cx - r1 * 0.6},${cy + r2} ${cx - r1},${cy} Z`, fill: 'none', stroke: INK, 'stroke-width': 3 })); label(s, [cx + r1 + 12, cy - 20], 'k'); }, opts: ['geschlossene Linie', 'gekrümmte Linie', 'Strahl'] },
+    const cx = rnd(140, 180), cy = 100, r1 = rnd(55, 75), r2 = rnd(40, 60); s.append(svgEl('path', { d: `M${cx - r1},${cy} C${cx - r1},${cy - r2 * 1.3} ${cx + r1},${cy - r2 * 1.1} ${cx + r1},${cy} C${cx + r1},${cy + r2 * 1.4} ${cx - r1 * 0.6},${cy + r2} ${cx - r1},${cy} Z`, fill: 'none', stroke: INK, 'stroke-width': 3 })); label(s, [cx + r1 + 12, cy - 20], 'k'); }, opts: ['geschlossene Linie', 'Gerade', 'Strahl'] },
   parallel: { short: 'treffen sich nie', name: 'parallele Geraden', hint: 'Die zwei Geraden haben überall den gleichen Abstand. Sie treffen sich nie.', draw(s) {
     const d = dir(rnd(-25, 25)), n = [-d[1], d[0]], gap = rnd(45, 70), c = [160, 100]; const p1 = add(c, n, -gap / 2), p2 = add(c, n, gap / 2);
     fullLine(s, p1, d, BLUE); fullLine(s, p2, d, GREEN); label(s, add(p1, d, -120), 'g', 0, -8, BLUE); label(s, add(p2, d, -120), 'h', 0, 20, GREEN); }, opts: ['parallele Geraden', 'normale Geraden', 'schneidende Geraden'] },
   normal: { short: 'rechter Winkel', name: 'normale Geraden', hint: 'Die Geraden bilden einen rechten Winkel. Das Zeichen mit dem Punkt zeigt ihn.', draw(s) {
     const a = rnd(-30, 30), d1 = dir(a), d2 = dir(a + 90), S = [rnd(145, 175), rnd(90, 110)];
-    fullLine(s, S, d1, BLUE); fullLine(s, S, d2, GREEN); rightMark(s, S, d1, d2); label(s, add(S, d1, 120), 'g', 0, -8, BLUE); label(s, add(S, d2, -75), 'h', 12, 0, GREEN); }, opts: ['normale Geraden', 'parallele Geraden', 'schneidende Geraden'] },
+    fullLine(s, S, d1, BLUE); fullLine(s, S, d2, GREEN); rightMark(s, S, d1, d2); label(s, add(S, d1, 120), 'g', 0, -8, BLUE); label(s, add(S, d2, -75), 'h', 12, 0, GREEN); }, opts: ['normale Geraden', 'parallele Geraden', 'Strecken'] },
   schneidend: { short: 'ein Schnittpunkt S', name: 'schneidende Geraden', hint: 'Die Geraden kreuzen sich in einem Punkt S. Der Winkel ist schief, also kein rechter Winkel.', draw(s) {
     const a = rnd(-20, 20), b = a + (Math.random() < .5 ? rnd(30, 55) : -rnd(30, 55)), S = [rnd(145, 175), rnd(90, 110)];
     fullLine(s, S, dir(a), BLUE); fullLine(s, S, dir(b), GREEN); cross(s, S, 'S', 0, 22); }, opts: ['schneidende Geraden', 'normale Geraden', 'parallele Geraden'] },
   rechteck: { short: '4 rechte Winkel', name: 'Rechteck', hint: 'Vier rechte Winkel, aber nicht alle Seiten sind gleich lang.', draw(s) {
-    const w = rnd(150, 200), hh = rnd(70, 95), pts = rectPts([160, 100], w, hh, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, opts: ['Rechteck', 'Quadrat', 'kein Rechteck'] },
-  quadrat: { short: '4 rechte Winkel, 4 gleiche Seiten', name: 'Quadrat', hint: 'Vier rechte Winkel und alle vier Seiten sind gleich lang.', draw(s) {
-    const a = rnd(100, 130), pts = rectPts([160, 100], a, a, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, opts: ['Quadrat', 'Rechteck', 'kein Rechteck'] },
+    const w = rnd(150, 200), hh = rnd(70, 95), pts = rectPts([160, 100], w, hh, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['Rechteck', 'Quadrat', 'kein Rechteck'] },
+  quadrat: { short: '4 rechte Winkel, 4 gleiche Seiten', name: 'Quadrat', hint: 'Vier rechte Winkel und alle vier Seiten sind gleich lang. Das ist ein besonderes Rechteck.', draw(s) {
+    const a = rnd(100, 130), pts = rectPts([160, 100], a, a, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['Quadrat', 'kein Rechteck', 'Strahl'] },
   viereck: { short: 'schiefe Winkel', name: 'kein Rechteck', hint: 'Schau auf die Ecken: Die Winkel sind schief. Ein Rechteck hat vier rechte Winkel.', draw(s) {
     const sh = (Math.random() < .5 ? 1 : -1) * rnd(35, 55), w = rnd(140, 170), hh = rnd(80, 95), x = 160 - w / 2, y = 100 + hh / 2;
-    const pts = [[x - sh / 2, y], [x + w - sh / 2, y], [x + w + sh / 2, y - hh], [x + sh / 2, y - hh]]; poly(s, pts); quadLabels(s, pts); }, opts: ['kein Rechteck', 'Rechteck', 'Quadrat'] },
+    const pts = [[x - sh / 2, y], [x + w - sh / 2, y], [x + w + sh / 2, y - hh], [x + sh / 2, y - hh]]; poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['kein Rechteck', 'Rechteck', 'Quadrat'] },
   diagonale: { short: 'verbindet A mit C oder B mit D', name: 'Diagonale', q: 'Wie heißt die orange Linie?', hint: 'Sie verbindet zwei Ecken, die nicht nebeneinander liegen.', draw(s) {
     const pts = rectPts([160, 100], rnd(150, 190), rnd(80, 100), 0); poly(s, pts); quadLabels(s, pts); const k = Math.random() < .5 ? 0 : 1; seg(s, pts[k], pts[k + 2], ORANGE, 4); }, opts: ['Diagonale', 'Seite', 'Strahl'] },
   seite: { short: 'verbindet Nachbar-Ecken', name: 'Seite', q: 'Wie heißt die orange Linie?', hint: 'Sie verbindet zwei Ecken, die nebeneinander liegen.', draw(s) {
@@ -276,7 +276,7 @@ const FACTS = [
   ['f2', 'Ein Strahl hat einen Anfangspunkt, aber kein Ende.', true, 'Ein Strahl geht auf einer Seite unendlich weiter.'],
   ['f3', 'Eine Gerade kann 10 cm lang sein.', false, 'Eine Gerade ist unendlich lang. Messen kann man nur eine Strecke.'],
   ['f4', 'Ein Strahl ist unendlich lang.', true, 'Er hat einen Anfang, aber kein Ende.'],
-  ['f5', 'Die Strecke AB ist der kürzeste Weg von A nach B.', true, 'Ihre Länge ist der Abstand von A und B.'],
+  ['f5', 'Die Strecke AB ist der kürzeste Weg von A nach B.', true, 'Ihre Länge ist der Abstand zwischen A und B.'],
   ['f6', 'Punkte schreibt man mit kleinen Buchstaben.', false, 'Punkte: große Buchstaben (A, B, P). Linien: kleine Buchstaben (g, h).'],
   ['f7', 'Geraden bezeichnet man mit kleinen Buchstaben.', true, 'Zum Beispiel g, h, k.'],
   ['f8', 'Zwei parallele Geraden schneiden sich irgendwo.', false, 'Parallele Geraden schneiden sich nie, auch nicht weit weg.'],
@@ -288,7 +288,7 @@ const FACTS = [
   ['f14', 'Jedes Quadrat ist ein Rechteck.', true, 'Ein Quadrat hat vier rechte Winkel. Es ist ein besonderes Rechteck.'],
   ['f15', 'Jedes Rechteck ist ein Quadrat.', false, 'Nur wenn alle vier Seiten gleich lang sind.'],
   ['f16', 'Ein Rechteck hat vier rechte Winkel.', true, 'Das ist das Wichtigste am Rechteck.'],
-  ['f17', 'Im Rechteck sind gegenüberliegende Seiten gleich lang und parallel.', true, 'a liegt gegenüber von a, b gegenüber von b.'],
+  ['f17', 'Im Rechteck sind gegenüberliegende Seiten gleich lang und parallel.', true, 'AB liegt gegenüber von CD, BC gegenüber von DA.'],
   ['f18', 'Ein Viereck mit vier gleich langen Seiten ist immer ein Quadrat.', false, 'Es braucht auch vier rechte Winkel.'],
   ['f19', 'Eine Diagonale verbindet zwei Ecken, die nebeneinander liegen.', false, 'Die Diagonale verbindet Ecken, die nicht nebeneinander liegen, z. B. A und C.'],
   ['f20', 'Ein Rechteck beschriftet man gegen den Uhrzeigersinn: A, B, C, D.', true, 'A ist links unten, dann geht es nach rechts zu B.'],
@@ -374,7 +374,7 @@ function nextQuestion(round) {
     rc(qbox, h('div', { class: 'qlabel' }, 'Schau genau hin:'), h('div', { class: 'qtext sent' }, P.q || 'Was ist das?'));
     hintText = P.hint;
     if (P.colorPick) { okVal = st.answer; opts = st.opts; optLabel = v => [h('span', { class: 'sw', style: 'background:' + st.cols[v] }), cap(v)]; solution = 'Die ' + okVal + 'e Linie steht im rechten Winkel auf g.'; why = P.hint; }
-    else { okVal = P.name; opts = P.opts.slice(); optLabel = v => cap(v); solution = P.name === 'kein Rechteck' ? 'Das ist kein Rechteck.' : 'Das ist: ' + cap(P.name) + '.'; why = P.hint; }
+    else { okVal = P.name; opts = P.opts.slice(); optLabel = v => cap(v); solution = P.name === 'kein Rechteck' ? 'Das ist kein Rechteck.' : /Geraden$/.test(P.name) ? 'Das sind ' + P.name + '.' : 'Richtig ist: ' + cap(P.name) + '.'; why = P.hint; }
   } else if (qq.type === 'sign') {
     const pic = SIGN_PICS.find(x => x.id === qq.id);
     if (pic) {
@@ -435,7 +435,7 @@ function nextQuestion(round) {
     if (v === okVal) { b.classList.add('ok'); lockAll(false); finish(true, pick(PRAISE), [qq.type === 'fact' ? solution + ' ' + why : why]); return; }
     firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
     if (wrong >= 2 || qq.type === 'fact') { lockAll(true); finish(false, pick(SOFT), [solution, qq.type === 'fact' ? why : (why && why !== solution ? why : ''), (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); return; }
-    hintBox.hidden = false; rc(hintBox, 'Noch nicht. ' + (hintText ? '💡 ' + hintText : 'Versuch es nochmal!')); hintUsed = true; hintBtn.disabled = true;
+    hintBox.hidden = false; rc(hintBox, 'Noch nicht. ' + (hintText && !test ? '💡 ' + hintText : 'Versuch es nochmal!')); if (!test) { hintUsed = true; hintBtn.disabled = true; }
   }
   function doHint() { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + hintText); }
   function doSkip() { if (answered) return; firstTry = false; lockAll(true); finish(false, 'Kein Problem!', [solution, why, (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); }

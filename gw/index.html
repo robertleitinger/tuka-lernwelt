@@ -311,7 +311,7 @@ function createMap() {
   function apply() {
     svg.setAttribute('viewBox', [cur.x, cur.y, cur.w, cur.h].map(v => v.toFixed(2)).join(' '));
     const u = k();
-    for (const id in marks) { marks[id].setAttribute('r', (5.5 * u).toFixed(2)); hits[id].setAttribute('r', (12 * u).toFixed(2)); }
+    for (const id in marks) { marks[id].setAttribute('r', (5.5 * u).toFixed(2)); hits[id].setAttribute('r', (22 * u).toFixed(2)); }
     caps.forEach(c => c.setAttribute('r', ((c.classList.contains('big') ? 5 : 3.2) * u).toFixed(2)));
     labels.forEach(l => {
       l.el.setAttribute('font-size', (l.px * u).toFixed(2));
@@ -387,7 +387,7 @@ function createMap() {
       if (ctm) {
         // Auf einem Land: nur sehr nah am Punkt zaehlt der Mini-Staat. Auf Meer oder Rand: grosszuegiger.
         const onLand = !!(t && t.dataset && t.dataset.id && !BY[t.dataset.id].micro);
-        let best = null, bd = onLand ? 9 : 18;
+        let best = null, bd = onLand ? 22 : 26;
         if (!svg.classList.contains('nomk')) for (const mid in marks) {
           const q = MAP.countries[mid].cap;
           const x = ctm.a * q[0] + ctm.c * q[1] + ctm.e, y = ctm.b * q[0] + ctm.d * q[1] + ctm.f;
@@ -467,8 +467,10 @@ function createMap() {
       const capAbove = m.cap[1] < m.lab[1];
       if (c.micro) { api.label(id, c.name, { px: 16, dy: -16 }); api.label(id, c.cap, { at: 'cap', px: 14, dy: 22, cls: 'capname' }); return; }
       api.label(id, c.name, { px: 17, dy: dpx < 40 ? (capAbove ? 26 : -14) : 6 });
-      api.label(id, c.cap, { at: 'cap', px: 14, anchor: 'start', dx: 8, dy: 5, cls: 'capname' });
+      const nearRight = m.cap[0] > cur.x + cur.w * 0.72;
+      api.label(id, c.cap, { at: 'cap', px: 14, anchor: nearRight ? 'end' : 'start', dx: nearRight ? -8 : 8, dy: 5, cls: 'capname' });
     },
+    inView(id) { const p = MAP.countries[id].lab; return p[0] > cur.x && p[0] < cur.x + cur.w && p[1] > cur.y && p[1] < cur.y + cur.h; },
     clear() { api.clearMarks(); clearLabels(); clearCaps(); api.focus(null); api.note(''); },
     note(t) { note.textContent = t || ''; note.hidden = !t; },
     flashCtx(ne) {
@@ -633,6 +635,16 @@ function nextQuestion(round) {
     around.concat([qq.id]).forEach(n => { const q = MAP.countries[n].bb; b = [Math.min(b[0], q[0]), Math.min(b[1], q[1]), Math.max(b[2], q[2]), Math.max(b[3], q[3])]; });
     map.view(b, 0.1, false);
   }
+  else if ((qq.type === 'mapFind' || qq.type === 'mapName') && qq.id !== 'RU') {
+    // Ausschnitt: das Land mit seinen Nachbarn, mindestens so groß wie ein Gebiet. Am Handy bleiben die Länder so gut antippbar.
+    const ids = qq.id === 'CY' ? ['GR', 'CY'] : qq.id === 'IS' ? ['IS', 'NO', 'GB', 'IE'] : [qq.id, ...MAP.countries[qq.id].nb.filter(n => n !== 'RU')];
+    let bb = [Infinity, Infinity, -Infinity, -Infinity];
+    ids.forEach(n => { const q = MAP.countries[n].bb; bb = [Math.min(bb[0], q[0]), Math.min(bb[1], q[1]), Math.max(bb[2], q[2]), Math.max(bb[3], q[3])]; });
+    const MIN = 280, cx = (bb[0] + bb[2]) / 2, cy = (bb[1] + bb[3]) / 2;
+    if (bb[2] - bb[0] < MIN) bb = [cx - MIN / 2, bb[1], cx + MIN / 2, bb[3]];
+    if (bb[3] - bb[1] < MIN * 0.8) bb = [bb[0], cy - MIN * 0.4, bb[2], cy + MIN * 0.4];
+    map.view(bb, 0.05, false);
+  }
   else if (qq.type === 'mapFind' || qq.type === 'mapName') map.viewRegion(region === 'all' ? c.region : region, false);
   else map.viewCountry(qq.id, false);
 
@@ -771,7 +783,7 @@ function nextQuestion(round) {
         map.mark(v, 'bad'); map.label(v, BY[v].name, { px: 15 });
         setTimeout(() => map.unmark(v, 'bad'), 900);
         if (wrongTries >= 2) { disableAnswers(true); map.unmark(qq.id, 'hl'); revealOnMap(); finish(false, pick(SOFT), istDas(c) + '. ' + solutionText()); }
-        else { hintBox.hidden = false; hintBox.textContent = cap1(nom(BY[v])) + (BY[v].pl ? ' liegen' : ' liegt') + ' woanders. Ich zeig es dir auf der Karte.'; }
+        else { hintBox.hidden = false; hintBox.textContent = cap1(nom(BY[v])) + (BY[v].pl ? ' liegen' : ' liegt') + ' woanders.' + (map.inView(v) ? ' Ich zeig es dir auf der Karte.' : ''); }
       }
     });
     const nbs = MAP.countries[qq.id].nb;
