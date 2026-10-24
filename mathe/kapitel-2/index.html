@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mathe Kapitel 2</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F5E3B">
+<meta name="description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Rechteck und Quadrat.">
+<meta property="og:title" content="Mathe Kapitel 2: Geometrische Grundbegriffe">
+<meta property="og:description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Rechteck und Quadrat.">
+<meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/mathe/kapitel-2/">
+<meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script src="../../music.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6EBD5; --surface:#FFFBF1; --surface-2:#EFE0C1; --ink:#1C2B24; --ink-soft:#4A5A51;
+  --green:#1F5E3B; --deep:#16452B; --leaf:#3FA34D; --orange:#F28C28; --teal:#1BA6A6;
+  --btn:#1F5E3B; --btn-ink:#FFFFFF; --line:rgba(28,43,36,.16); --track:#E7D3AC;
+  --good-bg:#DDF1DD; --good-ink:#1D5E30; --hint-bg:#FFE9D1; --hint-ink:#8A4207; --bad:#D9521B; --bad-bg:#FBE1D5;
+  --shadow:0 3px 0 rgba(28,43,36,.16);
+  --f-disp:"Fredoka","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --f-text:"Atkinson Hyperlegible",Verdana,"Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#16452B}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--f-text);min-height:100vh}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+
+nav.tl-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;display:flex;align-items:center;gap:10px;background:#16452B;color:#F6EBD5;box-shadow:0 2px 0 rgba(0,0,0,.18);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));min-height:52px;font-family:var(--f-disp)}
+nav.tl-nav a.tl-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 14px 4px 5px;border-radius:999px;background:#F6EBD5;color:#16452B;text-decoration:none;font-weight:600;font-size:16px;line-height:1;white-space:nowrap;flex:none;margin:4px 0}
+nav.tl-nav a.tl-home img{width:34px;height:34px;border-radius:50%;display:block}
+nav.tl-nav .tl-title{font-size:16px;font-weight:500;opacity:.9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+button.tl-music{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px 4px 10px;border-radius:999px;border:2px solid rgba(246,235,213,.55);background:transparent;color:#F6EBD5;font:600 15px/1 var(--f-disp);cursor:pointer;flex:none;-webkit-tap-highlight-color:transparent}
+button.tl-music.is-on{background:#F28C28;border-color:#F28C28;color:#1C2B24}
+button.tl-music svg{display:block;flex:none}
+@media (max-width:430px){nav.tl-nav .tl-title{display:none}}
+
+.app{max-width:560px;margin:0 auto;padding:14px max(14px,env(safe-area-inset-left,0px)) 40px max(14px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-disp);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+.muted{color:var(--ink-soft)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+.hero{display:flex;gap:14px;align-items:center;margin:4px 0 12px}
+.hero img{width:72px;height:72px;border-radius:20px;flex:none;box-shadow:0 5px 0 rgba(0,0,0,.14)}
+.hero h1{font-size:clamp(26px,7vw,34px)}
+.hero p{margin:4px 0 0;color:var(--ink-soft)}
+.sec{font-size:20px;margin:18px 2px 10px}
+.units{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ubtn{display:grid;gap:6px;text-align:left;min-height:54px;padding:9px 12px;border-radius:16px;border:2px solid var(--line);background:var(--surface);box-shadow:var(--shadow);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ubtn b{font-family:var(--f-disp);font-weight:600;font-size:17px}
+.ubtn small{color:var(--ink-soft);font-size:14px;line-height:1.2}
+.ubtn[aria-pressed="true"]{border-color:var(--orange);background:var(--hint-bg);box-shadow:0 3px 0 var(--orange)}
+.bar{height:7px;border-radius:999px;background:var(--track);overflow:hidden;display:block}
+.bar > i{display:block;height:100%;background:var(--leaf);border-radius:999px;width:0;transition:width .4s ease}
+.modes{display:grid;gap:12px}
+.mode{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:20px;border:2px solid var(--line);background:var(--surface);box-shadow:0 5px 0 var(--line);cursor:pointer;min-height:76px;-webkit-tap-highlight-color:transparent}
+.mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.mode .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px}
+.mode h3{font-size:19px}
+.mode p{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.note{margin:18px 4px 0;font-size:14px;color:var(--ink-soft)}
+
+.qtop{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.qtop .bar{flex:1;height:10px}
+.qtop .count{font:600 15px var(--f-disp);color:var(--ink-soft);white-space:nowrap}
+.qtop .stars{font:600 16px var(--f-disp);white-space:nowrap}
+.back{min-width:44px;min-height:44px;padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font:600 15px var(--f-disp);cursor:pointer}
+.qcard{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow)}
+.qcard img{width:52px;height:52px;border-radius:14px}
+.qlabel{font-size:15px;color:var(--ink-soft)}
+.qtext{font:600 26px/1.2 var(--f-disp);overflow-wrap:anywhere}
+.qtext.sent{font-size:22px}
+.qsub{font-size:15px;color:var(--ink-soft);margin-top:2px}
+.write{display:flex;gap:8px;margin-top:14px}
+.write input{flex:1;min-width:0;min-height:56px;border-radius:14px;border:2px solid var(--line);background:var(--surface);padding:8px 14px;font:600 21px var(--f-disp);color:var(--ink)}
+.write input:focus{outline:3px solid var(--teal);outline-offset:1px}
+.write button{min-height:56px;padding:0 16px;border-radius:14px;border:0;background:var(--btn);color:var(--btn-ink);font:600 17px var(--f-disp);cursor:pointer}
+.opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.opt{min-height:56px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:var(--surface);box-shadow:var(--shadow);font:600 20px/1.15 var(--f-disp);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.opt.ok{background:var(--good-bg);border-color:var(--leaf);color:var(--good-ink)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.helpers{display:flex;gap:10px;margin-top:12px}
+.helpers button{flex:1;min-height:46px;border-radius:14px;border:2px dashed var(--line);background:transparent;font:600 16px var(--f-disp);cursor:pointer;color:var(--ink-soft)}
+.hintbox{margin-top:10px;background:var(--hint-bg);color:var(--hint-ink);border-radius:14px;padding:10px 12px;font-size:17px}
+.hintbox .pat{font:600 22px var(--f-disp);letter-spacing:2px}
+.fb{margin-top:12px;border-radius:18px;padding:12px 14px;display:grid;gap:10px}
+.fb.good{background:var(--good-bg);color:var(--good-ink)}
+.fb.soft{background:var(--hint-bg);color:var(--hint-ink)}
+.fb .ft{font:600 20px/1.2 var(--f-disp)}
+.fb .fx{font-size:17px}
+.fb .word{font:600 24px var(--f-disp)}
+.say{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:2px solid currentColor;background:transparent;font:600 15px var(--f-disp);cursor:pointer;color:inherit;justify-self:start}
+.next{min-height:52px;border-radius:16px;border:0;background:var(--btn);color:var(--btn-ink);font:600 19px var(--f-disp);cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.next:active{transform:translateY(2px)}
+
+.end{text-align:center;display:grid;gap:12px;justify-items:center;padding-top:10px}
+.end img{width:110px;height:110px;border-radius:28px}
+.end h2{font-size:30px}
+.end .starrow{font-size:30px;letter-spacing:4px}
+.end .again{width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px 16px}
+.list{display:grid;gap:6px}
+.list .row{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface)}
+.list .row span:first-child{font-weight:700}
+.list .row span:last-child{color:var(--green);font-family:var(--f-disp);font-weight:600;text-align:right}
+.end .btns{display:grid;gap:10px;width:100%}
+.ghost{min-height:50px;border-radius:16px;border:2px solid var(--line);background:var(--surface);font:600 17px var(--f-disp);cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>
+.fig{margin-top:12px;background:#FFFFFF;border:2px solid var(--line);border-radius:18px;overflow:hidden}
+.fig svg{display:block;width:100%;height:auto}
+.qsym{margin-top:10px;font:600 34px/1.3 "Atkinson Hyperlegible",var(--f-text);letter-spacing:1px}
+.ov{text-decoration:overline}
+.opt .sw{display:inline-block;width:28px;height:8px;border-radius:4px;vertical-align:middle;margin-right:10px}
+.opt.sym{font:600 28px/1 "Atkinson Hyperlegible",var(--f-text)}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.qtext.stmt{font-size:22px}
+</style>
+</head>
+<body>
+<nav class="tl-nav" aria-label="Navigation"><a class="tl-home" href="../"><img src="../../tuka.svg" alt="" width="34" height="34"><span>Mathe</span></a><span class="tl-title">Kapitel 2: Geometrische Grundbegriffe</span><button type="button" class="tl-music" aria-pressed="false" aria-label="Musik einschalten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 18.5a3 3 0 1 1-2-2.83V5.5l11-2.5v12a3 3 0 1 1-2-2.83V7.6L9 9.2z" fill="currentColor"/></svg><span class="tl-music-label">Musik aus</span></button></nav>
+<main class="app" id="view" aria-live="polite"></main>
+<script>
+'use strict';
+const TUKA = '../../tuka.svg';
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+/* ---------- Hilfen ---------- */
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs || {}) {
+    const v = attrs[k]; if (v === null || v === undefined || v === false) continue;
+    if (k === 'class') e.className = v;
+    else if (k === 'html') e.innerHTML = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+function rc(el, ...kids) { el.replaceChildren(...kids.flat().filter(k => k !== null && k !== undefined && k !== false)); }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function rnd(a, b) { return a + Math.random() * (b - a); }
+const view = document.getElementById('view');
+function screen(...kids) { rc(view, ...kids); window.scrollTo(0, 0); }
+const PRAISE = ['Super!', 'Richtig!', 'Genau!', 'Stark gemacht!', 'Bravo!', 'Jawohl!'];
+const SOFT = ['Kein Problem.', 'Guter Versuch!', 'Das merkst du dir jetzt.'];
+/* Text mit Überstrich: [AB] wird zu AB mit Strich */
+function cap1(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+function rich(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\[\[(.+?)\]\]/g, '<span class="ov">$1</span>'); }
+
+/* ---------- Zeichnen ---------- */
+const W = 320, H = 200, PAD = 6;
+const INK = '#1C2B24', RED = '#D9521B', BLUE = '#2F6DB5', GREEN = '#2E8B4A', ORANGE = '#F28C28';
+function svgEl(tag, attrs) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+function canvas() {
+  const s = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Zeichnung' });
+  for (let x = 20; x < W; x += 20) s.append(svgEl('line', { x1: x, y1: 0, x2: x, y2: H, stroke: '#E3EAF0', 'stroke-width': 1 }));
+  for (let y = 20; y < H; y += 20) s.append(svgEl('line', { x1: 0, y1: y, x2: W, y2: y, stroke: '#E3EAF0', 'stroke-width': 1 }));
+  return s;
+}
+function seg(s, a, b, col, w, dash) { s.append(svgEl('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: col || INK, 'stroke-width': w || 3, 'stroke-linecap': 'round', 'stroke-dasharray': dash || '' })); }
+function label(s, p, t, dx, dy, col) { const e = svgEl('text', { x: p[0] + (dx || 0), y: p[1] + (dy || 0), 'font-size': 17, 'font-family': 'Atkinson Hyperlegible, Verdana, sans-serif', 'font-weight': 700, fill: col || INK, 'text-anchor': 'middle' }); e.textContent = t; s.append(e); }
+function cross(s, p, t, dx, dy) {
+  const r = 5; seg(s, [p[0] - r, p[1] - r], [p[0] + r, p[1] + r], INK, 2.2); seg(s, [p[0] - r, p[1] + r], [p[0] + r, p[1] - r], INK, 2.2);
+  if (t) label(s, p, t, dx == null ? 0 : dx, dy == null ? -12 : dy);
+}
+/* Schnitt einer Linie (Punkt p, Richtung d) mit dem Rand, t > 0 */
+function toEdge(p, d) {
+  let best = Infinity;
+  if (d[0] > 1e-9) best = Math.min(best, (W - PAD - p[0]) / d[0]); if (d[0] < -1e-9) best = Math.min(best, (PAD - p[0]) / d[0]);
+  if (d[1] > 1e-9) best = Math.min(best, (H - PAD - p[1]) / d[1]); if (d[1] < -1e-9) best = Math.min(best, (PAD - p[1]) / d[1]);
+  return [p[0] + d[0] * best, p[1] + d[1] * best];
+}
+function dir(deg) { const r = deg * Math.PI / 180; return [Math.cos(r), Math.sin(r)]; }
+function add(p, d, t) { return [p[0] + d[0] * t, p[1] + d[1] * t]; }
+function fullLine(s, p, d, col, w) { seg(s, toEdge(p, [-d[0], -d[1]]), toEdge(p, d), col, w); }
+function rightMark(s, p, d1, d2) {
+  const r = 14, a = add(p, d1, r), b = add(p, d2, r), m = add(add(p, d1, r * 0.55), d2, r * 0.55);
+  const large = 0; const sweep = (d1[0] * d2[1] - d1[1] * d2[0]) > 0 ? 1 : 0;
+  s.append(svgEl('path', { d: `M${a[0]},${a[1]} A${r},${r} 0 ${large} ${sweep} ${b[0]},${b[1]}`, fill: 'none', stroke: INK, 'stroke-width': 1.6 }));
+  s.append(svgEl('circle', { cx: m[0], cy: m[1], r: 2, fill: INK }));
+}
+function poly(s, pts, col, fill) { s.append(svgEl('polygon', { points: pts.map(p => p.join(',')).join(' '), fill: fill || 'rgba(27,166,166,.10)', stroke: col || INK, 'stroke-width': 3, 'stroke-linejoin': 'round' })); }
+function quadLabels(s, pts) {
+  const c = [(pts[0][0] + pts[2][0]) / 2, (pts[0][1] + pts[2][1]) / 2];
+  ['A', 'B', 'C', 'D'].forEach((t, i) => { const p = pts[i]; const v = [p[0] - c[0], p[1] - c[1]]; const l = Math.hypot(v[0], v[1]); label(s, p, t, v[0] / l * 14, v[1] / l * 14 + 6); });
+}
+/* Rechteck mit Mittelpunkt c, Breite w, Höhe hh, Drehung deg; Ecken gegen den Uhrzeigersinn ab links unten */
+function rectPts(c, w, hh, deg) {
+  const u = dir(deg), v = [u[1], -u[0]];
+  const p = (x, y) => [c[0] + u[0] * x + v[0] * y, c[1] + u[1] * x + v[1] * y];
+  return [p(-w / 2, -hh / 2), p(w / 2, -hh / 2), p(w / 2, hh / 2), p(-w / 2, hh / 2)];
+}
+
+/* ---------- Spiel 1: Bilder ---------- */
+const PICS = {
+  punkt: { short: 'keine Länge', name: 'Punkt', hint: 'Es ist nur ein Kreuzchen. Es hat keine Länge.', draw(s) { cross(s, [rnd(110, 210), rnd(80, 130)], 'P'); }, opts: ['Punkt', 'Strecke', 'Gerade'] },
+  strecke: { short: 'zwei Endpunkte', name: 'Strecke', hint: 'Schau auf die Enden: Die Linie hört bei A und bei B auf.', draw(s) {
+    const d = dir(rnd(-35, 35)), c = [160, 100], A = add(c, d, -rnd(70, 110)), B = add(c, d, rnd(70, 110)); seg(s, A, B); cross(s, A, 'A'); cross(s, B, 'B'); }, opts: ['Strecke', 'Strahl', 'Gerade'] },
+  strahl: { short: 'ein Anfangspunkt, kein Ende', name: 'Strahl', hint: 'Die Linie beginnt bei A und geht auf einer Seite bis zum Rand, also unendlich weiter.', draw(s) {
+    const d = dir(rnd(-30, 30) + (Math.random() < .5 ? 180 : 0)); const A = add([160, 100], d, -rnd(60, 90)); seg(s, A, toEdge(A, d)); cross(s, A, 'A'); cross(s, add(A, d, 70), 'B'); }, opts: ['Strahl', 'Strecke', 'Gerade'] },
+  gerade: { short: 'kein Anfang, kein Ende', name: 'Gerade', hint: 'Die Linie geht auf beiden Seiten bis zum Rand. Sie hat keinen Anfang und kein Ende.', draw(s) {
+    const d = dir(rnd(-35, 35)), p = [rnd(140, 180), rnd(85, 115)]; fullLine(s, p, d); cross(s, add(p, d, -50), 'A'); cross(s, add(p, d, 50), 'B'); label(s, toEdge(p, d), 'g', -14, -10); }, opts: ['Gerade', 'Strahl', 'Strecke'] },
+  kurve: { short: 'macht Bögen', name: 'gekrümmte Linie', hint: 'Die Linie ist nicht gerade, sie macht Bögen.', draw(s) {
+    const y = rnd(80, 120), a = rnd(30, 60); s.append(svgEl('path', { d: `M40,${y} C100,${y - a} 140,${y + a} 180,${y} S260,${y - a} 285,${y + 10}`, fill: 'none', stroke: INK, 'stroke-width': 3, 'stroke-linecap': 'round' })); label(s, [290, y + 30], 'b'); }, opts: ['gekrümmte Linie', 'Gerade', 'Strecke'] },
+  geschlossen: { short: 'kommt zu sich zurück', name: 'geschlossene Linie', hint: 'Die Linie hat keinen Anfang und kein Ende. Sie kommt wieder zu sich zurück.', draw(s) {
+    const cx = rnd(140, 180), cy = 100, r1 = rnd(55, 75), r2 = rnd(40, 60); s.append(svgEl('path', { d: `M${cx - r1},${cy} C${cx - r1},${cy - r2 * 1.3} ${cx + r1},${cy - r2 * 1.1} ${cx + r1},${cy} C${cx + r1},${cy + r2 * 1.4} ${cx - r1 * 0.6},${cy + r2} ${cx - r1},${cy} Z`, fill: 'none', stroke: INK, 'stroke-width': 3 })); label(s, [cx + r1 + 12, cy - 20], 'k'); }, opts: ['geschlossene Linie', 'Gerade', 'Strahl'] },
+  parallel: { short: 'treffen sich nie', name: 'parallele Geraden', hint: 'Die zwei Geraden haben überall den gleichen Abstand. Sie treffen sich nie.', draw(s) {
+    const d = dir(rnd(-25, 25)), n = [-d[1], d[0]], gap = rnd(45, 70), c = [160, 100]; const p1 = add(c, n, -gap / 2), p2 = add(c, n, gap / 2);
+    fullLine(s, p1, d, BLUE); fullLine(s, p2, d, GREEN); label(s, add(p1, d, -120), 'g', 0, -8, BLUE); label(s, add(p2, d, -120), 'h', 0, 20, GREEN); }, opts: ['parallele Geraden', 'normale Geraden', 'schneidende Geraden'] },
+  normal: { short: 'rechter Winkel', name: 'normale Geraden', hint: 'Die Geraden bilden einen rechten Winkel. Das Zeichen mit dem Punkt zeigt ihn.', draw(s) {
+    const a = rnd(-30, 30), d1 = dir(a), d2 = dir(a + 90), S = [rnd(145, 175), rnd(90, 110)];
+    fullLine(s, S, d1, BLUE); fullLine(s, S, d2, GREEN); rightMark(s, S, d1, d2); label(s, add(S, d1, 120), 'g', 0, -8, BLUE); label(s, add(S, d2, -75), 'h', 12, 0, GREEN); }, opts: ['normale Geraden', 'parallele Geraden', 'Strecken'] },
+  schneidend: { short: 'ein Schnittpunkt S', name: 'schneidende Geraden', hint: 'Die Geraden kreuzen sich in einem Punkt S. Der Winkel ist schief, also kein rechter Winkel.', draw(s) {
+    const a = rnd(-20, 20), b = a + (Math.random() < .5 ? rnd(30, 55) : -rnd(30, 55)), S = [rnd(145, 175), rnd(90, 110)];
+    fullLine(s, S, dir(a), BLUE); fullLine(s, S, dir(b), GREEN); cross(s, S, 'S', 0, 22); }, opts: ['schneidende Geraden', 'normale Geraden', 'parallele Geraden'] },
+  rechteck: { short: '4 rechte Winkel', name: 'Rechteck', hint: 'Vier rechte Winkel, aber nicht alle Seiten sind gleich lang.', draw(s) {
+    const w = rnd(150, 200), hh = rnd(70, 95), pts = rectPts([160, 100], w, hh, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['Rechteck', 'Quadrat', 'kein Rechteck'] },
+  quadrat: { short: '4 rechte Winkel, 4 gleiche Seiten', name: 'Quadrat', hint: 'Vier rechte Winkel und alle vier Seiten sind gleich lang. Das ist ein besonderes Rechteck.', draw(s) {
+    const a = rnd(100, 130), pts = rectPts([160, 100], a, a, Math.random() < .5 ? 0 : rnd(-12, 12)); poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['Quadrat', 'kein Rechteck', 'Strahl'] },
+  viereck: { short: 'schiefe Winkel', name: 'kein Rechteck', hint: 'Schau auf die Ecken: Die Winkel sind schief. Ein Rechteck hat vier rechte Winkel.', draw(s) {
+    const sh = (Math.random() < .5 ? 1 : -1) * rnd(35, 55), w = rnd(140, 170), hh = rnd(80, 95), x = 160 - w / 2, y = 100 + hh / 2;
+    const pts = [[x - sh / 2, y], [x + w - sh / 2, y], [x + w + sh / 2, y - hh], [x + sh / 2, y - hh]]; poly(s, pts); quadLabels(s, pts); }, q: 'Wie heißt die Figur genau?', opts: ['kein Rechteck', 'Rechteck', 'Quadrat'] },
+  diagonale: { short: 'verbindet A mit C oder B mit D', name: 'Diagonale', q: 'Wie heißt die orange Linie?', hint: 'Sie verbindet zwei Ecken, die nicht nebeneinander liegen.', draw(s) {
+    const pts = rectPts([160, 100], rnd(150, 190), rnd(80, 100), 0); poly(s, pts); quadLabels(s, pts); const k = Math.random() < .5 ? 0 : 1; seg(s, pts[k], pts[k + 2], ORANGE, 4); }, opts: ['Diagonale', 'Seite', 'Strahl'] },
+  seite: { short: 'verbindet Nachbar-Ecken', name: 'Seite', q: 'Wie heißt die orange Linie?', hint: 'Sie verbindet zwei Ecken, die nebeneinander liegen.', draw(s) {
+    const pts = rectPts([160, 100], rnd(150, 190), rnd(80, 100), 0); poly(s, pts); quadLabels(s, pts); const k = Math.floor(Math.random() * 4); seg(s, pts[k], pts[(k + 1) % 4], ORANGE, 5); }, opts: ['Seite', 'Diagonale', 'Gerade'] },
+  abstand: { name: 'abstand', q: 'Welche Linie zeigt den Abstand von P zur Geraden g?', hint: 'Den Abstand misst man auf der Normalen, also im rechten Winkel zu g. Das ist der kürzeste Weg.', colorPick: true, draw(s, st) {
+    const a = rnd(-15, 15), d = dir(a), n = [d[1], -d[0]], F = [rnd(140, 180), 140], P = add(F, n, rnd(85, 105));
+    fullLine(s, F, d); label(s, toEdge(F, d), 'g', -12, 18);
+    const cols = shuffle([['rot', RED], ['blau', BLUE], ['grün', GREEN]]);
+    const off = shuffle([0, rnd(45, 70), -rnd(45, 70)]);
+    st.answer = null;
+    cols.forEach(([nm, col], i) => { const Q = add(F, d, off[i]); seg(s, P, Q, col, 4); if (off[i] === 0) st.answer = nm; });
+    cross(s, P, 'P', 0, -12); st.opts = ['rot', 'blau', 'grün']; st.cols = { rot: RED, blau: BLUE, 'grün': GREEN };
+  } }
+};
+const PIC_IDS = Object.keys(PICS);
+
+/* ---------- Spiel 2: Zeichen ---------- */
+const SIGNS = [
+  { id: 'z1', sym: 'g ⊥ h', txt: 'g steht normal auf h' },
+  { id: 'z2', sym: 'g ∥ h', txt: 'g ist parallel zu h' },
+  { id: 'z3', sym: 'g ∦ h', txt: 'g ist nicht parallel zu h' },
+  { id: 'z4', sym: 'A ∈ g', txt: 'A liegt auf der Geraden g' },
+  { id: 'z5', sym: 'A ∉ g', txt: 'A liegt nicht auf der Geraden g' },
+  { id: 'z6', sym: 'g ∩ h = {S}', txt: 'g und h schneiden sich im Punkt S' },
+  { id: 'z7', sym: '[[AB]] = 5 cm', txt: 'Die Strecke AB ist 5 cm lang' },
+  { id: 'z8', sym: 'd(P, g) = 3 cm', txt: 'P hat von g den Abstand 3 cm' },
+  { id: 'z9', sym: 'g[A, B]', txt: 'die Gerade g durch A und B' }
+];
+const SIGN_HINT = { z1: '⊥ sieht aus wie ein rechter Winkel.', z2: '∥ sind zwei Striche nebeneinander, wie parallele Geraden.', z3: 'Der schräge Strich heißt: nicht.', z4: '∈ heißt: ist Element von, also liegt drauf.', z5: 'Der schräge Strich heißt: nicht.', z6: '∩ heißt: geschnitten mit.', z7: 'Der Strich über AB heißt: Länge der Strecke.', z8: 'd steht für Abstand (distance).', z9: 'In der Klammer stehen zwei Punkte der Geraden.' };
+/* Bild-Fragen zu den Zeichen */
+const SIGN_PICS = [
+  { id: 'zb1', ok: '⊥', wrong: ['∥', '∈'], q: 'Welches Zeichen passt? g … h', draw: s => PICS.normal.draw(s) },
+  { id: 'zb2', ok: '∥', wrong: ['⊥', '∈'], q: 'Welches Zeichen passt? g … h', draw: s => PICS.parallel.draw(s) },
+  { id: 'zb3', ok: '∈', wrong: ['∉', '⊥'], q: 'Welches Zeichen passt? A … g', draw: s => { const d = dir(rnd(-25, 25)), p = [160, 105]; fullLine(s, p, d); label(s, toEdge(p, d), 'g', -12, 18); cross(s, add(p, d, rnd(-60, 60)), 'A', 0, -12); } },
+  { id: 'zb4', ok: '∉', wrong: ['∈', '∥'], q: 'Welches Zeichen passt? A … g', draw: s => { const d = dir(rnd(-25, 25)), p = [160, 130]; fullLine(s, p, d); label(s, toEdge(p, d), 'g', -12, 18); cross(s, add(add(p, d, rnd(-60, 60)), [d[1], -d[0]], rnd(55, 75)), 'A', 0, -12); } }
+];
+
+/* ---------- Spiel 3: Stimmt das? ---------- */
+const FACTS = [
+  ['f1', 'Eine Strecke hat zwei Endpunkte.', true, 'Die Strecke AB beginnt bei A und endet bei B.'],
+  ['f2', 'Ein Strahl hat einen Anfangspunkt, aber kein Ende.', true, 'Ein Strahl geht auf einer Seite unendlich weiter.'],
+  ['f3', 'Eine Gerade kann 10 cm lang sein.', false, 'Eine Gerade ist unendlich lang. Messen kann man nur eine Strecke.'],
+  ['f4', 'Ein Strahl ist unendlich lang.', true, 'Er hat einen Anfang, aber kein Ende.'],
+  ['f5', 'Die Strecke AB ist der kürzeste Weg von A nach B.', true, 'Ihre Länge ist der Abstand zwischen A und B.'],
+  ['f6', 'Punkte schreibt man mit kleinen Buchstaben.', false, 'Punkte: große Buchstaben (A, B, P). Linien: kleine Buchstaben (g, h).'],
+  ['f7', 'Geraden bezeichnet man mit kleinen Buchstaben.', true, 'Zum Beispiel g, h, k.'],
+  ['f8', 'Zwei parallele Geraden schneiden sich irgendwo.', false, 'Parallele Geraden schneiden sich nie, auch nicht weit weg.'],
+  ['f9', 'Normale Geraden bilden einen rechten Winkel.', true, 'Man schreibt g ⊥ h.'],
+  ['f10', 'Zwei schneidende Geraden haben genau einen gemeinsamen Punkt.', true, 'Das ist der Schnittpunkt S.'],
+  ['f11', 'Den Abstand von P zu g misst man im rechten Winkel zu g.', true, 'Man misst auf der Normalen. Das ist der kürzeste Weg.'],
+  ['f12', 'Den Abstand von P zu g darf man schräg messen.', false, 'Schräg ist zu lang. Man misst auf der Normalen, im rechten Winkel.'],
+  ['f13', 'Parallele Geraden haben überall den gleichen Abstand.', true, 'Deshalb treffen sie sich nie.'],
+  ['f14', 'Jedes Quadrat ist ein Rechteck.', true, 'Ein Quadrat hat vier rechte Winkel. Es ist ein besonderes Rechteck.'],
+  ['f15', 'Jedes Rechteck ist ein Quadrat.', false, 'Nur wenn alle vier Seiten gleich lang sind.'],
+  ['f16', 'Ein Rechteck hat vier rechte Winkel.', true, 'Das ist das Wichtigste am Rechteck.'],
+  ['f17', 'Im Rechteck sind gegenüberliegende Seiten gleich lang und parallel.', true, 'AB liegt gegenüber von CD, BC gegenüber von DA.'],
+  ['f18', 'Ein Viereck mit vier gleich langen Seiten ist immer ein Quadrat.', false, 'Es braucht auch vier rechte Winkel.'],
+  ['f19', 'Eine Diagonale verbindet zwei Ecken, die nebeneinander liegen.', false, 'Die Diagonale verbindet Ecken, die nicht nebeneinander liegen, z. B. A und C.'],
+  ['f20', 'Ein Rechteck beschriftet man gegen den Uhrzeigersinn: A, B, C, D.', true, 'A ist links unten, dann geht es nach rechts zu B.'],
+  ['f21', '4 cm sind 40 mm.', true, '1 cm = 10 mm.'],
+  ['f22', '3 cm sind 300 mm.', false, '1 cm = 10 mm, also 3 cm = 30 mm.'],
+  ['f23', 'Eine geschlossene Linie hat keinen Anfang und kein Ende.', true, 'Zum Beispiel ein Kreis.'],
+  ['f24', 'Ein Punkt hat eine Länge.', false, 'Ein Punkt hat keine Ausdehnung. Er ist nur eine Stelle.']
+].map(f => ({ id: f[0], text: f[1], ok: f[2], why: f[3] }));
+
+/* ---------- Fortschritt (nur in diesem Browser) ---------- */
+const KEY = 'tuka-geometrie-v1';
+let store = (function () { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.lv) return v; } catch (e) {} return { lv: {} }; })();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function lv(id) { return store.lv[id] || (store.lv[id] = { c: 0, m: 0 }); }
+function levelUp(id, ok) { const l = lv(id); if (ok) { l.c = Math.min(3, l.c + 1); l.m = Math.max(0, l.m - 1); } else { l.c = Math.max(0, l.c - 1); l.m = Math.min(3, l.m + 1); } save(); }
+const ALL_IDS = [...PIC_IDS, ...SIGNS.map(x => x.id), ...SIGN_PICS.map(x => x.id), ...FACTS.map(x => x.id)];
+function weightedPick(ids, avoid) {
+  const pool = ids.filter(id => !avoid.includes(id)); const src = pool.length ? pool : ids;
+  const w = src.map(id => { const l = lv(id); return 1 + (3 - l.c) * 1.5 + l.m * 1.5; });
+  let t = w.reduce((a, b) => a + b, 0), r = Math.random() * t;
+  for (let i = 0; i < src.length; i++) { r -= w[i]; if (r <= 0) return src[i]; }
+  return src[src.length - 1];
+}
+
+/* ---------- Startseite ---------- */
+function homeScreen() {
+  const safe = ALL_IDS.filter(id => lv(id).c >= 2).length;
+  screen(
+    h('div', { class: 'hero' }, h('img', { src: TUKA, alt: 'Tuka, die Tukan-Dame', width: 72, height: 72 }),
+      h('div', null, h('h1', null, 'Geometrische Grundbegriffe'), h('p', null, 'Mathe Kapitel 2'))),
+    h('h2', { class: 'sec' }, 'Wähle ein Spiel'),
+    h('div', { class: 'modes' },
+      modeCard('🔍', '#DCEFEF', 'Bilder', 'Strecke, Strahl oder Gerade? Was siehst du?', () => startRound('pic')),
+      modeCard('✏️', '#F3E7C9', 'Zeichen', '⊥, ∥, ∈ … Was bedeuten die Zeichen?', () => startRound('sign')),
+      modeCard('✅', '#DDEFD9', 'Stimmt das?', 'Richtig oder falsch? Tuka erklärt es dir.', () => startRound('fact')),
+      modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+    h('p', { class: 'note', style: 'margin-top:12px' }, safe + ' von ' + ALL_IDS.length + ' Aufgaben kannst du schon sicher.'),
+    h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
+  );
+}
+function modeCard(icon, bg, title, text, fn) {
+  return h('button', { type: 'button', class: 'mode', onclick: fn },
+    h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
+    h('span', null, h('h3', null, title), h('p', null, text)));
+}
+
+/* ---------- Runde ---------- */
+function startRound(mode) {
+  const q = [];
+  const signIds = [...SIGNS.map(x => x.id), ...SIGN_PICS.map(x => x.id)];
+  function addN(type, ids, n) { for (let i = 0; i < n; i++) q.push({ type, id: weightedPick(ids, q.map(x => x.id)) }); }
+  if (mode === 'pic') addN('pic', PIC_IDS, 10);
+  else if (mode === 'sign') addN('sign', signIds, 10);
+  else if (mode === 'fact') addN('fact', FACTS.map(x => x.id), 10);
+  else { addN('pic', PIC_IDS, 4); addN('sign', signIds, 4); addN('fact', FACTS.map(x => x.id), 4); q.splice(0, q.length, ...shuffle(q)); }
+  nextQuestion({ mode, q, i: 0, done: 0, total: q.length, first: 0, missed: [] });
+}
+
+function nextQuestion(round) {
+  if (round.i >= round.q.length) { endScreen(round); return; }
+  const qq = round.q[round.i];
+  const test = round.mode === 'test';
+  let firstTry = true, answered = false, hintUsed = false, wrong = 0;
+  const bar = h('i', { style: 'width:' + Math.round(round.done / round.total * 100) + '%' });
+  const stars = h('span', { class: 'stars', 'aria-label': 'Sterne' }, '⭐ ' + round.first);
+  const answers = h('div');
+  const hintBox = h('div', { class: 'hintbox', hidden: true });
+  const fb = h('div', { class: 'fb', hidden: true });
+  const hintBtn = h('button', { type: 'button', onclick: () => doHint() }, '💡 Tipp');
+  const skipBtn = h('button', { type: 'button', onclick: () => doSkip() }, 'Weiß ich nicht');
+  const helpers = h('div', { class: 'helpers' });
+  const top = h('div', { class: 'qtop' },
+    h('button', { type: 'button', class: 'back', 'aria-label': 'Beenden', onclick: homeScreen }, '✕'),
+    h('span', { class: 'bar' }, bar), h('span', { class: 'count' }, (round.done + 1) + '/' + round.total), stars);
+
+  let hintText = '', solution = '', why = '', okVal = null, opts = [], optLabel = v => v, optClass = 'opt';
+  const qbox = h('div');
+  let fig = null;
+
+  if (qq.type === 'pic') {
+    const P = PICS[qq.id]; const st = {};
+    const s = canvas(); P.draw(s, st); fig = h('div', { class: 'fig' }, s);
+    rc(qbox, h('div', { class: 'qlabel' }, 'Schau genau hin:'), h('div', { class: 'qtext sent' }, P.q || 'Was ist das?'));
+    hintText = P.hint;
+    if (P.colorPick) { okVal = st.answer; opts = st.opts; optLabel = v => [h('span', { class: 'sw', style: 'background:' + st.cols[v] }), cap(v)]; solution = 'Die ' + okVal + 'e Linie steht im rechten Winkel auf g.'; why = P.hint; }
+    else { okVal = P.name; opts = P.opts.slice(); optLabel = v => cap(v); solution = P.name === 'kein Rechteck' ? 'Das ist kein Rechteck.' : /Geraden$/.test(P.name) ? 'Das sind ' + P.name + '.' : 'Richtig ist: ' + cap(P.name) + '.'; why = P.hint; }
+  } else if (qq.type === 'sign') {
+    const pic = SIGN_PICS.find(x => x.id === qq.id);
+    if (pic) {
+      const s = canvas(); pic.draw(s); fig = h('div', { class: 'fig' }, s);
+      rc(qbox, h('div', { class: 'qlabel' }, 'Schau genau hin:'), h('div', { class: 'qtext sent' }, pic.q));
+      okVal = pic.ok; opts = [pic.ok, ...pic.wrong]; optClass = 'opt sym';
+      const meaning = { '⊥': 'steht normal auf', '∥': 'ist parallel zu', '∈': 'liegt auf (ist Element von)', '∉': 'liegt nicht auf' };
+      hintText = '⊥ = normal, ∥ = parallel, ∈ = liegt auf, ∉ = liegt nicht auf.'; solution = 'Richtig ist ' + pic.ok + ': ' + meaning[pic.ok] + '.'; why = '';
+    } else {
+      const z = SIGNS.find(x => x.id === qq.id);
+      const others = shuffle(SIGNS.filter(x => x.id !== z.id)).slice(0, 2);
+      hintText = SIGN_HINT[z.id];
+      if (Math.random() < 0.5) {
+        rc(qbox, h('div', { class: 'qlabel' }, 'Was bedeutet das?'), h('div', { class: 'qsym', html: rich(z.sym) }));
+        okVal = z.txt; opts = [z.txt, ...others.map(o => o.txt)];
+        solution = z.sym.replace(/\[\[|\]\]/g, '') + ' heißt: ' + z.txt + '.';
+      } else {
+        rc(qbox, h('div', { class: 'qlabel' }, 'Wie schreibt man das?'), h('div', { class: 'qtext sent' }, z.txt));
+        okVal = z.sym; opts = [z.sym, ...others.map(o => o.sym)]; optClass = 'opt sym'; optLabel = v => h('span', { html: rich(v) });
+        solution = 'Man schreibt: ' + z.sym.replace(/\[\[(.+?)\]\]/g, '$1 mit Strich') + '.';
+      }
+    }
+  } else {
+    const f = FACTS.find(x => x.id === qq.id);
+    rc(qbox, h('div', { class: 'qlabel' }, 'Stimmt das?'), h('div', { class: 'qtext stmt' }, f.text));
+    okVal = f.ok ? 'Stimmt' : 'Stimmt nicht'; opts = ['Stimmt', 'Stimmt nicht']; why = f.why; solution = f.ok ? 'Das stimmt.' : 'Das stimmt nicht.';
+  }
+  if (!test && hintText) helpers.append(hintBtn);
+  helpers.append(skipBtn);
+
+  const optsEl = h('div', { class: qq.type === 'fact' ? 'yn' : 'opts' });
+  (qq.type === 'fact' ? opts : shuffle(opts)).forEach(v => {
+    const b = h('button', { type: 'button', class: optClass, onclick: () => pickIt(v, b) }, optLabel(v)); b.dataset.v = v; optsEl.append(b);
+  });
+  rc(answers, optsEl);
+
+  function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+  function requeue() { if (qq.again || test) return; round.q.splice(Math.min(round.q.length, round.i + 3), 0, { type: qq.type, id: qq.id, again: 1 }); round.total++; }
+  function lockAll(mark) { optsEl.querySelectorAll('button').forEach(x => { x.disabled = true; if (mark && x.dataset.v === okVal) x.classList.add('ok'); }); }
+  function finish(ok, title, lines) {
+    if (answered) return; answered = true;
+    const counted = ok && firstTry && !hintUsed;
+    levelUp(qq.id, counted);
+    if (counted) round.first++; else { if (!round.missed.some(m => m.id === qq.id)) round.missed.push(qq); }
+    if (!ok) requeue();
+    round.done++;
+    bar.style.width = Math.round(round.done / round.total * 100) + '%';
+    stars.textContent = '⭐ ' + round.first;
+    helpers.hidden = true; hintBox.hidden = true;
+    fb.className = 'fb ' + (ok ? 'good' : 'soft');
+    const nextBtn = h('button', { type: 'button', class: 'next', onclick: () => { round.i++; nextQuestion(round); } }, round.i + 1 >= round.q.length ? 'Fertig' : 'Weiter');
+    rc(fb, h('div', { class: 'ft' }, title), ...lines.filter(Boolean).map(t => h('div', { class: 'fx' }, t)), nextBtn);
+    fb.hidden = false;
+    setTimeout(() => { try { nextBtn.focus({ preventScroll: true }); fb.scrollIntoView({ block: 'nearest' }); } catch (e) {} }, 60);
+  }
+  function pickIt(v, b) {
+    if (answered) return;
+    if (v === okVal) { b.classList.add('ok'); lockAll(false); finish(true, pick(PRAISE), [qq.type === 'fact' ? solution + ' ' + why : why]); return; }
+    firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
+    if (wrong >= 2 || qq.type === 'fact') { lockAll(true); finish(false, pick(SOFT), [solution, qq.type === 'fact' ? why : (why && why !== solution ? why : ''), (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); return; }
+    hintBox.hidden = false; rc(hintBox, 'Noch nicht. ' + (hintText && !test ? '💡 ' + hintText : 'Versuch es nochmal!')); if (!test) { hintUsed = true; hintBtn.disabled = true; }
+  }
+  function doHint() { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + hintText); }
+  function doSkip() { if (answered) return; firstTry = false; lockAll(true); finish(false, 'Kein Problem!', [solution, why, (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); }
+
+  screen(top,
+    h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }), qbox),
+    fig, answers, hintBox, fb, helpers);
+}
+
+function endScreen(round) {
+  const share = round.first / round.total;
+  const title = share >= 1 ? 'Alles richtig!' : share >= 0.8 ? 'Wow, fast alles!' : share >= 0.5 ? 'Geschafft, super!' : 'Geschafft!';
+  const starsN = share >= 0.8 ? 3 : share >= 0.5 ? 2 : 1;
+  const row = m => {
+    if (m.type === 'pic') { const P = PICS[m.id]; return h('div', { class: 'row' }, h('span', null, P.colorPick ? 'Abstand messen' : cap1(P.name)), h('span', null, P.colorPick ? 'im rechten Winkel' : P.short)); }
+    if (m.type === 'sign') { const z = SIGNS.find(x => x.id === m.id); if (z) return h('div', { class: 'row' }, h('span', { html: rich(z.sym) }), h('span', null, z.txt)); const p = SIGN_PICS.find(x => x.id === m.id); return h('div', { class: 'row' }, h('span', null, 'Zeichen im Bild'), h('span', null, p.ok)); }
+    const f = FACTS.find(x => x.id === m.id); return h('div', { class: 'row' }, h('span', null, f.text), h('span', null, f.ok ? 'stimmt' : 'stimmt nicht'));
+  };
+  screen(h('div', { class: 'end' },
+    h('img', { src: TUKA, alt: 'Tuka freut sich' }),
+    h('h2', null, title),
+    h('div', { class: 'starrow', 'aria-label': starsN + ' Sterne' }, '⭐'.repeat(starsN)),
+    h('p', { style: 'margin:0;font-size:18px' }, round.mode === 'test' ? 'Du hast ' + round.first + ' von ' + round.total + ' Punkten.' : 'Du hast ' + round.first + ' von ' + round.total + ' gleich beim ersten Mal gewusst.'),
+    round.missed.length ? h('div', { class: 'again' }, h('h3', { style: 'font-size:19px;margin-bottom:8px' }, 'Das übst du nochmal:'), h('div', { class: 'list' }, ...round.missed.map(row))) : h('p', { class: 'muted', style: 'margin:0' }, 'Tuka ist stolz auf dich!'),
+    h('div', { class: 'btns' },
+      h('button', { type: 'button', class: 'next', onclick: () => startRound(round.mode) }, 'Nochmal'),
+      h('button', { type: 'button', class: 'ghost', onclick: homeScreen }, 'Zur Übersicht'))));
+}
+
+homeScreen();
+</script>
+</body>
+</html>

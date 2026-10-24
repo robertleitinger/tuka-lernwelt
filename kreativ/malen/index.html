@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Malen</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F5E3B">
+<meta name="description" content="Malen mit Tuka: viele Farben, Regenbogen-Pinsel und Radierer.">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script src="../../music.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6EBD5;--paper:#FFFBF1;--ink:#1C2B24;--line:rgba(28,43,36,.16);--green:#1F5E3B;--orange:#F28C28;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);overscroll-behavior:none;overflow:hidden}
+body{display:flex;flex-direction:column;height:100vh;height:100dvh;font-family:Fredoka,system-ui,sans-serif;color:var(--ink)}
+nav{display:flex;align-items:center;gap:10px;background:#16452B;color:#F6EBD5;padding:calc(env(safe-area-inset-top,0px) + 4px) max(12px,env(safe-area-inset-right,0px)) 4px max(10px,env(safe-area-inset-left,0px));min-height:52px;flex:none}
+nav a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 16px 4px 12px;border-radius:999px;background:#F6EBD5;color:#16452B;text-decoration:none;font-weight:600;font-size:16px}
+nav .t{font-size:18px;font-weight:600}
+button.tl-music{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px 4px 10px;border-radius:999px;border:2px solid rgba(246,235,213,.55);background:transparent;color:#F6EBD5;font:600 15px/1 Fredoka,system-ui,sans-serif;cursor:pointer}
+button.tl-music.is-on{background:#F28C28;border-color:#F28C28;color:#1C2B24}
+@media (max-width:380px){nav .t{display:none}}
+.stage{flex:1;min-height:0;position:relative}
+canvas{position:absolute;top:10px;bottom:0;left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));width:calc(100% - 20px);height:calc(100% - 10px);display:block;background:#fff;border-radius:16px;border:2px solid var(--line);touch-action:none;cursor:crosshair}
+.tools{flex:none;padding:10px max(10px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 10px) max(10px,env(safe-area-inset-left,0px));display:grid;gap:8px}
+.colors{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.sw{height:44px;padding:0;min-width:0;border-radius:12px;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink);transform:scale(1.04)}
+.sw.rainbow{background:conic-gradient(#E5484D,#F28C28,#F2C12E,#3FA34D,#1BA6A6,#2F6DB5,#8E4EC6,#E5484D)}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.4fr);gap:8px;align-items:center}
+.row2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.size{height:44px;border-radius:12px;border:2px solid var(--line);background:var(--paper);display:grid;place-items:center;cursor:pointer}
+.size i{display:block;border-radius:50%;background:var(--ink)}
+.size[aria-pressed="true"],.tool[aria-pressed="true"]{border-color:var(--orange);background:#FFE9D1}
+.tool{height:44px;min-width:0;border-radius:12px;border:2px solid var(--line);background:var(--paper);font:600 16px Fredoka,system-ui,sans-serif;color:var(--ink);cursor:pointer;padding:0 4px;white-space:nowrap}
+.tool.warn{border-color:#D9521B;background:#FBE1D5}
+button:focus-visible,a:focus-visible{outline:3px solid #1BA6A6;outline-offset:2px}
+</style>
+</head>
+<body>
+<nav aria-label="Navigation"><a href="../">← Kreativ</a><span class="t">Malen</span><button type="button" class="tl-music" aria-pressed="false" aria-label="Musik einschalten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 18.5a3 3 0 1 1-2-2.83V5.5l11-2.5v12a3 3 0 1 1-2-2.83V7.6L9 9.2z" fill="currentColor"/></svg><span class="tl-music-label">Musik aus</span></button></nav>
+<div class="stage"><canvas id="c" aria-label="Malfläche"></canvas></div>
+<div class="tools">
+  <div class="colors" id="colors" role="group" aria-label="Farben"></div>
+  <div class="row">
+    <button type="button" class="size" data-s="4" aria-label="Dünn"><i style="width:6px;height:6px"></i></button>
+    <button type="button" class="size" data-s="10" aria-label="Mittel"><i style="width:12px;height:12px"></i></button>
+    <button type="button" class="size" data-s="22" aria-label="Dick"><i style="width:20px;height:20px"></i></button>
+    <button type="button" class="tool" id="eraser" aria-pressed="false">Radierer</button>
+  </div>
+  <div class="row2">
+    <button type="button" class="tool" id="undo">↶ Zurück</button>
+    <button type="button" class="tool" id="clear">Neu</button>
+    <button type="button" class="tool" id="save">Speichern</button>
+  </div>
+</div>
+<script>
+'use strict';
+const COLORS = [['Schwarz', '#1C2B24'], ['Rot', '#E5484D'], ['Orange', '#F28C28'], ['Gelb', '#F2C12E'], ['Grün', '#3FA34D'], ['Türkis', '#1BA6A6'], ['Blau', '#2F6DB5'], ['Lila', '#8E4EC6'], ['Rosa', '#F28CB1'], ['Braun', '#8B5A2B'], ['Grau', '#9AA5A0'], ['Regenbogen', 'rainbow']];
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+let color = '#1C2B24', size = 10, erasing = false, hue = 0, dpr = 1;
+const undo = [];
+
+/* Farben */
+const colorsEl = document.getElementById('colors');
+COLORS.forEach(([name, c]) => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'sw' + (c === 'rainbow' ? ' rainbow' : ''); b.setAttribute('aria-label', name);
+  if (c !== 'rainbow') b.style.background = c;
+  b.setAttribute('aria-pressed', String(c === color));
+  b.addEventListener('click', () => { color = c; erasing = false; paintTools(); });
+  colorsEl.append(b); b.dataset.c = c;
+});
+document.querySelectorAll('.size').forEach(b => b.addEventListener('click', () => { size = +b.dataset.s; paintTools(); }));
+const eraserBtn = document.getElementById('eraser');
+eraserBtn.addEventListener('click', () => { erasing = !erasing; paintTools(); });
+function paintTools() {
+  colorsEl.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String(!erasing && b.dataset.c === color)));
+  document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.s === size)));
+  eraserBtn.setAttribute('aria-pressed', String(erasing));
+}
+paintTools();
+
+/* Fläche: Größe anpassen, Bild dabei behalten */
+function fit() {
+  const r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.round(r.width * dpr), hh = Math.round(r.height * dpr);
+  if (w === cv.width && hh === cv.height) return;
+  const old = cv.width ? ctx.getImageData(0, 0, cv.width, cv.height) : null, ow = cv.width, oh = cv.height;
+  cv.width = w; cv.height = hh;
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, hh);
+  if (old) { const tmp = document.createElement('canvas'); tmp.width = ow; tmp.height = oh; tmp.getContext('2d').putImageData(old, 0, 0); ctx.drawImage(tmp, 0, 0); }
+}
+addEventListener('resize', fit); fit();
+
+/* Malen */
+let drawing = false, pts = [];
+function strokeStyle() { if (erasing) return '#fff'; if (color === 'rainbow') { hue = (hue + 6) % 360; return 'hsl(' + hue + ',85%,55%)'; } return color; }
+function pos(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; }
+cv.addEventListener('pointerdown', e => {
+  e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+  undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); if (undo.length > 15) undo.shift();
+  drawing = true; pts = [pos(e)];
+  const [x, y] = pts[0]; ctx.fillStyle = strokeStyle(); ctx.beginPath(); ctx.arc(x, y, (erasing ? size * 2 : size) * dpr / 2, 0, Math.PI * 2); ctx.fill();
+});
+cv.addEventListener('pointermove', e => {
+  if (!drawing) return;
+  const p = pos(e); pts.push(p);
+  if (pts.length < 3) return;
+  const [a, b, c] = pts.slice(-3);
+  const m1 = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], m2 = [(b[0] + c[0]) / 2, (b[1] + c[1]) / 2];
+  ctx.strokeStyle = strokeStyle(); ctx.lineWidth = (erasing ? size * 2 : size) * dpr; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(m1[0], m1[1]); ctx.quadraticCurveTo(b[0], b[1], m2[0], m2[1]); ctx.stroke();
+});
+function end() { drawing = false; pts = []; }
+cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+
+document.getElementById('undo').addEventListener('click', () => { const s = undo.pop(); if (s) ctx.putImageData(s, 0, 0); });
+const clearBtn = document.getElementById('clear'); let armed = null;
+clearBtn.addEventListener('click', () => {
+  if (!armed) { clearBtn.textContent = 'Sicher?'; clearBtn.classList.add('warn'); armed = setTimeout(() => { clearBtn.textContent = 'Neu'; clearBtn.classList.remove('warn'); armed = null; }, 3000); return; }
+  clearTimeout(armed); armed = null; clearBtn.textContent = 'Neu'; clearBtn.classList.remove('warn');
+  undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height);
+});
+document.getElementById('save').addEventListener('click', () => {
+  cv.toBlob(b => { if (!b) return; const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'mein-bild.png'; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); }, 'image/png');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mathe Kapitel 1</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F5E3B">
+<meta name="description" content="Mathe mit Tuka, Kapitel 1: Natürliche Zahlen. Stellenwert, Ordnen, Runden, Römische Zahlen.">
+<meta property="og:title" content="Mathe Kapitel 1: Natürliche Zahlen">
+<meta property="og:description" content="Mathe mit Tuka, Kapitel 1: Natürliche Zahlen. Stellenwert, Ordnen, Runden, Römische Zahlen.">
+<meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/mathe/kapitel-1/">
+<meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script src="../../music.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6EBD5; --surface:#FFFBF1; --surface-2:#EFE0C1; --ink:#1C2B24; --ink-soft:#4A5A51;
+  --green:#1F5E3B; --deep:#16452B; --leaf:#3FA34D; --orange:#F28C28; --teal:#1BA6A6;
+  --btn:#1F5E3B; --btn-ink:#FFFFFF; --line:rgba(28,43,36,.16); --track:#E7D3AC;
+  --good-bg:#DDF1DD; --good-ink:#1D5E30; --hint-bg:#FFE9D1; --hint-ink:#8A4207; --bad:#D9521B; --bad-bg:#FBE1D5;
+  --shadow:0 3px 0 rgba(28,43,36,.16);
+  --f-disp:"Fredoka","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --f-text:"Atkinson Hyperlegible",Verdana,"Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#16452B}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--f-text);min-height:100vh}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+
+nav.tl-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;display:flex;align-items:center;gap:10px;background:#16452B;color:#F6EBD5;box-shadow:0 2px 0 rgba(0,0,0,.18);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));min-height:52px;font-family:var(--f-disp)}
+nav.tl-nav a.tl-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 14px 4px 5px;border-radius:999px;background:#F6EBD5;color:#16452B;text-decoration:none;font-weight:600;font-size:16px;line-height:1;white-space:nowrap;flex:none;margin:4px 0}
+nav.tl-nav a.tl-home img{width:34px;height:34px;border-radius:50%;display:block}
+nav.tl-nav .tl-title{font-size:16px;font-weight:500;opacity:.9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+button.tl-music{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px 4px 10px;border-radius:999px;border:2px solid rgba(246,235,213,.55);background:transparent;color:#F6EBD5;font:600 15px/1 var(--f-disp);cursor:pointer;flex:none;-webkit-tap-highlight-color:transparent}
+button.tl-music.is-on{background:#F28C28;border-color:#F28C28;color:#1C2B24}
+button.tl-music svg{display:block;flex:none}
+@media (max-width:430px){nav.tl-nav .tl-title{display:none}}
+
+.app{max-width:560px;margin:0 auto;padding:14px max(14px,env(safe-area-inset-left,0px)) 40px max(14px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-disp);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+.muted{color:var(--ink-soft)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+.hero{display:flex;gap:14px;align-items:center;margin:4px 0 12px}
+.hero img{width:72px;height:72px;border-radius:20px;flex:none;box-shadow:0 5px 0 rgba(0,0,0,.14)}
+.hero h1{font-size:clamp(26px,7vw,34px)}
+.hero p{margin:4px 0 0;color:var(--ink-soft)}
+.sec{font-size:20px;margin:18px 2px 10px}
+.units{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ubtn{display:grid;gap:6px;text-align:left;min-height:54px;padding:9px 12px;border-radius:16px;border:2px solid var(--line);background:var(--surface);box-shadow:var(--shadow);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ubtn b{font-family:var(--f-disp);font-weight:600;font-size:17px}
+.ubtn small{color:var(--ink-soft);font-size:14px;line-height:1.2}
+.ubtn[aria-pressed="true"]{border-color:var(--orange);background:var(--hint-bg);box-shadow:0 3px 0 var(--orange)}
+.bar{height:7px;border-radius:999px;background:var(--track);overflow:hidden;display:block}
+.bar > i{display:block;height:100%;background:var(--leaf);border-radius:999px;width:0;transition:width .4s ease}
+.modes{display:grid;gap:12px}
+.mode{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:20px;border:2px solid var(--line);background:var(--surface);box-shadow:0 5px 0 var(--line);cursor:pointer;min-height:76px;-webkit-tap-highlight-color:transparent}
+.mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.mode .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px}
+.mode h3{font-size:19px}
+.mode p{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.note{margin:18px 4px 0;font-size:14px;color:var(--ink-soft)}
+
+.qtop{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.qtop .bar{flex:1;height:10px}
+.qtop .count{font:600 15px var(--f-disp);color:var(--ink-soft);white-space:nowrap}
+.qtop .stars{font:600 16px var(--f-disp);white-space:nowrap}
+.back{min-width:44px;min-height:44px;padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font:600 15px var(--f-disp);cursor:pointer}
+.qcard{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow)}
+.qcard img{width:52px;height:52px;border-radius:14px}
+.qlabel{font-size:15px;color:var(--ink-soft)}
+.qtext{font:600 26px/1.2 var(--f-disp);overflow-wrap:anywhere}
+.qtext.sent{font-size:22px}
+.qsub{font-size:15px;color:var(--ink-soft);margin-top:2px}
+.write{display:flex;gap:8px;margin-top:14px}
+.write input{flex:1;min-width:0;min-height:56px;border-radius:14px;border:2px solid var(--line);background:var(--surface);padding:8px 14px;font:600 21px var(--f-disp);color:var(--ink)}
+.write input:focus{outline:3px solid var(--teal);outline-offset:1px}
+.write button{min-height:56px;padding:0 16px;border-radius:14px;border:0;background:var(--btn);color:var(--btn-ink);font:600 17px var(--f-disp);cursor:pointer}
+.opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.opt{min-height:56px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:var(--surface);box-shadow:var(--shadow);font:600 20px/1.15 var(--f-disp);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.opt.ok{background:var(--good-bg);border-color:var(--leaf);color:var(--good-ink)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.helpers{display:flex;gap:10px;margin-top:12px}
+.helpers button{flex:1;min-height:46px;border-radius:14px;border:2px dashed var(--line);background:transparent;font:600 16px var(--f-disp);cursor:pointer;color:var(--ink-soft)}
+.hintbox{margin-top:10px;background:var(--hint-bg);color:var(--hint-ink);border-radius:14px;padding:10px 12px;font-size:17px}
+.hintbox .pat{font:600 22px var(--f-disp);letter-spacing:2px}
+.fb{margin-top:12px;border-radius:18px;padding:12px 14px;display:grid;gap:10px}
+.fb.good{background:var(--good-bg);color:var(--good-ink)}
+.fb.soft{background:var(--hint-bg);color:var(--hint-ink)}
+.fb .ft{font:600 20px/1.2 var(--f-disp)}
+.fb .fx{font-size:17px}
+.fb .word{font:600 24px var(--f-disp)}
+.say{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:2px solid currentColor;background:transparent;font:600 15px var(--f-disp);cursor:pointer;color:inherit;justify-self:start}
+.next{min-height:52px;border-radius:16px;border:0;background:var(--btn);color:var(--btn-ink);font:600 19px var(--f-disp);cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.next:active{transform:translateY(2px)}
+
+.end{text-align:center;display:grid;gap:12px;justify-items:center;padding-top:10px}
+.end img{width:110px;height:110px;border-radius:28px}
+.end h2{font-size:30px}
+.end .starrow{font-size:30px;letter-spacing:4px}
+.end .again{width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px 16px}
+.list{display:grid;gap:6px}
+.list .row{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface)}
+.list .row span:first-child{font-weight:700}
+.list .row span:last-child{color:var(--green);font-family:var(--f-disp);font-weight:600;text-align:right}
+.end .btns{display:grid;gap:10px;width:100%}
+.ghost{min-height:50px;border-radius:16px;border:2px solid var(--line);background:var(--surface);font:600 17px var(--f-disp);cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>
+.fig{margin-top:12px;background:#FFFFFF;border:2px solid var(--line);border-radius:18px;overflow:hidden}
+.fig svg{display:block;width:100%;height:auto}
+.qsym{margin-top:6px;font:600 32px/1.3 "Atkinson Hyperlegible",var(--f-text);letter-spacing:.5px;overflow-wrap:anywhere}
+.qsym .mark{color:#F28C28;background:#FFE9D1;border-radius:6px;padding:0 3px}
+.opt.sym{font:600 28px/1 "Atkinson Hyperlegible",var(--f-text)}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.qtext.stmt{font-size:22px}
+</style>
+</head>
+<body>
+<nav class="tl-nav" aria-label="Navigation"><a class="tl-home" href="../"><img src="../../tuka.svg" alt="" width="34" height="34"><span>Mathe</span></a><span class="tl-title">Kapitel 1: Natürliche Zahlen</span><button type="button" class="tl-music" aria-pressed="false" aria-label="Musik einschalten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 18.5a3 3 0 1 1-2-2.83V5.5l11-2.5v12a3 3 0 1 1-2-2.83V7.6L9 9.2z" fill="currentColor"/></svg><span class="tl-music-label">Musik aus</span></button></nav>
+<main class="app" id="view" aria-live="polite"></main>
+<script>
+'use strict';
+const TUKA = '../../tuka.svg';
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+/* ---------- Hilfen ---------- */
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs || {}) {
+    const v = attrs[k]; if (v === null || v === undefined || v === false) continue;
+    if (k === 'class') e.className = v;
+    else if (k === 'html') e.innerHTML = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+function rc(el, ...kids) { el.replaceChildren(...kids.flat().filter(k => k !== null && k !== undefined && k !== false)); }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+const view = document.getElementById('view');
+function screen(...kids) { rc(view, ...kids); window.scrollTo(0, 0); }
+const PRAISE = ['Super!', 'Richtig!', 'Genau!', 'Stark gemacht!', 'Bravo!', 'Jawohl!'];
+const SOFT = ['Kein Problem.', 'Guter Versuch!', 'Das merkst du dir jetzt.'];
+/* Zahlen in Dreierpäckchen: 4 702 315 */
+function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+/* Optionen: die richtige plus bis zu k eindeutige falsche */
+function opts(ok, cands, k) {
+  const out = [];
+  for (const c of cands) { if (c === null || c === undefined || Number.isNaN(c)) continue; if (c !== ok && !out.includes(c) && (typeof c !== 'number' || c >= 0)) out.push(c); if (out.length === k) break; }
+  return [ok, ...out];
+}
+
+/* ---------- Stellenwerte ---------- */
+const PL = [
+  { k: 'E', n: 'Einer', v: 1 }, { k: 'Z', n: 'Zehner', v: 10 }, { k: 'H', n: 'Hunderter', v: 100 },
+  { k: 'T', n: 'Tausender', v: 1e3 }, { k: 'ZT', n: 'Zehntausender', v: 1e4 }, { k: 'HT', n: 'Hunderttausender', v: 1e5 },
+  { k: 'M', n: 'Millionen', v: 1e6 }, { k: 'ZM', n: 'Zehnmillionen', v: 1e7 }, { k: 'HM', n: 'Hundertmillionen', v: 1e8 }
+];
+function digitsOf(n) { return String(n).split('').reverse().map(Number); } // Index = Stelle
+function numWithZeros(len) {
+  let s = '' + ri(1, 9);
+  for (let i = 1; i < len; i++) s += Math.random() < 0.35 ? '0' : ri(1, 9);
+  if (!s.slice(1).includes('0')) { const k = ri(1, len - 1); s = s.slice(0, k) + '0' + s.slice(k + 1); }
+  return +s;
+}
+function shiftOne(n) { const d = digitsOf(n); const ps = d.map((x, i) => i).filter(i => i > 0 && d[i] && !d[i - 1]); if (!ps.length) return null; const p = pick(ps); return n - d[p] * PL[p].v + d[p] * PL[p - 1].v; } // eine Stelle verrutscht
+function nonZeroConcat(n) { return +String(n).replace(/0/g, ''); }
+function dropOneZero(n) { const s = String(n); const idx = [...s].map((c, i) => c === '0' ? i : -1).filter(i => i > 0); if (!idx.length) return null; const k = pick(idx); return +(s.slice(0, k) + s.slice(k + 1)); }
+function einhStr(n, mix) {
+  const d = digitsOf(n), parts = [];
+  for (let p = d.length - 1; p >= 0; p--) if (d[p]) parts.push(d[p] + PL[p].k);
+  return (mix ? shuffle(parts) : parts).join(' ');
+}
+function sumStr(n) {
+  const d = digitsOf(n), parts = [];
+  for (let p = d.length - 1; p >= 0; p--) if (d[p]) parts.push(p === 0 ? String(d[p]) : d[p] + '·' + fmt(PL[p].v));
+  return parts.join(' + ');
+}
+
+/* ---------- Römische Zahlen ---------- */
+const ROM = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+const RV = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function toRoman(n) { let s = ''; for (const [v, r] of ROM) while (n >= v) { s += r; n -= v; } return s; }
+function fromRoman(s) { let t = 0; for (let i = 0; i < s.length; i++) { const a = RV[s[i]], b = RV[s[i + 1]] || 0; t += a < b ? -a : a; } return t; }
+function additiveRead(s) { return [...s].reduce((a, c) => a + RV[c], 0); }
+function additiveForm(n) { // ohne Abziehen: 4 = IIII, 9 = VIIII
+  let s = ''; for (const [v, r] of [[1000, 'M'], [500, 'D'], [100, 'C'], [50, 'L'], [10, 'X'], [5, 'V'], [1, 'I']]) while (n >= v) { s += r; n -= v; } return s;
+}
+function shortcutForm(n) { // typische Fehler: IL statt XLIX, IC statt XCIX, IM statt CMXCIX
+  const r = toRoman(n);
+  const rules = [['CMXCIX', 'IM'], ['XCIX', 'IC'], ['XLIX', 'IL'], ['CMXC', 'XM'], ['CDXC', 'XD'], ['XLV', 'VL'], ['XCV', 'VC']];
+  for (const [a, b] of rules) if (r.includes(a)) return r.replace(a, b);
+  return null;
+}
+function swappedPair(n) { const r = toRoman(n); const m = r.match(/(IV|IX|XL|XC|CD|CM)/); return m ? r.replace(m[1], m[1][1] + m[1][0]) : null; }
+function romanNumber() { const x = Math.random(); if (x < 0.45) return ri(1, 100); if (x < 0.8) return ri(100, 2000); return ri(2000, 3999); }
+function romanTrickyNumber() { return pick([4, 9, 14, 19, 24, 29, 39, 40, 44, 45, 49, 90, 94, 95, 99, 140, 190, 400, 444, 490, 499, 900, 949, 990, 999, 1444, 1949, 1999, 2449, 2024, 3999, ri(1, 3999)]); }
+
+/* ---------- Zahlenstrahl ---------- */
+function numberLine(start, step, k) {
+  const W = 320, H = 120, x0 = 22, x1 = 298, y = 64, dx = (x1 - x0) / 10;
+  const s = document.createElementNS(SVGNS, 'svg'); s.setAttribute('viewBox', `0 0 ${W} ${H}`); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'Zahlenstrahl');
+  const el = (t, a) => { const e = document.createElementNS(SVGNS, t); for (const k in a) e.setAttribute(k, a[k]); s.append(e); return e; };
+  el('line', { x1: x0 - 8, y1: y, x2: x1 + 14, y2: y, stroke: '#1C2B24', 'stroke-width': 3 });
+  el('path', { d: `M${x1 + 18},${y} l-9,-6 v12 z`, fill: '#1C2B24' });
+  for (let i = 0; i <= 10; i++) { const x = x0 + i * dx, big = i === 0 || i === 5 || i === 10; el('line', { x1: x, y1: y - (big ? 11 : 7), x2: x, y2: y + (big ? 11 : 7), stroke: '#1C2B24', 'stroke-width': big ? 2.6 : 1.8 }); }
+  const lab = (i, t) => { const e = el('text', { x: x0 + i * dx, y: y + 34, 'font-size': 16, 'font-weight': 700, 'text-anchor': 'middle', fill: '#1C2B24', 'font-family': 'Atkinson Hyperlegible, Verdana, sans-serif' }); e.textContent = t; };
+  lab(0, fmt(start)); lab(10, fmt(start + 10 * step));
+  const xa = x0 + k * dx;
+  el('path', { d: `M${xa},${y - 16} l-8,-14 h16 z`, fill: '#F28C28', stroke: '#1C2B24', 'stroke-width': 1.5 });
+  el('line', { x1: xa, y1: y - 30, x2: xa, y2: y - 46, stroke: '#F28C28', 'stroke-width': 5, 'stroke-linecap': 'round' });
+  return s;
+}
+
+/* ---------- Aufgaben ----------
+   Jede Aufgabe liefert: label, text (oder html), big, fig, opts, ok, yn, hint, sol, why */
+const GAMES = {
+  stellen: { title: 'Stellenwert', icon: '🔢', bg: '#DCEFEF', text: 'Zahlen lesen, schreiben und Stellen erkennen.', types: ['einh', 'summe', 'wert', 'stelle', 'gross', 'tuka1'] },
+  ordnen: { title: 'Ordnen und Runden', icon: '⚖️', bg: '#F3E7C9', text: 'Größer, kleiner, Vorgänger, Zahlenstrahl und Runden.', types: ['vergl', 'vorg', 'runden', 'menge', 'strahl', 'tuka2'] },
+  roemisch: { title: 'Römische Zahlen', icon: '🏛️', bg: '#DDEFD9', text: 'I, V, X, L, C, D, M in beide Richtungen.', types: ['r2a', 'a2r', 'zeichen', 'tuka3'] }
+};
+const TYPE_NAME = { einh: 'Einheiten in Zahl', summe: 'Summe in Zahl', wert: 'Wert einer Ziffer', stelle: 'Stelle einer Ziffer', gross: 'Große Zahlen', tuka1: 'Tukas Stellenwert', vergl: 'Vergleichen', vorg: 'Vorgänger und Nachfolger', runden: 'Runden', menge: 'Lösungsmenge', strahl: 'Zahlenstrahl', tuka2: 'Tukas Runden', r2a: 'Römisch lesen', a2r: 'Römisch schreiben', zeichen: 'Römische Zeichen', tuka3: 'Tukas römische Zahl' };
+const HINTS = {
+  einh: 'Schreib die Stellen von groß nach klein. Fehlt eine Stelle, schreibst du eine 0.',
+  summe: 'Jeder Teil ist eine Stelle. Fehlt eine Stelle, kommt dort eine 0 hin.',
+  wert: 'Zähl die Stellen von rechts: E, Z, H, T, ZT, HT, M.',
+  stelle: 'Zähl die Stellen von rechts: E, Z, H, T, ZT, HT, M.',
+  gross: 'Eine Million hat 6 Nullen. Denk an die Dreierpäckchen.',
+  vergl: 'Vergleiche Stelle für Stelle von links. Die Spitze zeigt auf die kleinere Zahl.',
+  vorg: 'Vorgänger = eins weniger. Nachfolger = eins mehr.',
+  runden: 'Nur die Ziffer rechts neben der Rundungsstelle entscheidet: 0 bis 4 ab, 5 bis 9 auf.',
+  menge: '< heißt: Die Grenze gehört nicht dazu. ≤ heißt: Sie gehört dazu.',
+  strahl: 'Zähl die Schritte, nicht die Striche. 10 Schritte von der linken zur rechten Zahl.',
+  r2a: 'I 1, V 5, X 10, L 50, C 100, D 500, M 1000. Steht ein kleineres Zeichen links, wird abgezogen.',
+  a2r: 'Mach es Stelle für Stelle: Tausender, Hunderter, Zehner, Einer.',
+  zeichen: 'I 1, V 5, X 10, L 50, C 100, D 500, M 1000.'
+};
+
+function gen(type) {
+  const it = { type, hint: HINTS[type] || '', why: '' };
+  if (type === 'einh') {
+    const n = numWithZeros(ri(4, 6)), mix = Math.random() < 0.3, e = einhStr(n, mix);
+    Object.assign(it, { label: 'Welche Zahl ist das?' + (mix ? ' (Achtung, durcheinander!)' : ''), text: e, big: true,
+      opts: opts(n, [...shuffle([nonZeroConcat(n), dropOneZero(n), n * 10, shiftOne(n)]), n + PL[1].v], 3), ok: n, sol: e + ' = ' + fmt(n) + '.' });
+  } else if (type === 'summe') {
+    const n = numWithZeros(ri(4, 5)), s = sumStr(n);
+    Object.assign(it, { label: 'Welche Zahl ist das?', text: s, big: true, opts: opts(n, shuffle([nonZeroConcat(n), dropOneZero(n), n * 10]), 3), ok: n, sol: s + ' = ' + fmt(n) + '.' });
+  } else if (type === 'wert' || type === 'stelle') {
+    let n, d, p;
+    for (;;) { n = ri(100000, 9999999); d = digitsOf(n); const cand = d.map((x, i) => i).filter(i => d[i] !== 0 && d.filter(y => y === d[i]).length === 1 && i >= 1); if (cand.length) { p = pick(cand); break; } }
+    const digit = d[p], s = String(n), pos = s.length - 1 - p;
+    const marked = fmtMarked(n, pos);
+    if (type === 'wert') {
+      Object.assign(it, { label: 'Welchen Wert hat die orange Ziffer ' + digit + '?', html: marked, big: true,
+        opts: opts(digit * PL[p].v, shuffle([digit * PL[p].v * 10, digit * PL[p].v / 10, digit * PL[p].v * 100].filter(x => x >= digit)), 2), ok: digit * PL[p].v,
+        sol: 'Die ' + digit + ' steht bei den ' + PL[p].n + 'n. Wert: ' + fmt(digit * PL[p].v) + '.' });
+      it.optLabel = v => fmt(v);
+    } else {
+      const nb = [PL[p + 1], PL[p - 1], PL[p + 2]].filter(Boolean).map(x => x.n);
+      Object.assign(it, { label: 'An welcher Stelle steht die orange ' + digit + '?', html: marked, big: true, opts: opts(PL[p].n, nb, 2), ok: PL[p].n, sol: 'Die ' + digit + ' steht bei den ' + PL[p].n + 'n (' + PL[p].k + ').' });
+    }
+  } else if (type === 'gross') {
+    const x = ri(1, 9), y = ri(1, 999), withT = Math.random() < 0.5;
+    const n = withT ? x * 1e6 + y * 1e3 : x * 1e6 + y;
+    const words = x + (x === 1 ? ' Million ' : ' Millionen ') + y + (withT ? ' Tausend' : '');
+    Object.assign(it, { label: 'Wie schreibt man das in Ziffern?', text: words, big: true,
+      opts: opts(n, shuffle([+(String(x) + String(y)), x * 1e3 + y, withT ? x * 1e6 + y : x * 1e6 + y * 1e3, x * 1e5 + (withT ? y * 1e3 : y)]), 3), ok: n, sol: words + ' = ' + fmt(n) + '.' });
+  } else if (type === 'tuka1') {
+    const n = numWithZeros(ri(3, 5)), e = einhStr(n, false), wrongV = nonZeroConcat(n), right = Math.random() < 0.45;
+    Object.assign(it, { yn: true, label: 'Tuka hat gerechnet. Stimmt das?', text: 'Tuka sagt: ' + e + ' = ' + fmt(right ? n : wrongV), ok: right ? 'Stimmt' : 'Stimmt nicht',
+      sol: right ? 'Das stimmt.' : 'Das stimmt nicht. Richtig ist ' + fmt(n) + '.', why: right ? 'Tuka hat an die Nullen gedacht.' : 'Tuka hat die Nullen vergessen. Leere Stellen bekommen eine 0.' });
+  } else if (type === 'vergl') {
+    const len = ri(4, 7); let a = ri(10 ** (len - 1), 10 ** len - 1); let b;
+    if (Math.random() < 0.12) b = a; else { const s = String(a).split(''); const k = ri(1, len - 1); let nd; do { nd = ri(0, 9); } while (nd === +s[k]); s[k] = nd; b = +s.join(''); }
+    const ok = a < b ? '<' : a > b ? '>' : '=';
+    Object.assign(it, { label: 'Welches Zeichen passt?', text: fmt(a) + '  ○  ' + fmt(b), big: true, opts: ['<', '>', '='], fixed: true, sym: true, ok, sol: fmt(a) + ' ' + ok + ' ' + fmt(b) });
+  } else if (type === 'vorg') {
+    const base = pick([ri(2, 9) * 10 ** ri(3, 6), ri(10, 99) * 1000, ri(2, 9) * 10 ** ri(3, 6) - 1, ri(1000, 999999)]);
+    const pre = Math.random() < 0.6, ok = pre ? base - 1 : base + 1;
+    Object.assign(it, { label: (pre ? 'Was ist der Vorgänger von' : 'Was ist der Nachfolger von') + ' …', text: fmt(base), big: true,
+      opts: opts(ok, shuffle([pre ? base + 1 : base - 1, pre ? base - 1000 : base + 1000, pre ? base - 10 : base + 10, pre ? base - 100 : base + 100]), 3), ok, sol: (pre ? 'Vorgänger' : 'Nachfolger') + ' von ' + fmt(base) + ' ist ' + fmt(ok) + '.' });
+    it.optLabel = v => fmt(v);
+  } else if (type === 'runden' || type === 'tuka2') {
+    const p = pick([1, 2, 3, 3, 4]); const v = PL[p].v;
+    let n; do { n = ri(v * 2, Math.min(999999, v * 1000)); } while (n % v === 0 || Math.floor(n / (v / 10)) % 10 === 0 && Math.random() < 0.5);
+    const ok = Math.round(n / v) * v, down = Math.floor(n / v) * v, up = Math.ceil(n / v) * v;
+    let chain = n; for (let q = 10; q <= v; q *= 10) chain = Math.round(chain / q) * q; // falsches Kettenrunden
+    if (type === 'runden') {
+      Object.assign(it, { label: 'Runde auf ' + PL[p].n + '.', text: fmt(n), big: true, opts: opts(ok, [...shuffle([down === ok ? up : down, chain, Math.round(n / (v * 10)) * v * 10, Math.round(n / (v / 10)) * v / 10]), ok + v, ok - v, ok + 2 * v], 3), ok,
+        sol: fmt(n) + ' ≈ ' + fmt(ok) + ' (' + PL[p].k + ').', why: 'Die Ziffer rechts davon ist ' + Math.floor(n / (v / 10)) % 10 + ', also ' + (Math.floor(n / (v / 10)) % 10 >= 5 ? 'aufrunden.' : 'abrunden.') });
+      it.optLabel = x => fmt(x);
+    } else {
+      const wrongV = chain !== ok ? chain : (down === ok ? up : down), right = Math.random() < 0.45;
+      Object.assign(it, { yn: true, label: 'Tuka hat gerundet. Stimmt das?', text: 'Tuka sagt: ' + fmt(n) + ' auf ' + PL[p].n + ' gerundet ist ' + fmt(right ? ok : wrongV) + '.', ok: right ? 'Stimmt' : 'Stimmt nicht',
+        sol: right ? 'Das stimmt.' : 'Das stimmt nicht. Richtig ist ' + fmt(ok) + '.', why: 'Nur die Ziffer rechts neben der Rundungsstelle entscheidet: 0 bis 4 ab, 5 bis 9 auf.' + (wrongV === chain && !right && chain !== ok ? ' Nicht Schritt für Schritt von hinten runden!' : '') });
+    }
+  } else if (type === 'menge') {
+    const a = ri(1, 12), b = a + ri(3, 5), v = pick(['g', 'x', 'a', 'n']), li = Math.random() < 0.5, ui = Math.random() < 0.5;
+    const set = (L, U) => { const s = []; for (let i = L ? a : a + 1; i <= (U ? b : b - 1); i++) s.push(i); return '{' + s.join('; ') + '}'; };
+    const ok = set(li, ui), all = [set(true, true), set(true, false), set(false, true), set(false, false)];
+    const txt = a + (li ? ' ≤ ' : ' < ') + v + (ui ? ' ≤ ' : ' < ') + b;
+    Object.assign(it, { label: 'Welche Zahlen passen?', text: txt, big: true, opts: opts(ok, shuffle(all), 3), ok, sol: txt + ' ergibt ' + ok + '.' });
+  } else if (type === 'strahl') {
+    const step = pick([1, 2, 5, 10, 10, 20, 50, 100, 100, 200, 500, 1000]); const start = ri(0, 9) * step * 10; const k = pick([1, 2, 3, 4, 6, 7, 8, 9]);
+    const ok = start + k * step;
+    Object.assign(it, { label: 'Welche Zahl zeigt der Pfeil?', fig: numberLine(start, step, k), opts: opts(ok, shuffle([start + k, start + (k + 1) * step, start + (k - 1) * step, start + k * step * 2].filter(x => x !== ok)), 3), ok,
+      sol: 'Ein Schritt ist ' + fmt(step) + ' wert. Der Pfeil steht beim ' + k + '. Schritt: ' + fmt(ok) + '.' });
+    it.optLabel = x => fmt(x);
+  } else if (type === 'r2a') {
+    const n = romanNumber(), r = toRoman(n);
+    Object.assign(it, { label: 'Welche Zahl ist das?', text: r, big: true, opts: opts(n, shuffle([additiveRead(r), n + 10, n - 10, n + 100, n - 1, n + 1]).filter(x => x > 0), 3), ok: n, sol: r + ' = ' + fmt(n) + '.' });
+    it.optLabel = x => fmt(x);
+  } else if (type === 'a2r' || type === 'tuka3') {
+    const n = romanTrickyNumber(), r = toRoman(n);
+    const wrongs = [shortcutForm(n), additiveForm(n), swappedPair(n), toRoman(n + 10), toRoman(Math.max(1, n - 1))].filter(x => x && x !== r);
+    if (type === 'a2r') {
+      Object.assign(it, { label: 'Wie schreibt man das römisch?', text: fmt(n), big: true, opts: opts(r, wrongs, 2), ok: r, sym: true, sol: fmt(n) + ' = ' + r + '.' });
+    } else {
+      const right = Math.random() < 0.4, w = wrongs[0];
+      Object.assign(it, { yn: true, label: 'Tuka hat umgerechnet. Stimmt das?', text: 'Tuka sagt: ' + fmt(n) + ' = ' + (right ? r : w), ok: right ? 'Stimmt' : 'Stimmt nicht',
+        sol: right ? 'Das stimmt.' : 'Das stimmt nicht. Richtig ist ' + r + '.', why: 'I, X und C dürfen nur vor den zwei nächstgrößeren Zeichen stehen. Höchstens dreimal dasselbe Zeichen.' });
+    }
+  } else if (type === 'zeichen') {
+    const sym = pick(Object.keys(RV)), vals = [1, 5, 10, 50, 100, 500, 1000], i = vals.indexOf(RV[sym]);
+    Object.assign(it, { label: 'Welchen Wert hat das Zeichen?', text: sym, big: true, opts: opts(RV[sym], shuffle([vals[i - 1], vals[i + 1], vals[i + 2], vals[i - 2]].filter(Boolean)), 2), ok: RV[sym], sol: sym + ' = ' + fmt(RV[sym]) + '.' });
+    it.optLabel = x => fmt(x);
+  }
+  if (it.yn) { it.opts = ['Stimmt', 'Stimmt nicht']; it.fixed = true; it.hint = ''; }
+  if (!it.optLabel) it.optLabel = v => typeof v === 'number' ? fmt(v) : v;
+  return it;
+}
+function fmtMarked(n, pos) {
+  const s = String(n); let out = '';
+  for (let i = 0; i < s.length; i++) {
+    const fromRight = s.length - 1 - i;
+    out += i === pos ? '<span class="mark">' + s[i] + '</span>' : s[i];
+    if (fromRight > 0 && fromRight % 3 === 0) out += ' ';
+  }
+  return out;
+}
+
+/* ---------- Fortschritt (nur in diesem Browser) ---------- */
+const KEY = 'tuka-mathe-k1-v1';
+let store = (function () { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.lv) return v; } catch (e) {} return { lv: {} }; })();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function lv(id) { return store.lv[id] || (store.lv[id] = { c: 0, m: 0 }); }
+function levelUp(id, ok) { const l = lv(id); if (ok) { l.c = Math.min(4, l.c + 1); l.m = Math.max(0, l.m - 1); } else { l.c = Math.max(0, l.c - 1); l.m = Math.min(3, l.m + 1); } save(); }
+const ALL_TYPES = Object.values(GAMES).flatMap(g => g.types);
+function weightedPick(types, last) {
+  const w = types.map(id => { const l = lv(id); return (id === last ? 0.3 : 1) * (1 + (4 - l.c) * 1.2 + l.m * 1.5); });
+  let t = w.reduce((a, b) => a + b, 0), r = Math.random() * t;
+  for (let i = 0; i < types.length; i++) { r -= w[i]; if (r <= 0) return types[i]; }
+  return types[types.length - 1];
+}
+
+/* ---------- Startseite ---------- */
+function homeScreen() {
+  const safe = ALL_TYPES.filter(id => lv(id).c >= 3).length;
+  screen(
+    h('div', { class: 'hero' }, h('img', { src: TUKA, alt: 'Tuka, die Tukan-Dame', width: 72, height: 72 }),
+      h('div', null, h('h1', null, 'Natürliche Zahlen'), h('p', null, 'Mathe Kapitel 1'))),
+    h('h2', { class: 'sec' }, 'Wähle ein Spiel'),
+    h('div', { class: 'modes' },
+      ...Object.entries(GAMES).map(([k, g]) => modeCard(g.icon, g.bg, g.title, g.text, () => startRound(k))),
+      modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+    h('p', { class: 'note', style: 'margin-top:12px' }, safe + ' von ' + ALL_TYPES.length + ' Aufgabenarten kannst du schon sicher.'),
+    h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
+  );
+}
+function modeCard(icon, bg, title, text, fn) {
+  return h('button', { type: 'button', class: 'mode', onclick: fn },
+    h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
+    h('span', null, h('h3', null, title), h('p', null, text)));
+}
+
+/* ---------- Runde ---------- */
+function startRound(mode) {
+  const q = [];
+  function addN(types, n) { for (let i = 0; i < n; i++) q.push({ type: weightedPick(types, q.length ? q[q.length - 1].type : null) }); }
+  if (mode === 'test') { Object.values(GAMES).forEach(g => addN(g.types, 4)); q.splice(0, q.length, ...shuffle(q)); }
+  else addN(GAMES[mode].types, 10);
+  nextQuestion({ mode, q, i: 0, done: 0, total: q.length, first: 0, missed: [] });
+}
+
+function nextQuestion(round) {
+  if (round.i >= round.q.length) { endScreen(round); return; }
+  const qq = round.q[round.i];
+  const test = round.mode === 'test';
+  const it = qq.item || (qq.item = gen(qq.type));
+  let firstTry = true, answered = false, hintUsed = false, wrong = 0;
+  const bar = h('i', { style: 'width:' + Math.round(round.done / round.total * 100) + '%' });
+  const stars = h('span', { class: 'stars', 'aria-label': 'Sterne' }, '⭐ ' + round.first);
+  const answers = h('div');
+  const hintBox = h('div', { class: 'hintbox', hidden: true });
+  const fb = h('div', { class: 'fb', hidden: true });
+  const hintBtn = h('button', { type: 'button', onclick: () => doHint() }, '💡 Tipp');
+  const skipBtn = h('button', { type: 'button', onclick: () => doSkip() }, 'Weiß ich nicht');
+  const helpers = h('div', { class: 'helpers' });
+  if (!test && it.hint) helpers.append(hintBtn);
+  helpers.append(skipBtn);
+  const top = h('div', { class: 'qtop' },
+    h('button', { type: 'button', class: 'back', 'aria-label': 'Beenden', onclick: homeScreen }, '✕'),
+    h('span', { class: 'bar' }, bar), h('span', { class: 'count' }, (round.done + 1) + '/' + round.total), stars);
+
+  const qtext = it.html ? h('div', { class: 'qsym', html: it.html }) : h('div', { class: it.big ? 'qsym' : (it.yn ? 'qtext stmt' : 'qtext sent') }, it.text);
+  const qbox = h('div', null, h('div', { class: 'qlabel' }, it.label), qtext);
+  const fig = it.fig ? h('div', { class: 'fig' }, it.fig) : null;
+  const optsEl = h('div', { class: it.yn ? 'yn' : 'opts' });
+  const okKey = String(it.ok);
+  (it.fixed ? it.opts : shuffle(it.opts)).forEach(v => {
+    const b = h('button', { type: 'button', class: 'opt' + (it.sym ? ' sym' : ''), onclick: () => pickIt(v, b) }, it.optLabel(v)); b.dataset.v = String(v); optsEl.append(b);
+  });
+  rc(answers, optsEl);
+
+  function requeue() { if (qq.again || test) return; round.q.splice(Math.min(round.q.length, round.i + 3), 0, { type: qq.type, again: 1 }); round.total++; }
+  function lockAll(mark) { optsEl.querySelectorAll('button').forEach(x => { x.disabled = true; if (mark && x.dataset.v === okKey) x.classList.add('ok'); }); }
+  function finish(ok, title, lines) {
+    if (answered) return; answered = true;
+    const counted = ok && firstTry && !hintUsed;
+    levelUp(qq.type, counted);
+    if (counted) round.first++; else round.missed.push({ type: qq.type, sol: it.sol });
+    if (!ok) requeue();
+    round.done++;
+    bar.style.width = Math.round(round.done / round.total * 100) + '%';
+    stars.textContent = '⭐ ' + round.first;
+    helpers.hidden = true; hintBox.hidden = true;
+    fb.className = 'fb ' + (ok ? 'good' : 'soft');
+    const nextBtn = h('button', { type: 'button', class: 'next', onclick: () => { round.i++; nextQuestion(round); } }, round.i + 1 >= round.q.length ? 'Fertig' : 'Weiter');
+    rc(fb, h('div', { class: 'ft' }, title), ...lines.filter(Boolean).map(t => h('div', { class: 'fx' }, t)), nextBtn);
+    fb.hidden = false;
+    setTimeout(() => { try { nextBtn.focus({ preventScroll: true }); fb.scrollIntoView({ block: 'nearest' }); } catch (e) {} }, 60);
+  }
+  function pickIt(v, b) {
+    if (answered) return;
+    if (String(v) === okKey) { b.classList.add('ok'); lockAll(false); finish(true, pick(PRAISE), [it.yn ? it.sol + ' ' + it.why : it.sol, it.yn ? '' : it.why]); return; }
+    firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
+    if (wrong >= 2 || it.yn) { lockAll(true); finish(false, pick(SOFT), [it.sol, it.why, (!test && !qq.again) ? 'So eine Aufgabe kommt gleich nochmal.' : '']); return; }
+    hintBox.hidden = false; rc(hintBox, 'Noch nicht. ' + (it.hint && !test ? '💡 ' + it.hint : 'Versuch es nochmal!')); if (!test) { hintUsed = true; hintBtn.disabled = true; }
+  }
+  function doHint() { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + it.hint); }
+  function doSkip() { if (answered) return; firstTry = false; lockAll(true); finish(false, 'Kein Problem!', [it.sol, it.why, (!test && !qq.again) ? 'So eine Aufgabe kommt gleich nochmal.' : '']); }
+
+  screen(top, h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }), qbox), fig, answers, hintBox, fb, helpers);
+}
+
+function endScreen(round) {
+  const share = round.first / round.total;
+  const title = share >= 1 ? 'Alles richtig!' : share >= 0.8 ? 'Wow, fast alles!' : share >= 0.5 ? 'Geschafft, super!' : 'Geschafft!';
+  const starsN = share >= 0.8 ? 3 : share >= 0.5 ? 2 : 1;
+  screen(h('div', { class: 'end' },
+    h('img', { src: TUKA, alt: 'Tuka freut sich' }),
+    h('h2', null, title),
+    h('div', { class: 'starrow', 'aria-label': starsN + ' Sterne' }, '⭐'.repeat(starsN)),
+    h('p', { style: 'margin:0;font-size:18px' }, round.mode === 'test' ? 'Du hast ' + round.first + ' von ' + round.total + ' Punkten.' : 'Du hast ' + round.first + ' von ' + round.total + ' gleich beim ersten Mal gewusst.'),
+    round.missed.length ? h('div', { class: 'again' }, h('h3', { style: 'font-size:19px;margin-bottom:8px' }, 'Das übst du nochmal:'),
+      h('div', { class: 'list' }, ...round.missed.map(m => h('div', { class: 'row' }, h('span', null, TYPE_NAME[m.type]), h('span', null, m.sol))))) : h('p', { class: 'muted', style: 'margin:0' }, 'Tuka ist stolz auf dich!'),
+    h('div', { class: 'btns' },
+      h('button', { type: 'button', class: 'next', onclick: () => startRound(round.mode) }, 'Nochmal'),
+      h('button', { type: 'button', class: 'ghost', onclick: homeScreen }, 'Zur Übersicht'))));
+}
+
+homeScreen();
+</script>
+</body>
+</html>

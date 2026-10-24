@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Farbenzauber</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#07060F">
+<meta name="description" content="Farbenzauber: bunte Farben fließen langsam ineinander. Zum Abschalten.">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<script src="../../music.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#07060F;overflow:hidden;overscroll-behavior:none}
+canvas#c{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;display:block;touch-action:none;-webkit-tap-highlight-color:transparent}
+.ctl{position:fixed;left:0;right:0;top:0;display:flex;gap:10px;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 10px) max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px));transition:opacity .6s ease;font-family:Fredoka,system-ui,sans-serif;z-index:2}
+.ctl.off{opacity:0;pointer-events:none}
+.ctl a,.ctl button{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 16px;border-radius:999px;border:2px solid rgba(255,255,255,.35);background:rgba(7,6,15,.45);color:#F6EBD5;font:600 16px/1 Fredoka,system-ui,sans-serif;text-decoration:none;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ctl .sp{flex:1}
+button.tl-music.is-on{background:#F28C28;border-color:#F28C28;color:#1C2B24}
+@media (max-width:400px){.ctl .tl-music-label{display:none}.ctl a,.ctl button{padding:4px 12px}}
+.hint{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);transform:translateX(-50%);color:rgba(246,235,213,.85);font:500 17px/1.3 Fredoka,system-ui,sans-serif;text-align:center;transition:opacity 1.2s ease;pointer-events:none;width:min(90vw,420px);z-index:2}
+.hint.off{opacity:0}
+a:focus-visible,button:focus-visible{outline:3px solid #1BA6A6;outline-offset:2px}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Fließende Farben. Tippe, um neue Farbkleckse zu machen."></canvas>
+<div class="ctl" id="ctl">
+  <a href="../">← Kreativ</a>
+  <span class="sp"></span>
+  <button type="button" id="fs" hidden>Vollbild</button>
+  <button type="button" class="tl-music" aria-pressed="false" aria-label="Musik einschalten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 18.5a3 3 0 1 1-2-2.83V5.5l11-2.5v12a3 3 0 1 1-2-2.83V7.6L9 9.2z" fill="currentColor"/></svg><span class="tl-music-label">Musik aus</span></button>
+</div>
+<div class="hint" id="hint">Tipp auf den Bildschirm.<br>Dann entstehen neue Farbkleckse.</div>
+<script>
+'use strict';
+/* Farbenzauber: weiche Farbkleckse (Metaballs), klein berechnet und weich hochskaliert */
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d', { alpha: false });
+const ctl = document.getElementById('ctl'), hint = document.getElementById('hint');
+const slow = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.35 : 1;
+let LW = 96, LH = 200, img = null, aspect = 2;
+function resize() {
+  const w = innerWidth, hgt = innerHeight; aspect = hgt / w;
+  LW = w > hgt ? 160 : 100; LH = Math.max(40, Math.round(LW * aspect));
+  cv.width = LW; cv.height = LH; img = ctx.createImageData(LW, LH);
+}
+addEventListener('resize', resize); resize();
+
+function rnd(a, b) { return a + Math.random() * (b - a); }
+function hsl(hh, s, l) { // 0..360, 0..1 -> [r,g,b] 0..255
+  hh = ((hh % 360) + 360) % 360 / 60; const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs(hh % 2 - 1)), m = l - c / 2;
+  const [r, g, b] = hh < 1 ? [c, x, 0] : hh < 2 ? [x, c, 0] : hh < 3 ? [0, c, x] : hh < 4 ? [0, x, c] : hh < 5 ? [x, 0, c] : [c, 0, x];
+  return [(r + m) * 255, (g + m) * 255, (b + m) * 255];
+}
+const blobs = [];
+function addBlob(x, y, hue, born, grow) {
+  blobs.push({ x, y, vx: rnd(-1, 1) * 0.00025, vy: rnd(-1, 1) * 0.00025, r: rnd(0.17, 0.27), hue, ph: rnd(0, 6.28), born, grow: grow || 0, user: !!grow });
+}
+const H0 = rnd(0, 360);
+for (let i = 0; i < 9; i++) addBlob(rnd(0.1, 0.9), rnd(0.1, 0.9), H0 + i * 40, -1e9);
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(50, now - last) * slow; last = now;
+  const t = now * 0.001 * slow;
+  // Bewegung: sanftes Treiben, weich an den Rändern zurück
+  for (let i = blobs.length - 1; i >= 0; i--) {
+    const b = blobs[i];
+    b.vx += Math.sin(t * 0.31 + b.ph) * 0.0000022 * dt; b.vy += Math.cos(t * 0.27 + b.ph * 1.3) * 0.0000022 * dt;
+    b.vx *= 0.995; b.vy *= 0.995;
+    b.x += b.vx * dt; b.y += b.vy * dt / aspect;
+    if (b.x < 0.05) b.vx += 0.00001 * dt; if (b.x > 0.95) b.vx -= 0.00001 * dt;
+    if (b.y < 0.05) b.vy += 0.00001 * dt; if (b.y > 0.95) b.vy -= 0.00001 * dt;
+    b.hue += 0.004 * dt;
+    if (b.user) { const age = now - b.born; if (age > 30000) { b.grow -= dt / 2500; if (b.grow <= 0) blobs.splice(i, 1); } else b.grow = Math.min(1, b.grow + dt / 1200); }
+  }
+  // Feld berechnen
+  const n = blobs.length, P = [];
+  for (const b of blobs) {
+    const scale = b.user ? b.grow : 1, pulse = 1 + Math.sin(t * 0.8 + b.ph) * 0.12;
+    const rr = (b.r * pulse * scale * LW); const col = hsl(b.hue, 0.85, 0.56);
+    P.push([b.x * LW, b.y * LH, rr * rr, col[0], col[1], col[2]]);
+  }
+  const d = img.data; let k = 0;
+  for (let y = 0; y < LH; y++) {
+    for (let x = 0; x < LW; x++) {
+      let f = 0, r = 0, g = 0, bl = 0;
+      for (let i = 0; i < n; i++) {
+        const p = P[i], dx = x - p[0], dy = y - p[1];
+        const w = p[2] / (dx * dx + dy * dy + 1);
+        f += w; r += w * p[3]; g += w * p[4]; bl += w * p[5];
+      }
+      const inv = f > 0 ? 1 / f : 0;
+      let a = (f - 0.45) / 0.7; a = a < 0 ? 0 : a > 1 ? 1 : a * a * (3 - 2 * a); // weiche Kante
+      const glow = Math.min(1, f * 0.35) * 0.22, light = 1 + Math.min(0.35, (f - 1) * 0.08);
+      const m = a + glow * (1 - a);
+      d[k] = 7 + (r * inv * light - 7) * m; d[k + 1] = 6 + (g * inv * light - 6) * m; d[k + 2] = 15 + (bl * inv * light - 15) * m; d[k + 3] = 255;
+      k += 4;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* Antippen: neuer Klecks; Bedienelemente kurz zeigen */
+let hideTimer = null;
+function showCtl() { ctl.classList.remove('off'); clearTimeout(hideTimer); hideTimer = setTimeout(() => ctl.classList.add('off'), 3500); }
+cv.addEventListener('pointerdown', e => {
+  const r = cv.getBoundingClientRect();
+  addBlob((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, rnd(0, 360), performance.now(), 0.01);
+  const users = blobs.filter(b => b.user); if (users.length > 6) blobs.splice(blobs.indexOf(users[0]), 1);
+  hint.classList.add('off'); showCtl(); keepAwake();
+});
+showCtl(); setTimeout(() => hint.classList.add('off'), 9000);
+
+/* Bildschirm bleibt an, solange der Farbenzauber läuft (wenn das Handy das kann) */
+let lock = null;
+async function keepAwake() { try { if (!lock && navigator.wakeLock) { lock = await navigator.wakeLock.request('screen'); lock.addEventListener('release', () => { lock = null; }); } } catch (e) {} }
+document.addEventListener('visibilitychange', () => { if (!document.hidden && lock === null) keepAwake(); });
+
+const fs = document.getElementById('fs');
+if (document.fullscreenEnabled) { fs.hidden = false; fs.addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); }); }
+</script>
+</body>
+</html>
