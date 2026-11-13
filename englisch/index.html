@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tukas English</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="app-version" content="1">
+<meta name="app-version" content="2">
 <meta name="theme-color" content="#1F5E3B">
-<meta name="description" content="Englisch mit Tuka: Vokabeln auswählen und schreiben, MORE! 1 Unit 1 bis 3.">
+<meta name="description" content="Englisch mit Tuka: Vokabeln und Grammatik, MORE! 1 Unit 1 bis 4.">
 <meta property="og:title" content="Tukas English">
-<meta property="og:description" content="Englisch mit Tuka: Vokabeln auswählen und schreiben, MORE! 1 Unit 1 bis 3.">
+<meta property="og:description" content="Englisch mit Tuka: Vokabeln und Grammatik, MORE! 1 Unit 1 bis 4.">
 <meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/englisch/">
 <meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
 <meta property="og:type" content="website">
@@ -60,6 +60,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-o
 .ubtn b{font-family:var(--f-disp);font-weight:600;font-size:17px}
 .ubtn small{color:var(--ink-soft);font-size:14px;line-height:1.2}
 .ubtn[aria-pressed="true"]{border-color:var(--orange);background:var(--hint-bg);box-shadow:0 3px 0 var(--orange)}
+.ubtn.all{grid-column:1/-1}
+a.mode{text-decoration:none;color:inherit}
 .bar{height:7px;border-radius:999px;background:var(--track);overflow:hidden;display:block}
 .bar > i{display:block;height:100%;background:var(--leaf);border-radius:999px;width:0;transition:width .4s ease}
 .modes{display:grid;gap:12px}
@@ -80,6 +82,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-o
 .qlabel{font-size:15px;color:var(--ink-soft)}
 .qtext{font:600 26px/1.2 var(--f-disp);overflow-wrap:anywhere}
 .qtext.sent{font-size:22px}
+.qtext .blank{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--orange);line-height:1}
+.qtext .filled{color:var(--good-ink);border-bottom:3px solid var(--leaf)}
 .qsub{font-size:15px;color:var(--ink-soft);margin-top:2px}
 .write{display:flex;gap:8px;margin-top:14px}
 .write input{flex:1;min-width:0;min-height:56px;border-radius:14px;border:2px solid var(--line);background:var(--surface);padding:8px 14px;font:600 21px var(--f-disp);color:var(--ink)}
@@ -126,9 +130,10 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-o
 'use strict';
 const TUKA = '../tuka.svg';
 
-/* ---------- Inhalte: MORE! 1, Unit 1 bis 3 ----------
+/* ---------- Inhalte: MORE! 1, Unit 1 bis 4 ----------
    Wörter: [Deutsch, Englisch (Varianten mit |), Klärung (optional)]
-   Nomen ohne Artikel, Verben ohne "to": Lea darf beides mitschreiben. */
+   Nomen ohne Artikel, Verben ohne "to": Lea darf beides mitschreiben.
+   Grammatik: [Aufgabe, Satz mit ___ (deutscher Hinweis in Klammern am Ende), Lösung (Varianten mit |), Regel] */
 const UNITS = [
   { id: 'u1', name: 'Unit 1', title: 'Time for school', words: [
     ['3', 'three', 'als Wort'], ['8', 'eight', 'als Wort'], ['11', 'eleven', 'als Wort'], ['12', 'twelve', 'als Wort'],
@@ -159,27 +164,23 @@ const UNITS = [
     ['das Bild', 'picture'], ['sich hinsetzen', 'sit down'], ['sprechen', 'speak|talk'], ['aufstehen', 'stand up|get up'],
     ['herausnehmen', 'take out'], ['die Klasse', 'class'], ['einschalten', 'switch on|turn on'],
     ['ausschalten', 'switch off|turn off'], ['buchstabieren', 'spell'], ['Entschuldigung!', 'sorry|excuse me']
-  ], sentences: [
-    ['one dog, two ___', 'dogs', ['doges', 'dog'], 'Mehrzahl: meistens einfach -s.'],
-    ['one pencil, five ___', 'pencils', ['pencil', 'penciles'], 'Mehrzahl: meistens einfach -s.'],
-    ['one baby, two ___', 'babies', ['babys', 'baby'], 'Mitlaut + y wird zu -ies.'],
-    ['one family, three ___', 'families', ['familys', 'family'], 'Mitlaut + y wird zu -ies.'],
-    ['one boy, two ___', 'boys', ['boies', 'boy'], 'Selbstlaut + y: nur -s.'],
-    ['one child, four ___', 'children', ['childs', 'childrens'], 'Ausnahme: child, children.'],
-    ['one fish, six ___', 'fish', ['fishs', 'fishies'], 'Ausnahme: fish bleibt fish.'],
-    ['___ your book, please! (Öffne)', 'Open', ['Opens', 'Opening'], 'Befehl: Das Verb steht am Anfang.'],
-    ['___ the door, please. (Schließ)', 'Close', ['Closes', 'Open'], 'Befehl: Das Verb steht am Anfang.'],
-    ['___ stand up! (Nicht)', "Don't", ['Not', 'No'], "Verneinter Befehl: Don't + Verb."],
-    ["Don't ___ ! (sprechen)", 'speak', ['speaks', 'speaking'], "Nach Don't kommt das Verb ohne -s."],
-    ['Sit ___ , please. (hinsetzen)', 'down', ['up', 'on'], 'sit down = sich hinsetzen'],
-    ['Stand ___ , please. (aufstehen)', 'up', ['down', 'in'], 'stand up = aufstehen'],
-    ["What's ___ name? (dein)", 'your', ['you', 'yours'], 'your = dein'],
-    ["___ name's Lea. (Mein)", 'My', ['I', 'Me'], 'my = mein'],
-    ['How ___ you?', 'are', ['is', 'am'], 'How are you? = Wie geht es dir?'],
-    ['How ___ pencils are there?', 'many', ['much', 'more'], 'how many = wie viele'],
-    ['Can you ___ it, please? (buchstabieren)', 'spell', ['spells', 'speak'], 'spell = buchstabieren'],
-    ['Nice to ___ you.', 'meet', ['meat', 'meets'], 'meet = treffen, kennenlernen'],
-    ['I ___ fine, thanks.', 'am', ['is', 'are'], "I'm fine = I am fine"]
+  ], gram: [
+    ['Setz die Mehrzahl ein.', 'There are two ___ in the park. (dog)', 'dogs', 'Mehrzahl: meistens einfach -s.'],
+    ['Setz die Mehrzahl ein.', 'The three ___ are hungry. (baby)', 'babies', 'Mitlaut + y wird zu -ies.'],
+    ['Setz die Mehrzahl ein.', 'There are four ___ in my class. (boy)', 'boys', 'Selbstlaut + y: nur -s.'],
+    ['Setz die Mehrzahl ein.', 'Five ___ are at the zoo. (child)', 'children', 'Ausnahme: child, children.'],
+    ['Setz die Mehrzahl ein.', 'There are ten ___ in the water. (fish)', 'fish', 'Ausnahme: fish bleibt fish.'],
+    ['Setz die Mehrzahl ein.', 'Two ___ are in the wildlife park. (family)', 'families', 'Mitlaut + y wird zu -ies.'],
+    ['Ergänze den Befehl.', '___ the window, please. (Öffne)', 'Open', 'Befehl: Das Verb steht am Anfang.'],
+    ['Ergänze den Befehl.', '___ down, please. (Setz dich)', 'Sit', 'sit down = sich hinsetzen'],
+    ['Ergänze den Befehl.', '___ up, please. (Steh auf)', 'Stand|Get', 'stand up = aufstehen'],
+    ['Ergänze den Befehl.', '___ speak! (Sprich nicht)', "Don't|Do not", "Verneinter Befehl: Don't + Verb."],
+    ['Ergänze den Befehl.', "Don't ___ on the desk! (schreiben)", 'write', "Nach Don't kommt das Verb."],
+    ['Ergänze den Befehl.', '___ out your scissors. (Nimm)', 'Take', 'take out = herausnehmen'],
+    ['Ergänze die Frage.', "What's ___ name? (dein)", 'your', 'your = dein'],
+    ['Ergänze die Frage.', 'How ___ you?', 'are', 'How are you? = Wie geht es dir?'],
+    ['Ergänze die Frage.', 'Can you ___ it, please? (buchstabieren)', 'spell', 'spell = buchstabieren'],
+    ['Ergänze die Frage.', '___ your favourite colour? (Was ist)', "What's|What is", "What's = What is"]
   ]},
   { id: 'u2', name: 'Unit 2', title: 'At the zoo', words: [
     ['der Frosch', 'frog'], ['der Bär', 'bear'], ['das Krokodil', 'crocodile'], ['das Insekt', 'insect'],
@@ -196,26 +197,23 @@ const UNITS = [
     ['wir', 'we'], ['uns', 'us'], ['reden', 'talk|speak'], ['für', 'for'], ['glücklich', 'happy'],
     ['das Auto', 'car'], ['der Stein', 'stone'], ['Endlich!', 'At last|finally'], ['Wie seltsam!', 'How strange'],
     ['Lass mich mal sehen.', 'Let me see'], ['jemanden hinauslassen', 'let somebody out|let someone out']
-  ], sentences: [
-    ['I ___ ten years old.', 'am', ['is', 'are'], 'I am (I\'m)'],
-    ['She ___ from Austria.', 'is', ['am', 'are'], 'he / she / it is'],
-    ['We ___ in class 1C.', 'are', ['is', 'am'], 'we / you / they are'],
-    ['The monkeys ___ in the tree.', 'are', ['is', 'am'], 'Mehrere: are'],
-    ['The parrot ___ green.', 'is', ['are', 'am'], 'Eines: is'],
-    ['You ___ my best friend.', 'are', ['is', 'am'], 'you are'],
-    ['Tom ___ happy. (nicht)', "isn't", ["aren't", "amn't"], "he / she / it isn't"],
-    ['They ___ at school. (nicht)', "aren't", ["isn't", "not"], "we / you / they aren't"],
-    ['There ___ a lion in the zoo.', 'is', ['are', 'am'], 'There is + eine Sache'],
-    ['There ___ three penguins.', 'are', ['is', 'am'], 'There are + mehrere'],
-    ['There ___ two rulers in my bag.', 'are', ['is', 'be'], 'There are + mehrere'],
-    ['The cat is ___ the chair. (unter)', 'under', ['on', 'behind'], 'under = unter'],
-    ['The book is ___ the desk. (auf)', 'on', ['in', 'under'], 'on = auf'],
-    ['The dog is ___ the tree. (hinter)', 'behind', ['in front of', 'next to'], 'behind = hinter'],
-    ['Lea is ___ Anna. (neben)', 'next to', ['next', 'near to'], 'next to: immer mit "to"'],
-    ['The bag is ___ the door. (vor)', 'in front of', ['in front', 'before'], 'in front of: immer mit "of"'],
-    ["___ the frog? It's on the stone.", "Where's", ["What's", "Who's"], "Where's = Wo ist"],
-    ['___ in my class. (Sie sind)', "They're", ['Their', 'There'], "They're = They are"],
-    ['This is ___ teacher. (ihr, von mehreren)', 'their', ["they're", 'there'], 'their = ihr / ihre']
+  ], gram: [
+    ['Setz am, is oder are ein.', 'I ___ ten.', 'am', "I am (I'm)"],
+    ['Setz am, is oder are ein.', 'She ___ from Austria.', 'is', 'he / she / it is'],
+    ['Setz am, is oder are ein.', 'We ___ in class 1C.', 'are', 'we / you / they are'],
+    ['Setz am, is oder are ein.', 'The monkeys ___ in the tree.', 'are', 'Mehrere: are'],
+    ['Setz am, is oder are ein.', 'The parrot ___ green.', 'is', 'Ein Tier oder eine Sache: is'],
+    ['Setz am, is oder are ein.', 'You ___ in my class.', 'are', 'you are'],
+    ['There is oder There are?', '___ a lion in the zoo.', "There is|There's", 'There is + eine Sache'],
+    ['There is oder There are?', '___ three penguins in the water.', 'There are', 'There are + mehrere'],
+    ['There is oder There are?', '___ two rulers in my bag.', 'There are', 'There are + mehrere'],
+    ['There is oder There are?', '___ a frog on the stone.', "There is|There's", 'There is + eine Sache'],
+    ['Setz das Ortswort ein.', 'The cat is ___ the chair. (unter)', 'under', 'under = unter'],
+    ['Setz das Ortswort ein.', 'The book is ___ the desk. (auf)', 'on', 'on = auf'],
+    ['Setz das Ortswort ein.', 'The dog is ___ the tree. (hinter)', 'behind', 'behind = hinter'],
+    ['Setz das Ortswort ein.', 'Lea is ___ Anna. (neben)', 'next to', 'next to: immer mit "to"'],
+    ['Setz das Ortswort ein.', 'The bag is ___ the door. (vor)', 'in front of', 'in front of: immer mit "of"'],
+    ['Setz das Ortswort ein.', 'The fish are ___ the water. (im)', 'in', 'in = in']
   ]},
   { id: 'u3', name: 'Unit 3', title: 'Pirates', words: [
     ['der Bart', 'beard'], ['der Arm', 'arm'], ['der linke Arm', 'left arm'], ['das Bein', 'leg'],
@@ -231,31 +229,71 @@ const UNITS = [
     ['das Bett', 'bed'], ['der Traum', 'dream'], ['müde', 'tired'], ['raten', 'guess'],
     ['Du bist dran.', "It's your turn|It is your turn"], ['der Bruder', 'brother'], ['blond', 'blonde|blond'],
     ['echt', 'real'], ['falsch', 'wrong|false'], ['Gute Idee!', 'Good idea'], ['wahr', 'true']
-  ], sentences: [
-    ['I ___ got a dog.', 'have', ['has', 'am'], 'I / you / we / they have got'],
-    ['She ___ got long hair.', 'has', ['have', 'is'], 'he / she / it has got'],
-    ['We ___ got a big ship.', 'have', ['has', 'are'], 'I / you / we / they have got'],
-    ['My brother ___ got blue eyes.', 'has', ['have', 'is'], 'Eine Person: has got'],
-    ['The pirates ___ got a parrot.', 'have', ['has', 'is'], 'Mehrere: have got'],
-    ['He ___ got a beard. (nicht)', "hasn't", ["haven't", "isn't"], "he / she / it hasn't got"],
-    ['I ___ got a cat. (nicht)', "haven't", ["hasn't", "don't"], "I / you / we / they haven't got"],
-    ['___ your pirate got a hat?', 'Has', ['Have', 'Is'], 'Frage: Has he / she / it got …?'],
-    ['___ you got a pet?', 'Have', ['Has', 'Are'], 'Frage: Have I / you / we / they got …?'],
-    ['Has she got red hair? Yes, she ___.', 'has', ['is', 'have'], 'Kurzantwort: Yes, she has.'],
-    ['Has he got a wooden leg? No, he ___.', "hasn't", ["isn't", "haven't"], "Kurzantwort: No, he hasn't."],
-    ['Have they got a ship? Yes, they ___.', 'have', ['has', 'are'], 'Kurzantwort: Yes, they have.'],
-    ["He's got a hook. He's = He ___", 'has', ['is', 'have'], "He's got = He has got"],
-    ["I've got a parrot. I've = I ___", 'have', ['am', 'has'], "I've got = I have got"],
-    ['Captain Hook ___ a hook.', 'has got', ['have got', 'is got'], 'Eine Person: has got'],
-    ['one tooth, two ___', 'teeth', ['tooths', 'teeths'], 'Ausnahme: tooth, teeth'],
-    ['one foot, two ___', 'feet', ['foots', 'feets'], 'Ausnahme: foot, feet'],
-    ['The pirate is very ___. He has got strong arms.', 'strong', ['tired', 'short'], 'strong = stark']
+  ], gram: [
+    ['have got oder has got?', 'I ___ a dog.', "have got|'ve got", 'I / you / we / they have got'],
+    ['have got oder has got?', 'She ___ long hair.', "has got|'s got", 'he / she / it has got'],
+    ['have got oder has got?', 'The pirates ___ a big ship.', 'have got', 'Mehrere: have got'],
+    ['have got oder has got?', 'My brother ___ blue eyes.', 'has got', 'Eine Person: has got'],
+    ['have got oder has got?', 'We ___ a parrot.', "have got|'ve got", 'we have got'],
+    ['Schreib die Verneinung.', 'He ___ a beard. (hat nicht)', "hasn't got|has not got", "he / she / it hasn't got"],
+    ['Schreib die Verneinung.', 'I ___ a cat. (habe nicht)', "haven't got|have not got", "I / you / we / they haven't got"],
+    ['Schreib die Verneinung.', 'The pirates ___ a dog. (haben nicht)', "haven't got|have not got", "Mehrere: haven't got"],
+    ['Ergänze die Frage.', '___ the pirate got a hat?', 'Has', 'Frage: Has he / she / it got …?'],
+    ['Ergänze die Frage.', '___ you got a pet?', 'Have', 'Frage: Have I / you / we / they got …?'],
+    ['Ergänze die Kurzantwort.', 'Has she got red hair? Yes, she ___.', 'has', 'Kurzantwort: Yes, she has.'],
+    ['Ergänze die Kurzantwort.', 'Has he got a wooden leg? No, he ___.', "hasn't|has not", "Kurzantwort: No, he hasn't."],
+    ['Ergänze die Kurzantwort.', 'Have they got a ship? Yes, they ___.', 'have', 'Kurzantwort: Yes, they have.'],
+    ['Ergänze die Kurzantwort.', 'Have you got a dog? No, I ___.', "haven't|have not", "Kurzantwort: No, I haven't."],
+    ['Setz die Mehrzahl ein.', 'The monster has got big ___. (tooth)', 'teeth', 'Ausnahme: tooth, teeth'],
+    ['Setz die Mehrzahl ein.', 'The pirate has got two big ___. (foot)', 'feet', 'Ausnahme: foot, feet']
+  ]},
+  { id: 'u4', name: 'Unit 4', title: 'Emotions', words: [
+    ['wütend', 'angry'], ['verängstigt', 'scared|afraid', 'hat Angst'], ['kalt', 'cold', 'Mir ist kalt.'],
+    ['froh, glücklich', 'happy'], ['heiß', 'hot', 'Mir ist heiß.'], ['gelangweilt', 'bored', 'Mir ist langweilig.'],
+    ['aufgeregt', 'excited', 'voller Vorfreude'], ['traurig', 'sad'], ['nervös', 'nervous'], ['hungrig', 'hungry'],
+    ['müde', 'tired'], ['stolz', 'proud'],
+    ['der Morgen', 'morning'], ['die Mittagszeit', 'lunchtime'], ['der Nachmittag', 'afternoon'],
+    ['der Abend', 'evening'], ['die Nacht', 'night'],
+    ['Montag', 'Monday'], ['Dienstag', 'Tuesday'], ['Mittwoch', 'Wednesday'], ['Donnerstag', 'Thursday'],
+    ['Freitag', 'Friday'], ['Samstag', 'Saturday'], ['Sonntag', 'Sunday'],
+    ['nach', 'after', 'zeitlich: nach der Schule'], ['der Tag', 'day'], ['das Ende', 'end'], ['der Spaß', 'fun'],
+    ['Geh weg!', 'Go away'], ['helfen', 'help'], ['zu Hause', 'at home|home'],
+    ['Es hat keinen Zweck.', "It's no good|It is no good"], ['die Mama', 'mum|mummy|mom'],
+    ['nächster / nächste', 'next'], ['immer noch', 'still'], ['schlafen', 'be asleep|asleep|sleep', 'Er schläft gerade.'],
+    ['früh', 'early'], ['das Leben', 'life'], ['die Sonne', 'sun'], ['Geht es dir gut?', 'Are you OK|Are you okay'],
+    ['die Hausübung', 'homework'], ['in (… hinein)', 'into'], ['Du meine Güte!', 'Oh dear'],
+    ['das Zimmer', 'room'], ['warum', 'why'], ['schlecht', 'bad'], ['Komm nicht zu spät!', "Don't be late|Do not be late"],
+    ['morgen', 'tomorrow', 'am nächsten Tag'], ['der Geburtstag', 'birthday'], ['der Freund / die Freundin', 'friend'],
+    ['Sei du selbst.', 'Be yourself'], ['niemand anders', 'no one else|nobody else'], ['die Flasche', 'bottle'],
+    ['zurückholen', 'get back'], ['magisch', 'magic'], ['rauben, stehlen', 'rob|steal'], ['zerbrechen', 'break'],
+    ['schlafen gehen', 'go to sleep|go to bed'], ['weil', 'because'], ["Ich bin's.", "It's me|It is me"],
+    ['Versuch es!', 'Try it'], ['Lass los!', 'Let go'], ['Was ist los?', "What's happening|What is happening"]
+  ], gram: [
+    ['Schreib die Verneinung.', 'I ___ tired. (bin nicht)', "'m not|am not", "I'm not = I am not"],
+    ['Schreib die Verneinung.', 'Mike ___ happy. (ist nicht)', "isn't|is not", "he / she / it isn't"],
+    ['Schreib die Verneinung.', 'We ___ late. (sind nicht)', "aren't|are not", "we / you / they aren't"],
+    ['Schreib die Verneinung.', 'The tourists ___ bored. (sind nicht)', "aren't|are not", "Mehrere: aren't"],
+    ['Schreib die Verneinung.', 'It ___ Monday today. (ist nicht)', "isn't|is not", "he / she / it isn't"],
+    ['Ergänze die Frage.', '___ you hungry?', 'Are', 'Frage: Are you …?'],
+    ['Ergänze die Frage.', '___ Lisa scared?', 'Is', 'Frage: Is he / she / it …?'],
+    ['Ergänze die Frage.', '___ they from Spain?', 'Are', 'Frage: Are we / you / they …?'],
+    ['Ergänze die Frage.', '___ I right?', 'Am', 'Frage: Am I …?'],
+    ['Ergänze die Kurzantwort.', 'Are you cold? Yes, I ___.', 'am', 'Kurzantwort: Yes, I am.'],
+    ['Ergänze die Kurzantwort.', 'Is Tom nervous? No, he ___.', "isn't|is not", "Kurzantwort: No, he isn't."],
+    ['Ergänze die Kurzantwort.', 'Are they excited? Yes, they ___.', 'are', 'Kurzantwort: Yes, they are.'],
+    ['Ergänze die Kurzantwort.', 'Is it Friday today? No, it ___.', "isn't|is not", "Kurzantwort: No, it isn't."],
+    ['Ergänze die Kurzantwort.', 'Am I right? No, you ___.', "aren't|are not", "Auf Am I …? antwortet man mit you: No, you aren't."],
+    ['Ergänze die Kurzantwort.', 'Is your dog hungry? Yes, it ___.', 'is', 'Kurzantwort: Yes, it is.']
   ]}
 ];
 const WORDS = [], BYID = {};
 UNITS.forEach(u => u.words.forEach((w, i) => { const o = { id: u.id + 'w' + i, unit: u.id, de: w[0], en: w[1].split('|'), note: w[2] || '' }; WORDS.push(o); BYID[o.id] = o; }));
-const SENTS = [];
-UNITS.forEach(u => u.sentences.forEach((s, i) => SENTS.push({ id: u.id + 's' + i, unit: u.id, text: s[0], ok: s[1], wrong: s[2], rule: s[3] })));
+const GRAM = [], GBYID = {};
+UNITS.forEach(u => u.gram.forEach((g, i) => {
+  const m = g[1].match(/^(.*?)\s*\(([^()]*)\)\s*$/);
+  const o = { id: u.id + 'g' + i, unit: u.id, task: g[0], text: m ? m[1] : g[1], cue: m ? m[2] : '', ok: g[2].split('|'), rule: g[3] };
+  GRAM.push(o); GBYID[o.id] = o;
+}));
 
 /* ---------- Hilfen ---------- */
 function h(tag, attrs, ...kids) {
@@ -281,7 +319,7 @@ const SOFT = ['Kein Problem.', 'Guter Versuch!', 'Das merkst du dir jetzt.'];
 const KEY = 'tuka-english-v1';
 let store = (function () {
   try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.lv) return v; } catch (e) {}
-  return { lv: {}, unit: 'u3' };
+  return { lv: {}, unit: 'u4' };
 })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
 function lv(id) { return store.lv[id] || (store.lv[id] = { c: 0, m: 0 }); }
@@ -306,10 +344,15 @@ function dist(a, b) {
   for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
   return d[m][n];
 }
+const CAPS = /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|English)\b/;
 function check(w, input) {
   const x = core(input); if (!x) return 'empty';
   const goals = w.en.map(core);
-  if (goals.includes(x)) return 'ok';
+  if (goals.includes(x)) {
+    const need = w.en[goals.indexOf(x)].match(CAPS);
+    if (need && !new RegExp('\\b' + need[1] + '\\b').test(input)) return 'caps';
+    return 'ok';
+  }
   const flat = s => s.replace(/[\s-]/g, '');
   if (goals.some(g => flat(g) === flat(x))) return 'close';
   // anderes Wort erkannt? Zuerst dieselbe Unit, dann alle Units
@@ -319,6 +362,31 @@ function check(w, input) {
   if (goals.some(g => g.length >= 4 && dist(g, x) === 1)) return 'close';
   return 'wrong';
 }
+/* Grammatik prüfen: Groß- und Kleinschreibung egal, Apostroph-Varianten egal.
+   Richtig ist auch, wenn Lea das Wort vor der Lücke mitschreibt (z. B. "I'm not" statt "'m not"). */
+function gnorm(s) {
+  return s.toLowerCase().replace(/[’‘`´]/g, "'").replace(/[.!?,…]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/^'/, '');
+}
+function checkGram(g, input) {
+  const x = gnorm(input); if (!x) return 'empty';
+  const prev = (g.text.split('___')[0].trim().split(' ').pop() || '');
+  const goals = [];
+  const next = (g.text.split('___')[1] || '').trim().split(' ')[0].replace(/[.!?,]+$/, '');
+  const SHORT = { am: "'m", is: "'s", are: "'re" };
+  g.ok.forEach(a => {
+    goals.push(gnorm(a));
+    if (prev) goals.push(gnorm(prev + (/^'/.test(a) ? '' : ' ') + a));
+    if (next) goals.push(gnorm(a + ' ' + next));
+    if (prev && SHORT[a.toLowerCase()] && /^(i|you|he|she|it|we|they)$/i.test(prev)) goals.push(gnorm(prev + SHORT[a.toLowerCase()]));
+  });
+  if (goals.includes(x)) return 'ok';
+  // Nur Apostroph oder Leerzeichen vergessen: fast richtig. Sonst keine Tippfehler-Toleranz,
+  // weil in der Grammatik oft ein Buchstabe den Unterschied macht (dog / dogs, fish / fishs).
+  const flat = s => s.replace(/[\s'-]/g, '');
+  if (goals.some(gl => flat(gl) === flat(x))) return 'close';
+  return 'wrong';
+}
+function deText(o) { return o.de.replace(/[.!?]+$/, '') + (o.note ? ' (' + o.note.replace(/[.!?]+$/, '') + ')' : ''); }
 function pattern(word) { return word.split(' ').map(p => [...p].map((ch, i) => i === 0 || ch === '-' || ch === "'" ? ch : '_').join(' ')).join('   '); }
 
 /* Vorlesen (falls das Handy eine englische Stimme hat) */
@@ -330,17 +398,18 @@ function say(text) {
 
 /* ---------- Startseite ---------- */
 function homeScreen() {
-  const unit = store.unit || 'u3';
+  const unit = store.unit || 'u4';
   const ubtns = [];
   const unitsEl = h('div', { class: 'units', role: 'group', 'aria-label': 'Unit wählen' });
   function uButton(id, name, sub) {
     const p = unitProgress(id);
     const b = h('button', { type: 'button', class: 'ubtn', 'aria-pressed': String(id === unit), onclick: () => select(id) },
       h('b', null, name), h('small', null, sub), h('span', { class: 'bar' }, h('i', { style: 'width:' + Math.round(p.safe / p.total * 100) + '%' })));
+    if (id === 'all') b.classList.add('all');
     b.dataset.u = id; ubtns.push(b); return b;
   }
   UNITS.forEach(u => unitsEl.append(uButton(u.id, u.name, u.title)));
-  unitsEl.append(uButton('all', 'Alle Units', 'Unit 1 bis 3'));
+  unitsEl.append(uButton('all', 'Alle Units', 'Unit 1 bis 4'));
   const unitTitle = h('span', null, unitLabel(unit));
   const progLine = h('p', { class: 'note', style: 'margin-top:12px' });
   function paintProg(id) { const p = unitProgress(id); progLine.textContent = p.safe + ' von ' + p.total + ' Wörtern kannst du schon sicher.'; }
@@ -358,12 +427,21 @@ function homeScreen() {
     h('div', { class: 'modes' },
       modeCard('👆', '#DCEFEF', 'Wörter auswählen', 'Du siehst das deutsche Wort. Wähle das englische.', () => startRound('choose')),
       modeCard('✏️', '#F3E7C9', 'Wörter schreiben', 'Du siehst das deutsche Wort. Schreib es auf Englisch.', () => startRound('words')),
-      modeCard('🎯', '#E4ECF4', 'Test', 'Auswählen und Schreiben gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
+      modeCard('🧩', '#DDEFD9', 'Grammatik', 'Im Satz fehlt etwas. Schreib es hinein.', () => startRound('gram')),
+      modeCard('🎯', '#E4ECF4', 'Test', 'Wörter und Grammatik gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
     progLine,
+    h('h2', { class: 'sec' }, 'Zum Ausdrucken'),
+    h('div', { class: 'modes' },
+      linkCard('🖨️', '#FFE9D1', 'Arbeitsblätter Grammatik', 'Unit 1 bis 4 zum Ausfüllen, mit Lösungen.', 'arbeitsblaetter.html')),
     h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
 }
 function unitLabel(id) { if (id === 'all') return 'Alle Units'; const u = UNITS.find(x => x.id === id); return u.name; }
+function linkCard(icon, bg, title, text, href) {
+  return h('a', { class: 'mode', href },
+    h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
+    h('span', null, h('h3', null, title), h('p', null, text)));
+}
 function modeCard(icon, bg, title, text, fn) {
   return h('button', { type: 'button', class: 'mode', onclick: fn },
     h('span', { class: 'ic', style: 'background:' + bg, 'aria-hidden': 'true' }, icon),
@@ -379,13 +457,13 @@ function weightedPick(ids, avoid) {
   return pool[pool.length - 1];
 }
 function startRound(mode) {
-  const unit = store.unit || 'u3';
+  const unit = store.unit || 'u4';
   const q = [];
   function add(type, n) {
-    const ids = idsOf(unit, type === 'sent' ? SENTS : WORDS);
+    const ids = idsOf(unit, type === 'gram' ? GRAM : WORDS);
     for (let i = 0; i < Math.min(n, ids.length); i++) q.push({ type, id: weightedPick(ids, q.map(x => x.id)) });
   }
-  if (mode === 'test') { add('choose', 6); add('words', 6); q.splice(0, q.length, ...shuffle(q)); }
+  if (mode === 'test') { add('choose', 4); add('words', 4); add('gram', 4); q.splice(0, q.length, ...shuffle(q)); }
   else add(mode, 10);
   const round = { mode, q, i: 0, done: 0, total: q.length, first: 0, missed: [] };
   nextQuestion(round);
@@ -433,7 +511,8 @@ function nextQuestion(round) {
     const w = BYID[qq.id];
     const main = w.en[0];
     // drei falsche Antworten aus derselben Unit, nie eine, die auch richtig wäre
-    const pool = shuffle(WORDS.filter(o => o.unit === w.unit && o.id !== w.id && !o.en.some(e => w.en.includes(e)) && !(o.de === w.de && o.note === w.note)));
+    const near = (a, b) => /sleep/.test(a) && /sleep/.test(b);
+    const pool = shuffle(WORDS.filter(o => o.unit === w.unit && o.id !== w.id && !o.en.some(e => w.en.includes(e)) && !(o.de === w.de && o.note === w.note) && !near(o.en[0], main)));
     const wrongs = [];
     for (const o of pool) { if (!wrongs.includes(o.en[0])) wrongs.push(o.en[0]); if (wrongs.length === 3) break; }
     const opts = h('div', { class: 'opts' });
@@ -447,7 +526,7 @@ function nextQuestion(round) {
       firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
       if (wrong >= 2) { lock(true); finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist:'), h('div', { class: 'word' }, main), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal.')), sayBtn()); return; }
       const o = WORDS.find(x => x.unit === w.unit && x.en[0] === v);
-      hintBox.hidden = false; rc(hintBox, o ? '„' + v + '“ heißt ' + o.de + (o.note ? ' (' + o.note + ')' : '') + '. Versuch es nochmal!' : 'Noch nicht. Versuch es nochmal!');
+      hintBox.hidden = false; rc(hintBox, o ? '„' + v + '“ heißt ' + deText(o) + '. Versuch es nochmal!' : 'Noch nicht. Versuch es nochmal!');
     }
     doHint = function () {
       if (answered) return; hintUsed = true; hintBtn.disabled = true;
@@ -477,10 +556,11 @@ function nextQuestion(round) {
       if (res === 'empty') { inp.focus(); return; }
       if (res === 'ok') { inp.disabled = go.disabled = true; finish(true, pick(PRAISE), wordBox(), sayBtn()); return; }
       if (res === 'close') { firstTry = false; inp.disabled = go.disabled = true; finish(true, 'Fast richtig!', h('div', null, h('div', { class: 'fx' }, 'So schreibt man es genau:'), wordBox()), sayBtn()); return; }
+      if (res === 'caps') { firstTry = false; inp.disabled = go.disabled = true; finish(true, 'Fast richtig!', h('div', null, h('div', { class: 'fx' }, 'Wochentage und English schreibt man im Englischen groß:'), wordBox()), sayBtn()); return; }
       firstTry = false; wrong++;
       if (wrong >= 2) { inp.disabled = go.disabled = true; finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist:'), wordBox(), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Das Wort kommt gleich nochmal.')), sayBtn()); return; }
       hintBox.hidden = false;
-      rc(hintBox, res.other ? '„' + inp.value.trim() + '“ heißt ' + res.other.de + (res.other.note ? ' (' + res.other.note + ')' : '') + '. Versuch es nochmal!' : 'Noch nicht ganz. Versuch es nochmal!');
+      rc(hintBox, res.other ? '„' + inp.value.trim() + '“ heißt ' + deText(res.other) + '. Versuch es nochmal!' : 'Noch nicht ganz. Versuch es nochmal!');
       inp.select();
     }
     doHint = function () {
@@ -499,35 +579,43 @@ function nextQuestion(round) {
       answers, hintBox, fb, helpers);
     setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 120);
   } else {
-    const s = SENTS.find(x => x.id === qq.id);
-    const opts = h('div', { class: 'opts' });
-    shuffle([s.ok, ...s.wrong]).forEach(v => {
-      const b = h('button', { type: 'button', class: 'opt', onclick: () => pickIt(v, b) }, v); b.dataset.v = v; opts.append(b);
-    });
-    rc(answers, opts);
-    const full = () => s.text.replace('___', s.ok).replace(/\s+\(.*?\)\s*$/, '').replace(' ,', ',').replace(' !', '!');
-    function pickIt(v, b) {
+    const g = GBYID[qq.id];
+    const main = g.ok[0];
+    const parts = g.text.split('___');
+    const before = /^'/.test(main) ? parts[0].replace(/\s+$/, '') : parts[0];
+    const full = before + main + parts[1];
+    const textEl = h('div', { class: 'qtext sent' });
+    const paint = fill => rc(textEl, before, fill ? h('span', { class: 'filled' }, fill) : h('span', { class: 'blank', 'aria-label': 'Lücke' }, ' '), parts[1]);
+    paint(false);
+    const inp = h('input', { type: 'text', autocomplete: 'off', autocorrect: 'off', autocapitalize: 'none', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Fehlendes Wort', placeholder: 'einsetzen …' });
+    const go = h('button', { type: 'submit' }, 'Prüfen');
+    rc(answers, h('form', { class: 'write', onsubmit: e => { e.preventDefault(); test(); } }, inp, go));
+    const sayBtn = () => canSpeak ? h('button', { type: 'button', class: 'say', onclick: () => say(full) }, '🔊 Anhören') : null;
+    const ruleBox = () => h('div', null, h('div', { class: 'fx' }, '💡 ' + g.rule), g.ok.length > 1 ? h('div', { class: 'fx' }, 'Auch richtig: ' + g.ok.slice(1).join(', ')) : null);
+    const lock = () => { inp.disabled = go.disabled = true; paint(main); };
+    function test() {
       if (answered) return;
-      if (v === s.ok) { b.classList.add('ok'); opts.querySelectorAll('button').forEach(x => x.disabled = true); finish(true, pick(PRAISE), h('div', { class: 'fx' }, s.rule)); return; }
-      firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
-      if (wrong >= 2) {
-        opts.querySelectorAll('button').forEach(x => { x.disabled = true; if (x.dataset.v === s.ok) x.classList.add('ok'); });
-        finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + full()), h('div', { class: 'fx' }, s.rule)));
-        return;
-      }
-      hintBox.hidden = false; rc(hintBox, round.mode === 'test' ? 'Noch nicht. Versuch es nochmal!' : 'Noch nicht. 💡 ' + s.rule);
+      const res = checkGram(g, inp.value);
+      if (res === 'empty') { inp.focus(); return; }
+      if (res === 'ok') { lock(); finish(true, pick(PRAISE), ruleBox(), sayBtn()); return; }
+      if (res === 'close') { firstTry = false; lock(); finish(true, 'Fast richtig!', h('div', null, h('div', { class: 'fx' }, 'So schreibt man es genau: ' + main), ruleBox()), sayBtn()); return; }
+      firstTry = false; wrong++;
+      if (wrong >= 2) { lock(); finish(false, pick(SOFT), h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + main), ruleBox(), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Der Satz kommt gleich nochmal.')), sayBtn()); return; }
+      hintBox.hidden = false;
+      rc(hintBox, round.mode === 'test' ? 'Noch nicht. Versuch es nochmal!' : 'Noch nicht. 💡 ' + g.rule);
       if (round.mode !== 'test') { hintUsed = true; hintBtn.disabled = true; }
+      inp.select();
     }
-    doHint = function () { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + s.rule); };
+    doHint = function () { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + g.rule); inp.focus(); };
     doSkip = function () {
-      if (answered) return; firstTry = false;
-      opts.querySelectorAll('button').forEach(x => { x.disabled = true; if (x.dataset.v === s.ok) x.classList.add('ok'); });
-      finish(false, 'Kein Problem!', h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + full()), h('div', { class: 'fx' }, s.rule)));
-    }
+      if (answered) return; firstTry = false; lock();
+      finish(false, 'Kein Problem!', h('div', null, h('div', { class: 'fx' }, 'Richtig ist: ' + main), ruleBox(), round.mode === 'test' ? null : h('div', { class: 'fx' }, 'Der Satz kommt gleich nochmal. Dann weißt du es.')), sayBtn());
+    };
     screen(top,
       h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }),
-        h('div', null, h('div', { class: 'qlabel' }, 'Welches Wort passt?'), h('div', { class: 'qtext sent' }, s.text))),
+        h('div', null, h('div', { class: 'qlabel' }, g.task), textEl, g.cue ? h('div', { class: 'qsub' }, '(' + g.cue + ')') : null)),
       answers, hintBox, fb, helpers);
+    setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 120);
   }
 }
 
@@ -535,9 +623,9 @@ function endScreen(round) {
   const share = round.first / round.total;
   const title = share >= 1 ? 'Alles richtig!' : share >= 0.8 ? 'Wow, fast alles!' : share >= 0.5 ? 'Geschafft, super!' : 'Geschafft!';
   const starsN = share >= 0.8 ? 3 : share >= 0.5 ? 2 : 1;
-  const row = m => m.type !== 'sent'
+  const row = m => m.type !== 'gram'
     ? h('div', { class: 'row' }, h('span', null, BYID[m.id].de + (BYID[m.id].note ? ' (' + BYID[m.id].note + ')' : '')), h('span', null, BYID[m.id].en[0]))
-    : (s => h('div', { class: 'row' }, h('span', null, s.text.replace('___', '…')), h('span', null, s.ok)))(SENTS.find(x => x.id === m.id));
+    : (g => h('div', { class: 'row' }, h('span', null, g.text.replace(/___\.?/, '…')), h('span', null, g.ok[0])))(GBYID[m.id]);
   screen(h('div', { class: 'end' },
     h('img', { src: TUKA, alt: 'Tuka freut sich' }),
     h('h2', null, title),
