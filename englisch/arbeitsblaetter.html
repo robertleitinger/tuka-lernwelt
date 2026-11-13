@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Arbeitsblätter Grammatik · Englisch</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="app-version" content="2">
+<meta name="app-version" content="3">
 <meta name="theme-color" content="#1F5E3B">
 <link rel="icon" href="../favicon-32.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,8 +54,30 @@ body[data-mode="loes"] .gap .alt{display:inline}
 body[data-mode="loes"] .gap .s{visibility:visible}
 .loes-only{display:none}
 body[data-mode="loes"] .loes-only{display:inline}
+.bcards{display:grid;gap:8px;margin-left:36px}
+.bcard{display:grid;grid-template-columns:34mm 1fr;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:8px 10px;break-inside:avoid;page-break-inside:avoid}
+.pic{text-align:center}
+.emo,.scene,.spk{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;line-height:1}
+.emo{font-size:14mm}
+.emo.n2{font-size:11mm}.emo.n3{font-size:8.5mm}
+.pname{font-size:13px;font-weight:700;color:var(--soft);margin-top:2px}
+.scene{position:relative;width:26mm;height:22mm;margin:0 auto}
+.scene .obj{position:absolute;font-size:13mm;left:50%;bottom:0;transform:translateX(-50%)}
+.scene .ani{position:absolute;font-size:8mm;left:50%;transform:translateX(-50%)}
+.sc-on .ani{bottom:11mm}
+.sc-under .obj{bottom:0;font-size:17mm}.sc-under .ani{bottom:.3mm;font-size:5.5mm;left:44%}
+.flag-at{width:20mm;height:13mm;margin:0 auto;border:1px solid #9AA59F;background:linear-gradient(#ED2939 0 33.4%,#fff 33.4% 66.6%,#ED2939 66.6% 100%)}
+.sc-next .obj{left:0;transform:none}.sc-next .ani{left:auto;right:0;bottom:0;transform:none}
+.says{display:grid;gap:6px}
+.sl{display:flex;align-items:center;gap:8px}
+.spk{font-size:7mm;flex:none}
+.bub{position:relative;flex:0 1 auto;max-width:100%;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:2px 14px;line-height:2.05}
+.bub .gap{min-width:var(--w)}
+.bub::before{content:"";position:absolute;left:-9px;top:50%;margin-top:-6px;border:6px solid transparent;border-right:9px solid var(--ink);border-left:0}
+.bub::after{content:"";position:absolute;left:-5px;top:50%;margin-top:-4px;border:4px solid transparent;border-right:6px solid #fff;border-left:0}
 .foot{margin:8px 0 0;font-size:12px;color:var(--soft);text-align:right}
 @media (min-width:640px){ol.items.c2{grid-template-columns:1fr 1fr}ol.items.c3{grid-template-columns:1fr 1fr 1fr}}
+@media (max-width:639px){.bcards{margin-left:0}.bcard{grid-template-columns:1fr;gap:6px}.pic{display:flex;align-items:center;justify-content:center;gap:10px}.emo{font-size:12mm}.bub .gap{min-width:min(var(--w),30vw)}.spk{font-size:6mm}}
 @media print{
   @page{size:A4;margin:12mm 13mm}
   body{background:#fff;font-size:12.5pt;line-height:1.4}
@@ -114,6 +136,14 @@ body[data-mode="loes"] .loes-only{display:inline}
 <div class="who">Ben</div><div class="say">I'm Ben.</div>
 </div>
 </div>
+<div class="exr"><h3><span class="nr">4</span><span>Schau dir die Bilder an und ergänze die Sprechblasen.</span></h3>
+<div class="bcards">
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">🚫🍔</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👩‍🏫</span><span class="bub"><span class="gap" style="--w:34mm"><span class="s">Don&#x27;t <span class="alt">(Do not)</span></span></span> eat in class!</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n3" aria-hidden="true">👶👶👶</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">Look! Three <span class="gap" style="--w:34mm"><span class="s">babies</span></span>!</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">🪟❄️</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👩‍🏫</span><span class="bub">It's cold. <span class="gap" style="--w:34mm"><span class="s">Close <span class="alt">(Shut)</span></span></span> the window, please.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n1" aria-hidden="true">📏</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub"><span class="gap" style="--w:34mm"><span class="s">What&#x27;s <span class="alt">(What is)</span></span></span> this?</span></div><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">It's a <span class="gap" style="--w:34mm"><span class="s">ruler</span></span>.</span></div></div></div>
+</div>
+</div>
 <p class="foot">Tukas English · MORE! 1 · Unit 1</p>
 </section>
 <section class="ws" data-ws="u2">
@@ -153,6 +183,14 @@ body[data-mode="loes"] .loes-only{display:inline}
 <li>My bag is <span class="gap" style="--w:45mm"><span class="s">in front of</span></span> the door. <span class="cue">(vor)</span></li>
 </ol>
 </div>
+<div class="exr"><h3><span class="nr">4</span><span>Schau dir die Bilder an und ergänze die Sprechblasen.</span></h3>
+<div class="bcards">
+<div class="bcard"><div class="pic"><div class="emo n3" aria-hidden="true">🐧🐧🐧</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">Look! <span class="gap" style="--w:46mm"><span class="s">There are</span></span> three penguins!</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="scene sc-on" aria-hidden="true"><span class="obj">🪨</span><span class="ani">🐸</span></div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">Where's the frog?</span></div><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">It's <span class="gap" style="--w:46mm"><span class="s">on</span></span> the stone.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="scene sc-under" aria-hidden="true"><span class="obj">🪑</span><span class="ani">🐈</span></div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">Where's the cat?</span></div><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">It's <span class="gap" style="--w:46mm"><span class="s">under</span></span> the chair.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="flag-at" role="img" aria-label="Flagge von Österreich"></div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">🧑‍🤝‍🧑</span><span class="bub">Hello! We <span class="gap" style="--w:46mm"><span class="s">are</span></span> from Austria.</span></div></div></div>
+</div>
+</div>
 <p class="foot">Tukas English · MORE! 1 · Unit 2</p>
 </section>
 <section class="ws" data-ws="u3">
@@ -188,6 +226,14 @@ body[data-mode="loes"] .loes-only{display:inline}
 <li>The bear has got four <span class="gap" style="--w:36mm"><span class="s">legs</span></span>. <span class="cue">(leg)</span></li>
 <li>There are five <span class="gap" style="--w:36mm"><span class="s">fish</span></span> in the sea. <span class="cue">(fish)</span></li>
 </ol>
+</div>
+<div class="exr"><h3><span class="nr">4</span><span>Schau dir die Bilder an und ergänze die Sprechblasen.</span></h3>
+<div class="bcards">
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">🧔🦜</div><div class="pname">Captain Red</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">🧔</span><span class="bub">I <span class="gap" style="--w:54mm"><span class="s">have got <span class="alt">(&#x27;ve got)</span></span></span> a parrot.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n1" aria-hidden="true">⛵</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub"><span class="gap" style="--w:54mm"><span class="s">Have</span></span> you got a ship?</span></div><div class="sl"><span class="spk" aria-hidden="true">🧔</span><span class="bub">Yes, I <span class="gap" style="--w:54mm"><span class="s">have</span></span>.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">👦🐕</div><div class="pname">Tom</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">My brother Tom <span class="gap" style="--w:54mm"><span class="s">has got</span></span> a dog.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">❌🪝</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">🧔</span><span class="bub">I <span class="gap" style="--w:54mm"><span class="s">haven&#x27;t got <span class="alt">(have not got)</span></span></span> a hook.</span></div></div></div>
+</div>
 </div>
 <p class="foot">Tukas English · MORE! 1 · Unit 3</p>
 </section>
@@ -225,6 +271,14 @@ body[data-mode="loes"] .loes-only{display:inline}
 <div class="who">Mia</div><div class="say">Yes, I <span class="gap" style="--w:26mm"><span class="s">am</span></span>! I'm very excited. It <span class="gap" style="--w:26mm"><span class="s">is <span class="alt">(&#x27;s)</span></span></span> my birthday today.</div>
 <div class="who">Leo</div><div class="say">Happy birthday, Mia! <span class="gap" style="--w:26mm"><span class="s">Is</span></span> your party today?</div>
 <div class="who">Mia</div><div class="say">No, it <span class="gap" style="--w:26mm"><span class="s">isn&#x27;t <span class="alt">(is not)</span></span></span>. It's on Saturday.</div>
+</div>
+</div>
+<div class="exr"><h3><span class="nr">4</span><span>Schau dir die Bilder an und ergänze die Sprechblasen.</span></h3>
+<div class="bcards">
+<div class="bcard"><div class="pic"><div class="emo n1" aria-hidden="true">😠</div><div class="pname">Tom</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">Is Tom happy?</span></div><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">No, he <span class="gap" style="--w:38mm"><span class="s">isn&#x27;t <span class="alt">(is not)</span></span></span>. He's <span class="gap" style="--w:38mm"><span class="s">angry <span class="alt">(mad)</span></span></span>.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n1" aria-hidden="true">😨</div><div class="pname">Anna</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">Is Anna scared?</span></div><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">Yes, she <span class="gap" style="--w:38mm"><span class="s">is</span></span>.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n2" aria-hidden="true">🥶🥶</div><div class="pname">Mia and Ben</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👩</span><span class="bub">Are Mia and Ben hot?</span></div><div class="sl"><span class="spk" aria-hidden="true">👦</span><span class="bub">No, they <span class="gap" style="--w:38mm"><span class="s">aren&#x27;t <span class="alt">(are not)</span></span></span>. They're <span class="gap" style="--w:38mm"><span class="s">cold</span></span>.</span></div></div></div>
+<div class="bcard"><div class="pic"><div class="emo n1" aria-hidden="true">🥱</div><div class="pname">Lea</div></div><div class="says"><div class="sl"><span class="spk" aria-hidden="true">👩</span><span class="bub">Are you bored, Lea?</span></div><div class="sl"><span class="spk" aria-hidden="true">👧</span><span class="bub">No, <span class="gap" style="--w:38mm"><span class="s">I&#x27;m not <span class="alt">(I am not)</span></span></span>. I'm <span class="gap" style="--w:38mm"><span class="s">tired</span></span>.</span></div></div></div>
 </div>
 </div>
 <p class="foot">Tukas English · MORE! 1 · Unit 4</p>
