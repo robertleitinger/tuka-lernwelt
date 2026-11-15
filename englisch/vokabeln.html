@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wörter und Sätze · Englisch</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="app-version" content="5">
+<meta name="theme-color" content="#1F5E3B">
+<link rel="icon" href="../favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C2B24;--soft:#4A5A51;--green:#1F5E3B;--deep:#16452B;--sand:#F6EBD5;--line:#D9CBAA;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font:18px/1.4 Andika,"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#16452B;padding:calc(env(safe-area-inset-top,0px) + 6px) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px))}
+.bar a,.bar button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:0;background:#F6EBD5;color:#16452B;font:600 16px/1 Fredoka,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.bar button.print{background:#F28C28;color:#1C2B24}
+.bar .sp{flex:1}
+main{max-width:820px;margin:12px auto 18px;padding:0 10px}
+.head{display:flex;gap:12px;align-items:center;margin:4px 4px 10px}
+.head img{width:52px;height:52px;border-radius:12px}
+h1{font:600 26px/1.15 Fredoka,system-ui,sans-serif;margin:0;color:var(--deep)}
+.head p{margin:2px 0 0;color:var(--soft);font-size:15px;line-height:1.3}
+.tip{margin:0 4px 12px;font-size:15px;color:var(--soft)}
+.blk{background:#fff;border-radius:16px;padding:12px 14px 8px;margin:0 0 12px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
+h2{display:flex;align-items:center;gap:10px;margin:0 0 6px;font:600 21px/1.2 Fredoka,system-ui,sans-serif;color:var(--deep)}
+h2 .ic{flex:none;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:10px;font-size:21px;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.merk{margin:0 0 8px;padding:6px 10px;border-radius:10px;background:#FFE9D1;font-size:16px;line-height:1.4}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th:first-child{width:38%}
+th{text-align:left;font:600 14px Fredoka,system-ui,sans-serif;color:var(--soft);padding:2px 8px 4px;border-bottom:2px solid var(--line)}
+td{padding:7px 8px;border-bottom:1.5px solid #EEE4CF;vertical-align:middle;word-wrap:break-word}
+td.en{font-weight:700;color:var(--deep)}
+th.ub,td.ub{display:none}
+body.cover td.en span{visibility:hidden}
+body.cover td.en{background:#F3EEE2;cursor:pointer}
+body.cover td.en.show span{visibility:visible}
+@media (min-width:640px){th.ub,td.ub{display:table-cell}}
+@media print{
+  @page{size:A4;margin:11mm 12mm}
+  body{background:#fff;font-size:12.5pt}
+  .bar,.tip{display:none}
+  main{max-width:none;margin:0;padding:0}
+  .head{margin:0 0 6px}
+  h1{font-size:19pt}
+  h2{font-size:14pt;margin:0 0 4px}
+  h2 .ic{width:26px;height:26px;font-size:15px}
+  .blk{box-shadow:none;border:1.5px solid var(--line);border-radius:12px;padding:6px 10px 4px;margin:0 0 7px}
+  h2,.merk{break-after:avoid;page-break-after:avoid}
+  .blk.keep{break-inside:avoid;page-break-inside:avoid}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  thead{display:table-header-group}
+  .merk{font-size:11pt;padding:4px 8px;margin:0 0 4px}
+  th.ub,td.ub{display:table-cell}
+  td{height:8.6mm;padding:1px 8px}
+  td.ub{border-bottom:1.5px solid #9AA59F}
+  body.cover td.en,body.cover th.en{display:none}
+  body.cover th:first-child{width:45%}
+}
+</style>
+<script src="../update.js" defer></script>
+</head>
+<body>
+<nav class="bar"><a href="./">← Englisch</a><span class="sp"></span><button type="button" id="cover">🙈 Englisch verdecken</button><button type="button" class="print" onclick="window.print()">🖨️ Drucken</button></nav>
+<main>
+<div class="head"><img src="../tuka.svg" alt=""><div><h1>Wörter und Sätze</h1><p>Unit 4 · aus deinem Heft</p></div></div>
+<p class="tip">Tipp: Verdeck das Englische, sag es laut und tipp dann aufs Feld zum Nachschauen.</p>
+<section class="blk"><h2><span class="ic" style="background:#DCEFEF">🎒</span>Schule und Kleidung</h2><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>das Heft</td><td class="en"><span>exercise book</span></td><td class="ub"></td></tr><tr><td>die Wasserfarben</td><td class="en"><span>watercolours</span></td><td class="ub"></td></tr><tr><td>der Spitzer</td><td class="en"><span>pencil sharpener</span></td><td class="ub"></td></tr><tr><td>der Pinsel</td><td class="en"><span>paintbrush</span></td><td class="ub"></td></tr><tr><td>der Sessel</td><td class="en"><span>chair</span></td><td class="ub"></td></tr><tr><td>der Blazer, das Sakko</td><td class="en"><span>blazer / jacket</span></td><td class="ub"></td></tr><tr><td>die Krawatte</td><td class="en"><span>tie</span></td><td class="ub"></td></tr><tr><td>der Rock</td><td class="en"><span>skirt</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#FFE9D1">😊</span>Gefühle</h2><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>stolz</td><td class="en"><span>proud</span></td><td class="ub"></td></tr><tr><td>nervös</td><td class="en"><span>nervous</span></td><td class="ub"></td></tr><tr><td>verängstigt (Angst haben)</td><td class="en"><span>scared</span></td><td class="ub"></td></tr><tr><td>aufgeregt (voller Vorfreude)</td><td class="en"><span>excited</span></td><td class="ub"></td></tr><tr><td>gelangweilt (Mir ist langweilig.)</td><td class="en"><span>bored (I&#x27;m bored.)</span></td><td class="ub"></td></tr><tr><td>langweilig (Das ist langweilig.)</td><td class="en"><span>boring (It&#x27;s boring.)</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk"><h2><span class="ic" style="background:#F3E7C9">⭐</span>Noch mehr Wörter</h2><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Donnerstag</td><td class="en"><span>Thursday</span></td><td class="ub"></td></tr><tr><td>weiß</td><td class="en"><span>white</span></td><td class="ub"></td></tr><tr><td>hell (z. B. hellgrün)</td><td class="en"><span>light (light green)</span></td><td class="ub"></td></tr><tr><td>der Honig</td><td class="en"><span>honey</span></td><td class="ub"></td></tr><tr><td>bitte</td><td class="en"><span>please</span></td><td class="ub"></td></tr><tr><td>die Jahre</td><td class="en"><span>years</span></td><td class="ub"></td></tr><tr><td>fünfzehn</td><td class="en"><span>fifteen</span></td><td class="ub"></td></tr><tr><td>weil</td><td class="en"><span>because</span></td><td class="ub"></td></tr><tr><td>raten</td><td class="en"><span>guess</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk"><h2><span class="ic" style="background:#E4ECF4">❓</span>Fragen</h2><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Wo?</td><td class="en"><span>Where?</span></td><td class="ub"></td></tr><tr><td>Was?</td><td class="en"><span>What?</span></td><td class="ub"></td></tr><tr><td>Wie?</td><td class="en"><span>How?</span></td><td class="ub"></td></tr><tr><td>Warum?</td><td class="en"><span>Why?</span></td><td class="ub"></td></tr><tr><td>Woher kommst du?</td><td class="en"><span>Where are you from?</span></td><td class="ub"></td></tr><tr><td>Wo ist der Frosch?</td><td class="en"><span>Where is the frog?</span></td><td class="ub"></td></tr><tr><td>Wie heißt du?</td><td class="en"><span>What&#x27;s your name?</span></td><td class="ub"></td></tr><tr><td>Wie geht es dir?</td><td class="en"><span>How are you?</span></td><td class="ub"></td></tr><tr><td>Wie alt bist du?</td><td class="en"><span>How old are you?</span></td><td class="ub"></td></tr><tr><td>Warum bist du traurig?</td><td class="en"><span>Why are you sad?</span></td><td class="ub"></td></tr><tr><td>Kannst du das buchstabieren?</td><td class="en"><span>Can you spell it?</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#DDEFD9">📢</span>Befehle in der Klasse</h2><p class="merk"><b>Merk dir:</b> Bei Befehlen steht das Verb am Anfang. Verneinung mit <b>Don't</b>.</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Schalte dein Tablet ein.</td><td class="en"><span>Switch on your tablet.</span></td><td class="ub"></td></tr><tr><td>Schalte dein Tablet aus.</td><td class="en"><span>Switch off your tablet.</span></td><td class="ub"></td></tr><tr><td>Nimm deine Bücher heraus.</td><td class="en"><span>Take out your books.</span></td><td class="ub"></td></tr><tr><td>Sprich nicht!</td><td class="en"><span>Don&#x27;t speak!</span></td><td class="ub"></td></tr><tr><td>Errate meinen Piraten!</td><td class="en"><span>Guess my pirate!</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#ECE4D3">👨‍👩‍👧</span>Mehrzahl</h2><p class="merk"><b>Merk dir:</b> Meistens einfach <b>-s</b> (boy - boys). Mitlaut + y wird <b>-ies</b> (baby - babies). Ausnahmen: child - <b>children</b>, foot - <b>feet</b>, tooth - <b>teeth</b>.</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>die Familie, die Familien</td><td class="en"><span>family, families</span></td><td class="ub"></td></tr><tr><td>das Baby, die Babys</td><td class="en"><span>baby, babies</span></td><td class="ub"></td></tr><tr><td>der Bub, die Buben</td><td class="en"><span>boy, boys</span></td><td class="ub"></td></tr><tr><td>das Kind, die Kinder</td><td class="en"><span>child, children</span></td><td class="ub"></td></tr><tr><td>der Fuß, die Füße</td><td class="en"><span>foot, feet</span></td><td class="ub"></td></tr><tr><td>der Zahn, die Zähne</td><td class="en"><span>tooth, teeth</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#E4ECF4">🏴‍☠️</span>have got / has got</h2><p class="merk"><b>Merk dir:</b> Damit beschreibst du dich, deine Freundin oder einen Piraten. <b>I / you / we / they have got.</b> <b>He / she / it has got</b>, auch für ein Tier oder ein Ding. Zwei oder mehr (Tom und Julie): <b>have got</b>.</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Ich habe blaue Augen.</td><td class="en"><span>I&#x27;ve got blue eyes.</span></td><td class="ub"></td></tr><tr><td>Mona hat grüne Augen.</td><td class="en"><span>Mona has got green eyes.</span></td><td class="ub"></td></tr><tr><td>Der Pirat hat ein Holzbein.</td><td class="en"><span>The pirate has got a wooden leg.</span></td><td class="ub"></td></tr><tr><td>Die Katze hat einen langen Schwanz.</td><td class="en"><span>The cat has got a long tail.</span></td><td class="ub"></td></tr><tr><td>Tom und Julie haben einen Hund.</td><td class="en"><span>Tom and Julie have got a dog.</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#FFE9D1">👧</span>his / her</h2><p class="merk"><b>Merk dir:</b> <b>her</b> = von ihr (Mädchen, Frau). <b>his</b> = von ihm (Bub, Mann).</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Ihre Schwester heißt Alma. (Mona)</td><td class="en"><span>Her sister&#x27;s name is Alma.</span></td><td class="ub"></td></tr><tr><td>Seine Katze ist grau. (Frank)</td><td class="en"><span>His cat is grey.</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#DCEFEF">🏫</span>there is / there are</h2><p class="merk"><b>Merk dir:</b> So beschreibst du ein Zimmer. Eins: <b>there is</b>. Mehrere: <b>there are</b>.</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Da ist eine Tafel an der Wand.</td><td class="en"><span>There is a blackboard on the wall.</span></td><td class="ub"></td></tr><tr><td>Da sind neun Fenster.</td><td class="en"><span>There are nine windows.</span></td><td class="ub"></td></tr></tbody></table></section>
+<section class="blk keep"><h2><span class="ic" style="background:#DDEFD9">🔄</span>Verneinung, Frage, Kurzantwort</h2><p class="merk"><b>Merk dir:</b> Verneinung mit <b>not</b>. Bei der Frage tauschen <b>are</b> und <b>they</b> den Platz. Kurzantwort ohne Rest vom Satz.</p><table><thead><tr><th>Deutsch</th><th class="en">Englisch</th><th class="ub">Üben</th></tr></thead><tbody><tr><td>Sie sind in Berlin.</td><td class="en"><span>They are in Berlin.</span></td><td class="ub"></td></tr><tr><td>Sie sind nicht in Berlin.</td><td class="en"><span>They aren&#x27;t in Berlin.</span></td><td class="ub"></td></tr><tr><td>Sind sie in Berlin?</td><td class="en"><span>Are they in Berlin?</span></td><td class="ub"></td></tr><tr><td>Ja, sind sie. / Nein, sind sie nicht.</td><td class="en"><span>Yes, they are. / No, they aren&#x27;t.</span></td><td class="ub"></td></tr></tbody></table></section>
+</main>
+<script>
+(function(){
+  var b=document.getElementById('cover');
+  b.addEventListener('click',function(){
+    var on=document.body.classList.toggle('cover');
+    document.querySelectorAll('td.en.show').forEach(function(t){t.classList.remove('show');});
+    b.textContent=on?'👀 Englisch zeigen':'🙈 Englisch verdecken';
+  });
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('td.en'); if(t&&document.body.classList.contains('cover')) t.classList.toggle('show');
+  });
+})();
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tukas English</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="app-version" content="4">
+<meta name="app-version" content="5">
 <meta name="theme-color" content="#1F5E3B">
 <meta name="description" content="Englisch mit Tuka: Vokabeln und Grammatik, MORE! 1 Unit 1 bis 4.">
 <meta property="og:title" content="Tukas English">
@@ -284,6 +284,49 @@ const UNITS = [
     ['Ergänze die Kurzantwort.', 'Is it Friday today? No, it ___.', "isn't|is not", "Kurzantwort: No, it isn't."],
     ['Ergänze die Kurzantwort.', 'Am I right? No, you ___.', "aren't|are not", "Auf Am I …? antwortet man mit you: No, you aren't."],
     ['Ergänze die Kurzantwort.', 'Is your dog hungry? Yes, it ___.', 'is', 'Kurzantwort: Yes, it is.']
+  ]},
+  { id: 'heft', name: 'Mein Heft', title: 'Wörter und Sätze aus deinem Heft (Unit 4)', words: [
+    ['das Heft', 'exercise book'], ['die Wasserfarben', 'watercolours|water colours'], ['der Spitzer', 'pencil sharpener|sharpener'],
+    ['der Pinsel', 'paintbrush'], ['der Sessel', 'chair', 'zum Sitzen'], ['der Blazer, das Sakko', 'blazer|jacket'],
+    ['die Krawatte', 'tie'], ['der Rock', 'skirt'],
+    ['stolz', 'proud'], ['nervös', 'nervous'], ['verängstigt', 'scared|afraid', 'hat Angst'],
+    ['aufgeregt', 'excited', 'voller Vorfreude'], ['gelangweilt', 'bored', 'Mir ist langweilig.'],
+    ['langweilig', 'boring', 'Das ist langweilig.'],
+    ['Donnerstag', 'Thursday'], ['weiß', 'white'], ['hell', 'light', 'z. B. hellgrün'], ['der Honig', 'honey'],
+    ['bitte', 'please'], ['die Jahre', 'years'], ['15', 'fifteen', 'als Wort'], ['weil', 'because'], ['raten', 'guess'],
+    ['der Zahn', 'tooth'], ['die Zähne', 'teeth'], ['der Fuß', 'foot'], ['die Füße', 'feet'],
+    ['die Familien', 'families'], ['die Babys', 'babies'], ['die Kinder', 'children'], ['die Buben', 'boys'],
+    ['sein / seine', 'his', 'von ihm'], ['ihr / ihre', 'her', 'von ihr'],
+    ['wo', 'where', 'Fragewort'], ['was', 'what', 'Fragewort'], ['wie', 'how', 'Fragewort'], ['warum', 'why', 'Fragewort'],
+    ['Woher kommst du?', 'Where are you from|Where do you come from'], ['Wo ist der Frosch?', "Where is the frog|Where's the frog"],
+    ['Wie heißt du?', "What's your name|What is your name"], ['Wie geht es dir?', 'How are you'],
+    ['Wie alt bist du?', 'How old are you'], ['Warum bist du traurig?', 'Why are you sad'],
+    ['Kannst du das buchstabieren?', 'Can you spell it|Can you spell that'],
+    ['Schalte dein Tablet ein.', 'Switch on your tablet|Switch your tablet on|Turn on your tablet|Turn your tablet on'],
+    ['Schalte dein Tablet aus.', 'Switch off your tablet|Switch your tablet off|Turn off your tablet|Turn your tablet off'],
+    ['Nimm deine Bücher heraus.', 'Take out your books|Take your books out'],
+    ['Sprich nicht!', "Don't speak|Do not speak|Don't talk"], ['Errate meinen Piraten!', 'Guess my pirate']
+  ], gram: [
+    ['Setz die Mehrzahl ein.', 'I have got two ___. (foot)', 'feet', 'Ausnahme: foot, feet.'],
+    ['Setz die Mehrzahl ein.', 'The pirate has got big ___. (tooth)', 'teeth', 'Ausnahme: tooth, teeth.'],
+    ['Setz die Mehrzahl ein.', 'There are three ___ in the park. (family)', 'families', 'Mitlaut + y wird zu -ies.'],
+    ['Setz die Mehrzahl ein.', 'Two ___ are asleep. (baby)', 'babies', 'Mitlaut + y wird zu -ies.'],
+    ['Setz die Mehrzahl ein.', 'There are six ___ in my class. (child)', 'children', 'Ausnahme: child, children.'],
+    ['Setz die Mehrzahl ein.', 'Five ___ play football. (boy)', 'boys', 'Selbstlaut + y: nur -s.'],
+    ['Ergänze have oder has.', 'Mona ___ got green eyes.', 'has', 'he / she / it: has got'],
+    ['Ergänze have oder has.', 'My cat ___ got a long tail.', 'has', 'Ein Tier oder ein Ding: has got'],
+    ['Ergänze have oder has.', 'Tom and Julie ___ got a dog.', 'have', 'Zwei oder mehr: have got'],
+    ['Ergänze have oder has.', 'I ___ got blue eyes.', 'have', 'I / you / we / they: have got'],
+    ['Ergänze have oder has.', 'The pirate ___ got a wooden leg.', 'has', 'he / she / it: has got'],
+    ['Ergänze his oder her.', 'This is Mona. ___ sister is Alma.', 'Her', 'Mädchen oder Frau: her'],
+    ['Ergänze his oder her.', 'This is Frank. ___ cat is grey.', 'His', 'Bub oder Mann: his'],
+    ['Ergänze is oder are.', 'There ___ a blackboard on the wall.', 'is', 'Eins: there is'],
+    ['Ergänze is oder are.', 'There ___ nine windows on the left.', 'are', 'Mehrere: there are'],
+    ['Ergänze is oder are.', 'Tom and Julie ___ in Berlin.', 'are', 'Zwei oder mehr: are'],
+    ['Schreib die Verneinung.', 'They ___ in Berlin. (sind nicht)', "aren't|are not|'re not", "they aren't"],
+    ['Ergänze die Frage.', '___ they in Berlin?', 'Are', 'Frage: Are they …?'],
+    ['Ergänze die Kurzantwort.', 'Are they in Berlin? No, they ___.', "aren't|are not|'re not", "Kurzantwort: No, they aren't."],
+    ['Ergänze das Wort.', "I'm happy ___ it's Friday. (weil)", 'because', 'weil = because']
   ]}
 ];
 const WORDS = [], BYID = {};
@@ -324,7 +367,7 @@ let store = (function () {
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
 function lv(id) { return store.lv[id] || (store.lv[id] = { c: 0, m: 0 }); }
 function isSafe(id) { return lv(id).c >= 2; }
-function idsOf(unit, list) { return list.filter(x => unit === 'all' || x.unit === unit).map(x => x.id); }
+function idsOf(unit, list) { return list.filter(x => unit === 'all' ? x.unit !== 'heft' : x.unit === unit).map(x => x.id); }
 function unitProgress(unit) { const ids = idsOf(unit, WORDS); return { safe: ids.filter(isSafe).length, total: ids.length }; }
 function levelUp(id, ok) { const l = lv(id); if (ok) { l.c = Math.min(3, l.c + 1); l.m = Math.max(0, l.m - 1); } else { l.c = Math.max(0, l.c - 1); l.m = Math.min(3, l.m + 1); } save(); }
 
@@ -405,11 +448,12 @@ function homeScreen() {
     const p = unitProgress(id);
     const b = h('button', { type: 'button', class: 'ubtn', 'aria-pressed': String(id === unit), onclick: () => select(id) },
       h('b', null, name), h('small', null, sub), h('span', { class: 'bar' }, h('i', { style: 'width:' + Math.round(p.safe / p.total * 100) + '%' })));
-    if (id === 'all') b.classList.add('all');
+    if (id === 'all' || id === 'heft') b.classList.add('all');
     b.dataset.u = id; ubtns.push(b); return b;
   }
-  UNITS.forEach(u => unitsEl.append(uButton(u.id, u.name, u.title)));
+  UNITS.filter(u => u.id !== 'heft').forEach(u => unitsEl.append(uButton(u.id, u.name, u.title)));
   unitsEl.append(uButton('all', 'Alle Units', 'Unit 1 bis 4'));
+  unitsEl.append(uButton('heft', '📒 Mein Heft', 'Wörter und Sätze aus deinem Heft (Unit 4)'));
   const unitTitle = h('span', null, unitLabel(unit));
   const progLine = h('p', { class: 'note', style: 'margin-top:12px' });
   function paintProg(id) { const p = unitProgress(id); progLine.textContent = p.safe + ' von ' + p.total + ' Wörtern kannst du schon sicher.'; }
@@ -433,7 +477,8 @@ function homeScreen() {
     h('h2', { class: 'sec' }, 'Zum Ausdrucken'),
     h('div', { class: 'modes' },
       linkCard('🖨️', '#FFE9D1', 'Arbeitsblätter Grammatik', 'Unit 1 bis 4 zum Ausfüllen, mit Lösungen.', 'arbeitsblaetter.html'),
-      linkCard('📝', '#DCEFEF', 'Meine Texte (Unit 4)', 'Deine Texte in Druckschrift zum Lernen.', 'meine-texte.html')),
+      linkCard('📝', '#DCEFEF', 'Meine Texte (Unit 4)', 'Deine Texte in Druckschrift zum Lernen.', 'meine-texte.html'),
+      linkCard('📒', '#DDEFD9', 'Wörter und Sätze (Unit 4)', 'Deutsch, Englisch und eine Spalte zum Üben.', 'vokabeln.html')),
     h('p', { class: 'note', style: 'margin-top:4px' }, 'Dein Fortschritt wird nur auf diesem Handy gespeichert.')
   );
 }
@@ -513,7 +558,9 @@ function nextQuestion(round) {
     const main = w.en[0];
     // drei falsche Antworten aus derselben Unit, nie eine, die auch richtig wäre
     const near = (a, b) => /sleep/.test(a) && /sleep/.test(b);
-    const pool = shuffle(WORDS.filter(o => o.unit === w.unit && o.id !== w.id && !o.en.some(e => w.en.includes(e)) && !(o.de === w.de && o.note === w.note) && !near(o.en[0], main)));
+    let pool = shuffle(WORDS.filter(o => o.unit === w.unit && o.id !== w.id && !o.en.some(e => w.en.includes(e)) && !(o.de === w.de && o.note === w.note) && !near(o.en[0], main)));
+    // Mein Heft: Sätze bekommen Sätze als falsche Antworten, Wörter bekommen Wörter
+    if (w.unit === 'heft') { const isS = o => /[?.!]$/.test(o.de); pool = pool.filter(o => isS(o) === isS(w)).concat(pool.filter(o => isS(o) !== isS(w))); }
     const wrongs = [];
     for (const o of pool) { if (!wrongs.includes(o.en[0])) wrongs.push(o.en[0]); if (wrongs.length === 3) break; }
     const opts = h('div', { class: 'opts' });
