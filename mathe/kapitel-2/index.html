@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mathe Kapitel 2</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="app-version" content="5">
+<meta name="app-version" content="6">
 <meta name="theme-color" content="#1F5E3B">
-<meta name="description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Rechteck und Quadrat.">
+<meta name="description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Längenmaße, Rechteck und Quadrat.">
 <meta property="og:title" content="Mathe Kapitel 2: Geometrische Grundbegriffe">
-<meta property="og:description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Rechteck und Quadrat.">
+<meta property="og:description" content="Geometrie mit Tuka: Strecke, Strahl, Gerade, parallel, normal, Abstand, Längenmaße, Rechteck und Quadrat.">
 <meta property="og:url" content="https://robertleitinger.github.io/tuka-lernwelt/mathe/kapitel-2/">
 <meta property="og:image" content="https://robertleitinger.github.io/tuka-lernwelt/og.png">
 <meta property="og:type" content="website">
@@ -302,13 +302,69 @@ const FACTS = [
   ['f24', 'Ein Punkt hat eine Länge.', false, 'Ein Punkt hat keine Ausdehnung. Er ist nur eine Stelle.']
 ].map(f => ({ id: f[0], text: f[1], ok: f[2], why: f[3] }));
 
+
+/* ---------- Spiel 4: Längenmaße, Umfang, Fläche ---------- */
+function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+function fmtN(n) { const t = String(n); return t.length <= 4 ? t : t.replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+function uniq(ok, cands, k) { const out = []; for (const c of cands) { if (c !== ok && !out.includes(c) && !/(^|\s)-|NaN|undefined/.test(c)) out.push(c); if (out.length === k) break; } return [ok, ...out]; }
+const LEN_IDS = ['len1', 'len2', 'len3', 'len4', 'len5', 'len6'];
+const LEN_NAME = { len1: 'Mehrere Einheiten in eine', len2: 'In mehrere Einheiten zerlegen', len3: 'Einheit umrechnen', len4: 'Umfang', len5: 'Flächeninhalt', len6: 'Passende Einheit' };
+const LEN_HINT = {
+  len1: 'km zu m: mal 1000. m zu cm: mal 100. m, dm, cm, mm: immer mal 10. Leere Stellen sind 0.',
+  len2: '1 m = 1000 mm, 1 m = 100 cm. Zerlege die Zahl von links.',
+  len3: 'Groß in klein: mal. Klein in groß: durch.',
+  len4: 'Umfang = alle Seiten zusammen. Rechteck: 2 · a + 2 · b. Quadrat: 4 · a.',
+  len5: 'Flächeninhalt Rechteck: a · b. Quadrat: a · a. Einheit: cm².',
+  len6: '1 mm ist winzig, 1 cm so breit wie ein Fingernagel, 1 m ein großer Schritt, 1 km ein langer Spaziergang.'
+};
+const PAIRS = [['km', 'm', 1000], ['m', 'cm', 100], ['m', 'dm', 10], ['dm', 'cm', 10], ['cm', 'mm', 10], ['m', 'mm', 1000]];
+function genLen(id) {
+  const it = { hint: LEN_HINT[id], why: '' };
+  if (id === 'len1') {
+    const [G, K, f] = pick(PAIRS); const a = ri(1, 9); const b = f === 10 ? ri(1, 9) : f === 100 ? pick([ri(1, 9), ri(10, 99)]) : pick([ri(1, 9), ri(10, 99), ri(100, 999)]);
+    const ok = a * f + b;
+    const cands = [+(String(a) + String(b)), a * f + b * 10, a * f * 10 + b, a * f, ok + f].map(x => fmtN(x) + ' ' + K);
+    Object.assign(it, { label: 'Wandle um in ' + K + '.', text: a + ' ' + G + ' ' + b + ' ' + K + ' = ? ' + K, opts: uniq(fmtN(ok) + ' ' + K, shuffle(cands), 3), ok: fmtN(ok) + ' ' + K,
+      sol: a + ' ' + G + ' ' + b + ' ' + K + ' = ' + fmtN(ok) + ' ' + K + '.', why: '1 ' + G + ' = ' + fmtN(f) + ' ' + K + '. ' + a + ' · ' + fmtN(f) + ' + ' + b + ' = ' + fmtN(ok) + '.' });
+  } else if (id === 'len2') {
+    const mm = Math.random() < 0.5; let n, ok, c;
+    if (mm) { n = ri(1001, 9999); if (n % 1000 === 0) n += 7; const m = Math.floor(n / 1000), r = n % 1000; ok = m + ' m ' + r + ' mm'; c = [Math.floor(n / 100) + ' m ' + (n % 100) + ' mm', m + ' m ' + Math.floor(r / 10) + ' mm', Math.floor(n / 10) + ' m ' + (n % 10) + ' mm', (m + 1) + ' m ' + r + ' mm']; it.label = 'Zerlege in m und mm.'; it.text = fmtN(n) + ' mm = ? m ? mm'; it.why = '1 m = 1000 mm. In ' + fmtN(n) + ' mm stecken ' + m + ' ganze Meter.'; }
+    else { n = ri(101, 999); if (n % 100 === 0) n += 3; const m = Math.floor(n / 100), r = n % 100; ok = m + ' m ' + r + ' cm'; c = [Math.floor(n / 10) + ' m ' + (n % 10) + ' cm', m + ' m ' + Math.floor(r / 10) + ' cm', (m * 10 + Math.floor(r / 10)) + ' m ' + (r % 10) + ' cm', (m + 1) + ' m ' + r + ' cm']; it.label = 'Zerlege in m und cm.'; it.text = n + ' cm = ? m ? cm'; it.why = '1 m = 100 cm. In ' + n + ' cm stecken ' + m + ' ganze Meter.'; }
+    Object.assign(it, { opts: uniq(ok, shuffle(c), 3), ok, sol: it.text.replace(/\? m \? (mm|cm)/, ok) + '.' });
+  } else if (id === 'len3') {
+    const v = ri(0, 4); let t, okN, unit, c;
+    if (v === 0) { const a = ri(12, 980); t = a + ' cm = ? mm'; okN = a * 10; unit = 'mm'; c = [a * 100, a, a / 10, a * 10 + 10]; }
+    else if (v === 1) { const a = ri(2, 95); t = a + ' m = ? cm'; okN = a * 100; unit = 'cm'; c = [a * 10, a * 1000, a + 100, a * 100 + 10]; }
+    else if (v === 2) { const a = ri(2, 99) * 10; t = a + ' mm = ? cm'; okN = a / 10; unit = 'cm'; c = [a * 10, a / 100, a, a / 10 + 1]; }
+    else if (v === 3) { const a = ri(2, 30); t = a * 1000 + ' m = ? km'; okN = a; unit = 'km'; c = [a * 10, a * 100, a * 1000, a + 1]; }
+    else { const a = ri(2, 98); t = a + ' dm = ? cm'; okN = a * 10; unit = 'cm'; c = [a * 100, a, a + 10, a * 10 + 10]; }
+    const ok = fmtN(okN) + ' ' + unit;
+    Object.assign(it, { label: 'Wandle um.', text: t.replace(/^(\d+)/, x => fmtN(+x)), opts: uniq(ok, shuffle(c.filter(x => Number.isInteger(x)).map(x => fmtN(x) + ' ' + unit)), 3), ok, sol: t.replace('?', fmtN(okN)).replace(/^(\d+)/, x => fmtN(+x)) + '.', why: 'Groß in klein: mal. Klein in groß: durch.' });
+  } else if (id === 'len4') {
+    if (Math.random() < 0.6) { const a = ri(4, 12), b = ri(2, a - 1), u = pick(['cm', 'm']); const ok = (2 * a + 2 * b) + ' ' + u;
+      Object.assign(it, { label: 'Umfang', text: 'Ein Rechteck ist ' + a + ' ' + u + ' lang und ' + b + ' ' + u + ' breit. Wie groß ist der Umfang?', opts: uniq(ok, shuffle([(a + b) + ' ' + u, (a * b) + ' ' + u, (2 * a + b) + ' ' + u, (2 * a + 2 * b + 2) + ' ' + u]), 3), ok, sol: 'u = 2 · ' + a + ' + 2 · ' + b + ' = ' + ok + '.', why: 'Der Umfang ist einmal rundherum: alle vier Seiten zusammen.' }); }
+    else { const a = ri(3, 12), u = pick(['cm', 'm']); const ok = 4 * a + ' ' + u;
+      Object.assign(it, { label: 'Umfang', text: 'Ein Quadrat hat die Seitenlänge ' + a + ' ' + u + '. Wie groß ist der Umfang?', opts: uniq(ok, shuffle([a * a + ' ' + u, 2 * a + ' ' + u, 3 * a + ' ' + u]), 3), ok, sol: 'u = 4 · ' + a + ' = ' + ok + '.', why: 'Ein Quadrat hat vier gleich lange Seiten.' }); }
+  } else if (id === 'len5') {
+    if (Math.random() < 0.6) { const a = ri(3, 12), b = ri(2, a - 1); const ok = a * b + ' cm²';
+      Object.assign(it, { label: 'Flächeninhalt', text: 'Ein Rechteck ist ' + a + ' cm lang und ' + b + ' cm breit. Wie groß ist der Flächeninhalt?', opts: uniq(ok, shuffle([(2 * a + 2 * b) + ' cm²', (a + b) + ' cm²', a * b + ' cm']), 3), ok, sol: 'A = ' + a + ' · ' + b + ' = ' + ok + '.', why: 'Flächeninhalt Rechteck: Länge mal Breite. Die Einheit ist cm².' }); }
+    else { const a = ri(3, 11); const ok = a * a + ' cm²';
+      Object.assign(it, { label: 'Flächeninhalt', text: 'Ein Quadrat hat die Seitenlänge ' + a + ' cm. Wie groß ist der Flächeninhalt?', opts: uniq(ok, shuffle([4 * a + ' cm²', 2 * a + ' cm²', a * a + ' cm']), 3), ok, sol: 'A = ' + a + ' · ' + a + ' = ' + ok + '.', why: 'Flächeninhalt Quadrat: Seite mal Seite.' }); }
+  } else {
+    const items = [['Ein Bleistift ist 18 … lang.', 'cm'], ['Eine Ameise ist 5 … lang.', 'mm'], ['Die Klassentür ist 2 … hoch.', 'm'], ['Der Schulweg ist 3 … lang.', 'km'], ['Ein Heft ist 30 … lang.', 'cm'], ['Ein Fußballfeld ist 100 … lang.', 'm'], ['Von Salzburg nach Wien sind es 300 ….', 'km'], ['Eine Büroklammer ist 3 … lang.', 'cm'], ['Ein Marienkäfer ist 7 … lang.', 'mm']];
+    const [t, ok] = pick(items);
+    Object.assign(it, { label: 'Welche Einheit passt?', text: t, opts: uniq(ok, shuffle(['mm', 'cm', 'm', 'km']), 3), ok, sol: 'Richtig ist ' + ok + '.', why: LEN_HINT.len6 });
+  }
+  return it;
+}
+
 /* ---------- Fortschritt (nur in diesem Browser) ---------- */
 const KEY = 'tuka-geometrie-v1';
 let store = (function () { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.lv) return v; } catch (e) {} return { lv: {} }; })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
 function lv(id) { return store.lv[id] || (store.lv[id] = { c: 0, m: 0 }); }
 function levelUp(id, ok) { const l = lv(id); if (ok) { l.c = Math.min(3, l.c + 1); l.m = Math.max(0, l.m - 1); } else { l.c = Math.max(0, l.c - 1); l.m = Math.min(3, l.m + 1); } save(); }
-const ALL_IDS = [...PIC_IDS, ...SIGNS.map(x => x.id), ...SIGN_PICS.map(x => x.id), ...FACTS.map(x => x.id)];
+const ALL_IDS = [...PIC_IDS, ...SIGNS.map(x => x.id), ...SIGN_PICS.map(x => x.id), ...FACTS.map(x => x.id), ...LEN_IDS];
 function weightedPick(ids, avoid) {
   const pool = ids.filter(id => !avoid.includes(id)); const src = pool.length ? pool : ids;
   const w = src.map(id => { const l = lv(id); return 1 + (3 - l.c) * 1.5 + l.m * 1.5; });
@@ -328,6 +384,7 @@ function homeScreen() {
       modeCard('🔍', '#DCEFEF', 'Bilder', 'Strecke, Strahl oder Gerade? Was siehst du?', () => startRound('pic')),
       modeCard('✏️', '#F3E7C9', 'Zeichen', '⊥, ∥, ∈ … Was bedeuten die Zeichen?', () => startRound('sign')),
       modeCard('✅', '#DDEFD9', 'Stimmt das?', 'Richtig oder falsch? Tuka erklärt es dir.', () => startRound('fact')),
+      modeCard('📏', '#FBE3CF', 'Längenmaße', 'Umrechnen, Umfang und Flächeninhalt.', () => startRound('len')),
       modeCard('🎯', '#E4ECF4', 'Test', 'Alles gemischt, 12 Fragen. Ohne Tipps.', () => startRound('test'))),
     h('h2', { class: 'sec' }, 'Zum Ausdrucken'),
     h('div', { class: 'modes' },
@@ -356,7 +413,8 @@ function startRound(mode) {
   if (mode === 'pic') addN('pic', PIC_IDS, 10);
   else if (mode === 'sign') addN('sign', signIds, 10);
   else if (mode === 'fact') addN('fact', FACTS.map(x => x.id), 10);
-  else { addN('pic', PIC_IDS, 4); addN('sign', signIds, 4); addN('fact', FACTS.map(x => x.id), 4); q.splice(0, q.length, ...shuffle(q)); }
+  else if (mode === 'len') addN('len', LEN_IDS, 10);
+  else { addN('pic', PIC_IDS, 3); addN('sign', signIds, 3); addN('fact', FACTS.map(x => x.id), 3); addN('len', LEN_IDS, 3); q.splice(0, q.length, ...shuffle(q)); }
   nextQuestion({ mode, q, i: 0, done: 0, total: q.length, first: 0, missed: [] });
 }
 
@@ -410,6 +468,10 @@ function nextQuestion(round) {
         solution = 'Man schreibt: ' + z.sym.replace(/\[\[(.+?)\]\]/g, '$1 mit Strich') + '.';
       }
     }
+  } else if (qq.type === 'len') {
+    const it = qq.item || (qq.item = genLen(qq.id));
+    rc(qbox, h('div', { class: 'qlabel' }, it.label), h('div', { class: 'qtext sent' }, it.text));
+    okVal = it.ok; opts = it.opts; hintText = it.hint; solution = it.sol; why = it.why;
   } else {
     const f = FACTS.find(x => x.id === qq.id);
     rc(qbox, h('div', { class: 'qlabel' }, 'Stimmt das?'), h('div', { class: 'qtext stmt' }, f.text));
@@ -447,11 +509,11 @@ function nextQuestion(round) {
     if (answered) return;
     if (v === okVal) { b.classList.add('ok'); lockAll(false); finish(true, pick(PRAISE), [qq.type === 'fact' ? solution + ' ' + why : why]); return; }
     firstTry = false; wrong++; b.classList.add('bad'); b.disabled = true;
-    if (wrong >= 2 || qq.type === 'fact') { lockAll(true); finish(false, pick(SOFT), [solution, qq.type === 'fact' ? why : (why && why !== solution ? why : ''), (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); return; }
+    if (wrong >= 2 || qq.type === 'fact') { lockAll(true); finish(false, pick(SOFT), [solution, qq.type === 'fact' ? why : (why && why !== solution ? why : ''), (!test && !qq.again) ? (qq.type === 'len' ? 'So eine Aufgabe kommt gleich nochmal.' : 'Die Frage kommt gleich nochmal.') : '']); return; }
     hintBox.hidden = false; rc(hintBox, 'Noch nicht. ' + (hintText && !test ? '💡 ' + hintText : 'Versuch es nochmal!')); if (!test) { hintUsed = true; hintBtn.disabled = true; }
   }
   function doHint() { if (answered) return; hintUsed = true; hintBtn.disabled = true; hintBox.hidden = false; rc(hintBox, '💡 ' + hintText); }
-  function doSkip() { if (answered) return; firstTry = false; lockAll(true); finish(false, 'Kein Problem!', [solution, why, (!test && !qq.again) ? 'Die Frage kommt gleich nochmal.' : '']); }
+  function doSkip() { if (answered) return; firstTry = false; lockAll(true); finish(false, 'Kein Problem!', [solution, why, (!test && !qq.again) ? (qq.type === 'len' ? 'So eine Aufgabe kommt gleich nochmal.' : 'Die Frage kommt gleich nochmal.') : '']); }
 
   screen(top,
     h('div', { class: 'qcard' }, h('img', { src: TUKA, alt: '' }), qbox),
@@ -465,6 +527,7 @@ function endScreen(round) {
   const row = m => {
     if (m.type === 'pic') { const P = PICS[m.id]; return h('div', { class: 'row' }, h('span', null, P.colorPick ? 'Abstand messen' : cap1(P.name)), h('span', null, P.colorPick ? 'im rechten Winkel' : P.short)); }
     if (m.type === 'sign') { const z = SIGNS.find(x => x.id === m.id); if (z) return h('div', { class: 'row' }, h('span', { html: rich(z.sym) }), h('span', null, z.txt)); const p = SIGN_PICS.find(x => x.id === m.id); return h('div', { class: 'row' }, h('span', null, 'Zeichen im Bild'), h('span', null, p.ok)); }
+    if (m.type === 'len') return h('div', { class: 'row' }, h('span', null, LEN_NAME[m.id]), h('span', null, m.item ? m.item.sol : ''));
     const f = FACTS.find(x => x.id === m.id); return h('div', { class: 'row' }, h('span', null, f.text), h('span', null, f.ok ? 'stimmt' : 'stimmt nicht'));
   };
   screen(h('div', { class: 'end' },

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lösungen zur Probeschularbeit</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="app-version" content="6">
+<meta name="theme-color" content="#1F5E3B">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C2B24;--soft:#4A5A51;--green:#1F5E3B;--deep:#16452B;--orange:#F28C28;--teal:#1BA6A6;--sand:#F6EBD5;--paper:#FFFBF1;--line:#D9CBAA;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font:16px/1.45 "Atkinson Hyperlegible",Verdana,system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#16452B;padding:calc(env(safe-area-inset-top,0px) + 6px) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px))}
+.bar a,.bar button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:0;background:#F6EBD5;color:#16452B;font:600 16px/1 Fredoka,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.bar button.print{background:#F28C28;color:#1C2B24}
+.bar .sp{flex:1}
+.sheet{max-width:820px;margin:12px auto 40px;background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
+h1{font:600 24px/1.15 Fredoka,system-ui,sans-serif;margin:0;color:var(--deep)}
+.head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.head img{width:48px;height:48px;border-radius:12px}
+.head p{margin:2px 0 0;color:var(--soft);font-size:14px}
+.grid{display:grid;gap:10px}
+.box{border:2px solid var(--line);border-radius:12px;padding:8px 12px;break-inside:avoid;page-break-inside:avoid}
+.box h2{font:600 17px/1.2 Fredoka,system-ui,sans-serif;margin:0 0 4px;color:#fff;background:var(--green);display:inline-block;padding:2px 10px;border-radius:8px}
+.box.o h2{background:var(--orange);color:var(--ink)}.box.t h2{background:var(--teal)}
+.box p{margin:3px 0}
+.box ul{margin:3px 0;padding-left:18px}.box li{margin:1px 0}
+.ex{color:var(--green);font-weight:700}
+.merk{background:#FFE9D1;border-radius:8px;padding:2px 8px;display:inline-block;margin:3px 0;font-weight:700}
+.ov{text-decoration:overline}
+table.tafel{border-collapse:collapse;margin:4px 0;font-size:14px}
+table.tafel td,table.tafel th{border:1.5px solid var(--ink);padding:2px 7px;text-align:center;min-width:26px}
+table.tafel th{background:var(--sand)}
+svg{display:block;max-width:100%;height:auto}
+.figs{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end}
+.figs figure{margin:0;text-align:center;font-size:13px;font-weight:700}
+/* Probetest */
+.namerow{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 10px;font-size:15px}
+.namerow span{border-bottom:1.5px solid var(--ink);min-width:110px;display:inline-block}
+.task{border-top:1.5px solid var(--line);padding:8px 0 10px;break-inside:avoid;page-break-inside:avoid}
+.task .q{display:flex;gap:8px}
+.part{font:600 18px Fredoka,system-ui,sans-serif;color:var(--deep);margin:6px 0 2px}
+.task .nr{font:600 17px Fredoka,system-ui,sans-serif;color:var(--deep);min-width:26px}
+.task .pt{margin-left:auto;font-size:13px;color:var(--soft);white-space:nowrap}
+.lines{margin:6px 0 0 34px}
+.ln{border-bottom:1.5px dotted #8A9690;height:26px}
+.kast{margin:8px 0 0 34px;height:var(--h,110px);border:1px solid #B9C9D4;background-image:linear-gradient(#DCE6EE 1px,transparent 1px),linear-gradient(90deg,#DCE6EE 1px,transparent 1px);background-size:5mm 5mm}
+.opts{margin:4px 0 0 34px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.gap{display:inline-block;min-width:44px;border-bottom:1.5px solid var(--ink)}
+.sol{color:#B5121B;font-weight:700}
+.total{margin-top:10px;font-weight:700}
+.pb{break-before:page;page-break-before:always}
+body[data-mode="test"] .loes{display:none}
+body[data-mode="loes"] .test{display:none}
+@media (min-width:700px){.grid{grid-template-columns:1fr 1fr}.box.wide{grid-column:1/-1}}
+@media print{
+  @page{size:A4;margin:11mm}
+  body{background:#fff;font-size:11pt;line-height:1.35}
+  .bar{display:none}
+  .sheet{max-width:none;margin:0;padding:0;box-shadow:none;border-radius:0}
+  .grid{grid-template-columns:1fr 1fr;gap:7px}.box.wide{grid-column:1/-1}
+  .box{padding:5px 9px}
+  .head{margin-bottom:6px}
+  .ln{height:27px}
+  .screen-only{display:none}
+}
+@media screen{.pb{border-top:3px dashed var(--line);margin-top:14px;padding-top:6px}}
+.pyr{display:grid;justify-items:center;gap:4px;margin:6px 0 0 34px;width:max-content}
+.pyr div{display:flex;gap:4px}
+.pyr span{display:inline-grid;place-items:center;min-width:64px;height:30px;border:1.5px solid var(--ink);font-weight:700}
+.wf{margin:4px 0 0 34px;border-collapse:collapse}
+.wf td{padding:2px 8px 2px 0;vertical-align:top}
+.wf td.b{white-space:nowrap}
+.loes ol{padding-left:22px}.loes li{margin:3px 0}
+.teil{font:600 16px Fredoka,system-ui,sans-serif;color:#fff;background:var(--green);display:inline-block;padding:2px 10px;border-radius:8px;margin:10px 0 2px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;margin:4px 0 0 34px}
+.ls{padding-left:30px;margin:2px 0 4px}.ls li{margin:3px 0}
+.note{font-size:13px;color:var(--soft);margin:2px 0 4px}
+</style>
+<script src="../../update.js" defer></script>
+</head>
+<body>
+<nav class="bar"><a href="../">← Mathe</a><span class="sp"></span><button type="button" class="print" onclick="print()">🖨️ Drucken</button></nav>
+<main class="sheet">
+<div class="head"><img src="../../tuka.svg" alt=""><div><h1>Lösungen: 1. Probeschularbeit</h1><p>Für Eltern · Zum Übungsblatt der Lehrerin · 48 Punkte</p></div></div>
+<div class="part">Wiederholung</div>
+<ol start="0" class="ls">
+<li><span class="sol">a) 1674 &nbsp; b) 2217 &nbsp; c) 1728 &nbsp; d) 96</span> <br>Proben: 1674 - 946 = 728; &nbsp;2217 + 987 = 3204; &nbsp;36 · 48 = 1728; &nbsp;96 · 9 = 864.<br>Bei c) zuerst 48 · 3 = 144, dann eine Stelle weiter rechts 48 · 6 = 288.</li>
+</ol>
+<div class="part">Thema 1: Natürliche Zahlen</div>
+<ol start="1" class="ls">
+<li><span class="sol">a) 500 080 400 007 &nbsp; b) 600 020 040 &nbsp; c) 648 017 200 &nbsp; d) 1ZM 8M 4ZT 2T 3H</span> Bei b) ist „Zt“ wohl ZT gemeint. HMd = Hundertmilliarden.</li>
+<li><span class="sol">a) 40 003 &gt; 4030 &gt; 3400 &gt; 3040 &gt; 3004</span> &nbsp; <span class="sol">b)</span> Zahlenstrahl z. B. 10 cm lang, 1 cm = 5. Die Zahlen 5, 10, 25 und 40 liegen bei 1 cm, 2 cm, 5 cm und 8 cm.</li>
+<li><span class="sol">a) Tausender (T) und Zehntausender (ZT)</span> &nbsp; <span class="sol">b) 8 412 950 000 und 8 000 000 000</span> Rechts neben ZT steht 3, rechts neben Md steht 4: jeweils ab. &nbsp; <span class="sol">c) Konzertbesucher und Bleistiftlänge</span> Telefonnummer und Geburtsdatum darf man nicht runden.</li>
+<li><span class="sol">a) CDLII und MCMXCIX &nbsp; b) 1984 und 768</span> 1999 = M CM XC IX.</li>
+</ol>
+<div class="part">Thema 2: Ebene Geometrie</div>
+<ol start="5" class="ls">
+<li><span class="sol">w, w, f, w</span> Beim Rechteck sind nur gegenüberliegende Seiten gleich lang. Die Diagonalen eines Quadrats stehen normal aufeinander.</li>
+<li><span class="sol">Zeichnung prüfen:</span> h ∥ g durch M (Hilfslinie des Geodreiecks auf g), n ⊥ g durch M (Mittellinie auf g), beide beschriftet.</li>
+<li><span class="sol">a)</span> Man misst im rechten Winkel, also auf einer Normalen, von einer Geraden zur anderen. &nbsp; <span class="sol">b) Der Punkt P liegt näher an der Geraden a.</span> 3 cm ist weniger als 5 cm.</li>
+<li><span class="sol">B, C, A, D</span> (von oben nach unten: normal = x ⊥ y, Element = X ∈ g, parallel = u ∥ v, Schnittpunkt = p ∩ q = {S})</li>
+<li><span class="sol">a) 3428 cm &nbsp; b) 5014 m &nbsp; c) 4 m und 125 mm &nbsp; d) 2075 m &nbsp; e) 3400 mm &nbsp; f) 1 m 5 dm 6 cm (und 4 mm)</span></li>
+</ol>
+<p class="note">Aufgabe 10 fehlt im Blatt, die Nummerierung springt von 9 auf 11. Die Punkte ergeben trotzdem 48.</p>
+<div class="part">Thema 3: Rechnen mit natürlichen Zahlen</div>
+<ol start="11" class="ls">
+<li><span class="sol">a) 122 &nbsp; b) 533</span></li>
+<li><span class="sol">49 053</span> (40 512 + 7893 + 648, Einer unter Einer)</li>
+<li><span class="sol">Überschlag: 8000 - 4000 = 4000; &nbsp;Genau: 4635; &nbsp;Probe: 4635 + 3689 = 8324</span></li>
+<li><span class="sol">Mitte rechts: 466; &nbsp;unten rechts: 248</span> 894 - 428 = 466, dann 466 - 218 = 248.</li>
+<li><span class="sol">Term: 75 - (28 + 17) = 75 - 45 = 30</span></li>
+<li><span class="sol">a) 2 · 24 + 3 · 14 + 8 + 65 = 48 + 42 + 8 + 65 = 163 €</span> Antwort: Der Ausflug kostet 163 €. &nbsp; <span class="sol">b) 200 - 163 = 37 €</span> Antwort: Er bekommt 37 € zurück.</li>
+</ol>
+<p class="total">Notenschlüssel der Lehrerin: Sehr gut 48-44 · Gut 43,5-37,5 · Befriedigend 37-30 · Genügend 29,5-23 · Nicht genügend 22,5-0</p>
+</main>
+</body>
+</html>

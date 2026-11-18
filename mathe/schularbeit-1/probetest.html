@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Probetest zur 1. Mathe-Schularbeit</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="app-version" content="6">
+<meta name="theme-color" content="#1F5E3B">
+<link rel="icon" href="../../favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C2B24;--soft:#4A5A51;--green:#1F5E3B;--deep:#16452B;--orange:#F28C28;--teal:#1BA6A6;--sand:#F6EBD5;--paper:#FFFBF1;--line:#D9CBAA;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font:16px/1.45 "Atkinson Hyperlegible",Verdana,system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#16452B;padding:calc(env(safe-area-inset-top,0px) + 6px) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px))}
+.bar a,.bar button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:4px 14px;border-radius:999px;border:0;background:#F6EBD5;color:#16452B;font:600 16px/1 Fredoka,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.bar button.print{background:#F28C28;color:#1C2B24}
+.bar .sp{flex:1}
+.sheet{max-width:820px;margin:12px auto 40px;background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
+h1{font:600 24px/1.15 Fredoka,system-ui,sans-serif;margin:0;color:var(--deep)}
+.head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.head img{width:48px;height:48px;border-radius:12px}
+.head p{margin:2px 0 0;color:var(--soft);font-size:14px}
+.grid{display:grid;gap:10px}
+.box{border:2px solid var(--line);border-radius:12px;padding:8px 12px;break-inside:avoid;page-break-inside:avoid}
+.box h2{font:600 17px/1.2 Fredoka,system-ui,sans-serif;margin:0 0 4px;color:#fff;background:var(--green);display:inline-block;padding:2px 10px;border-radius:8px}
+.box.o h2{background:var(--orange);color:var(--ink)}.box.t h2{background:var(--teal)}
+.box p{margin:3px 0}
+.box ul{margin:3px 0;padding-left:18px}.box li{margin:1px 0}
+.ex{color:var(--green);font-weight:700}
+.merk{background:#FFE9D1;border-radius:8px;padding:2px 8px;display:inline-block;margin:3px 0;font-weight:700}
+.ov{text-decoration:overline}
+table.tafel{border-collapse:collapse;margin:4px 0;font-size:14px}
+table.tafel td,table.tafel th{border:1.5px solid var(--ink);padding:2px 7px;text-align:center;min-width:26px}
+table.tafel th{background:var(--sand)}
+svg{display:block;max-width:100%;height:auto}
+.figs{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end}
+.figs figure{margin:0;text-align:center;font-size:13px;font-weight:700}
+/* Probetest */
+.namerow{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 10px;font-size:15px}
+.namerow span{border-bottom:1.5px solid var(--ink);min-width:110px;display:inline-block}
+.task{border-top:1.5px solid var(--line);padding:8px 0 10px;break-inside:avoid;page-break-inside:avoid}
+.task .q{display:flex;gap:8px}
+.part{font:600 18px Fredoka,system-ui,sans-serif;color:var(--deep);margin:6px 0 2px}
+.task .nr{font:600 17px Fredoka,system-ui,sans-serif;color:var(--deep);min-width:26px}
+.task .pt{margin-left:auto;font-size:13px;color:var(--soft);white-space:nowrap}
+.lines{margin:6px 0 0 34px}
+.ln{border-bottom:1.5px dotted #8A9690;height:26px}
+.kast{margin:8px 0 0 34px;height:var(--h,110px);border:1px solid #B9C9D4;background-image:linear-gradient(#DCE6EE 1px,transparent 1px),linear-gradient(90deg,#DCE6EE 1px,transparent 1px);background-size:5mm 5mm}
+.opts{margin:4px 0 0 34px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.gap{display:inline-block;min-width:44px;border-bottom:1.5px solid var(--ink)}
+.sol{color:#B5121B;font-weight:700}
+.total{margin-top:10px;font-weight:700}
+.pb{break-before:page;page-break-before:always}
+body[data-mode="test"] .loes{display:none}
+body[data-mode="loes"] .test{display:none}
+@media (min-width:700px){.grid{grid-template-columns:1fr 1fr}.box.wide{grid-column:1/-1}}
+@media print{
+  @page{size:A4;margin:11mm}
+  body{background:#fff;font-size:11pt;line-height:1.35}
+  .bar{display:none}
+  .sheet{max-width:none;margin:0;padding:0;box-shadow:none;border-radius:0}
+  .grid{grid-template-columns:1fr 1fr;gap:7px}.box.wide{grid-column:1/-1}
+  .box{padding:5px 9px}
+  .head{margin-bottom:6px}
+  .ln{height:27px}
+  .screen-only{display:none}
+}
+@media screen{.pb{border-top:3px dashed var(--line);margin-top:14px;padding-top:6px}}
+.pyr{display:grid;justify-items:center;gap:4px;margin:6px 0 0 34px;width:max-content}
+.pyr div{display:flex;gap:4px}
+.pyr span{display:inline-grid;place-items:center;min-width:64px;height:30px;border:1.5px solid var(--ink);font-weight:700}
+.wf{margin:4px 0 0 34px;border-collapse:collapse}
+.wf td{padding:2px 8px 2px 0;vertical-align:top}
+.wf td.b{white-space:nowrap}
+.loes ol{padding-left:30px}.loes li{margin:3px 0}
+.teil{font:600 16px Fredoka,system-ui,sans-serif;color:#fff;background:var(--green);display:inline-block;padding:2px 10px;border-radius:8px;margin:10px 0 2px}
+.task{padding:5px 0 6px}
+.teil{break-after:avoid;page-break-after:avoid}
+.nw{white-space:nowrap}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;margin:4px 0 0 34px}
+</style>
+<script src="../../update.js" defer></script>
+</head>
+<body data-mode="test">
+<nav class="bar"><a href="../">← Mathe</a><span class="sp"></span><button type="button" id="toggle">Lösungen zeigen</button><button type="button" class="print" data-m="test">🖨️ Test</button><button type="button" class="print" data-m="loes">🖨️ Lösungen</button></nav>
+<main class="sheet">
+<div class="test"><div class="head"><img src="../../tuka.svg" alt=""><div><h1>Probetest: 1. Mathe-Schularbeit</h1><p>Kapitel 0 bis 3 · Schularbeit am Di 24.11.2026</p></div></div>
+<div class="namerow">Name: <span></span> Datum: <span></span> Punkte: <span style="min-width:70px"></span> / 48</div>
+<div class="teil">Wiederholung</div>
+<div class="task"><div class="q"><span class="nr">1</span><div>Berechne schriftlich und mach eine Probe.<br>a) 836 + 579 &nbsp; b) 2413 - 768 &nbsp; c) 57 · 26 &nbsp; d) 945 : 7</div><span class="pt">4 P.</span></div><div class="kast" style="--h:44mm"></div></div>
+<div class="teil">Natürliche Zahlen</div>
+<div class="task"><div class="q"><span class="nr">2</span><div>Schreib die Zahl.<br>a) 3HMd 7ZM 5T 2E = <span class="gap" style="min-width:150px"></span> &nbsp; b) 4HM 6ZT 3H = <span class="gap" style="min-width:120px"></span><br>c) zwölf Millionen dreihundertvierzigtausendachtzig = <span class="gap" style="min-width:130px"></span><br>d) 205 008 300 mit dekadischen Einheiten:</div><span class="pt">4 P.</span></div><div class="lines"><div class="ln"></div></div></div>
+<div class="task"><div class="q"><span class="nr">3</span><div>a) Ordne mit einer Größerkette: 7020, 7200, 70 020, 7002, 2700<br>b) Welche Zahlen zeigen A und B?<svg viewBox="0 0 320 66" width="320" role="img" aria-label="Zahlenstrahl"><line x1="16" y1="34" x2="308" y2="34" stroke="#1C2B24" stroke-width="2.4"/><path d="M312,34 l-8,-5 v10 z" fill="#1C2B24"/><line x1="16.0" y1="25" x2="16.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><line x1="44.2" y1="28" x2="44.2" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="72.4" y1="28" x2="72.4" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="100.6" y1="28" x2="100.6" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="128.8" y1="28" x2="128.8" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="157.0" y1="25" x2="157.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><line x1="185.2" y1="28" x2="185.2" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="213.4" y1="28" x2="213.4" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="241.6" y1="28" x2="241.6" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="269.8" y1="28" x2="269.8" y2="40" stroke="#1C2B24" stroke-width="1.5"/><line x1="298.0" y1="25" x2="298.0" y2="43" stroke="#1C2B24" stroke-width="2.2"/><text x="16.0" y="60" font-size="13" font-weight="700" text-anchor="middle" fill="#1C2B24">0</text><text x="298.0" y="60" font-size="13" font-weight="700" text-anchor="middle" fill="#1C2B24">500</text><path d="M100.6,22 l-6,-11 h12 z" fill="#F28C28" stroke="#1C2B24" stroke-width="1.2"/><text x="100.6" y="8" font-size="13" font-weight="700" text-anchor="middle">A</text><path d="M213.4,22 l-6,-11 h12 z" fill="#F28C28" stroke="#1C2B24" stroke-width="1.2"/><text x="213.4" y="8" font-size="13" font-weight="700" text-anchor="middle">B</text></svg>c) Gib den Vorgänger und den Nachfolger von 600 000 an.</div><span class="pt">4 P.</span></div><div class="lines"><div class="ln"></div></div></div>
+<div class="task"><div class="q"><span class="nr">4</span><div>a) Auf welche Stelle wurde gerundet? 6382 ≈ 6400 (<span class="gap"></span>) &nbsp;&nbsp; 518 470 ≈ 500 000 (<span class="gap"></span>)<br>b) Runde 3 795 214 506 auf Zehntausender und auf Milliarden.<br>c) Wo darf man runden? Kreuze an:<br><span class="nw">☐ Einwohner einer Stadt: 152 367</span> &nbsp; <span class="nw">☐ Hausnummer: 27</span><br><span class="nw">☐ Länge einer Wanderung: 12 480 m</span> &nbsp; <span class="nw">☐ PIN-Code: 4071</span></div><span class="pt">3 P.</span></div><div class="lines"><div class="ln"></div></div></div>
+<div class="task"><div class="q"><span class="nr">5</span><div>a) Schreib römisch: 674 = <span class="gap" style="min-width:90px"></span> 1949 = <span class="gap" style="min-width:90px"></span><br>b) Schreib als Zahl: MMXXVI = <span class="gap"></span> CDXLIV = <span class="gap"></span></div><span class="pt">4 P.</span></div></div>
+<div class="teil">Geometrie</div>
+<div class="task"><div class="q"><span class="nr">6</span><div>Kreuze an: wahr (w) oder falsch (f)?</div><span class="pt">4 P.</span></div><table class="wf"><tr><td>Eine Gerade hat zwei Endpunkte.</td><td class="b">[w] [f]</td></tr><tr><td>Der Normalabstand ist die kürzeste Verbindung von einem Punkt zu einer Geraden.</td><td class="b">[w] [f]</td></tr><tr><td>Im Quadrat sind alle vier Seiten gleich lang.</td><td class="b">[w] [f]</td></tr><tr><td>Die Diagonalen eines Rechtecks stehen immer normal aufeinander.</td><td class="b">[w] [f]</td></tr></table></div>
+<div class="task"><div class="q"><span class="nr">7</span><div>Zeichne eine Gerade g und einen Punkt P, der nicht auf g liegt.<br>a) Zeichne durch P die Parallele h zu g. &nbsp; b) Zeichne durch P die Normale n zu g. &nbsp; c) Miss d(P, g).</div><span class="pt">3 P.</span></div><div class="kast" style="--h:31mm"></div></div>
+<div class="task"><div class="q"><span class="nr">8</span><div>Schreib mit mathematischen Zeichen.<br>a) Die Geraden a und b sind parallel. <span class="gap" style="min-width:70px"></span><br>b) Der Punkt Q liegt nicht auf der Geraden k. <span class="gap" style="min-width:70px"></span><br>c) Die Geraden s und t schneiden einander im Punkt M. <span class="gap" style="min-width:70px"></span></div><span class="pt">3 P.</span></div></div>
+<div class="task"><div class="q"><span class="nr">9</span><div>Wandle in die angegebene Einheit um.</div><span class="pt">3 P.</span></div><div class="cols2"><div>a) 7 m 4 cm = <span class="gap"></span> cm</div><div>b) 3 km 85 m = <span class="gap"></span> m</div><div>c) 5280 mm = <span class="gap"></span> m <span class="gap"></span> mm</div><div>d) 46 dm = <span class="gap"></span> cm</div><div>e) 2093 m = <span class="gap"></span> km <span class="gap"></span> m</div><div>f) 3 m 7 dm 5 cm = <span class="gap"></span> cm</div></div></div>
+<div class="task"><div class="q"><span class="nr">10</span><div>Ein Rechteck ist 6 cm lang und 4 cm breit. Berechne den Umfang und den Flächeninhalt.</div><span class="pt">3 P.</span></div><div class="lines"><div class="ln">u =</div><div class="ln">A =</div></div></div>
+<div class="teil">Rechnen mit natürlichen Zahlen</div>
+<div class="task"><div class="q"><span class="nr">11</span><div>Rechne im Kopf: a) 87 + 45 = <span class="gap"></span> &nbsp;&nbsp; b) 1000 - 382 = <span class="gap"></span></div><span class="pt">2 P.</span></div></div>
+<div class="task"><div class="q"><span class="nr">12</span><div>Rechne 9216 - 4758: zuerst ein Überschlag (auf Tausender), dann genau, dann die Probe.</div><span class="pt">3 P.</span></div><div class="lines"><div class="ln">Überschlag:</div><div class="ln">Genau:</div><div class="ln">Probe:</div></div></div>
+<div class="task"><div class="q"><span class="nr">13</span><div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap"><span style="max-width:300px">Rechenpyramide: Zwei Nachbarn zusammen ergeben die Zahl darüber. Ergänze die leeren Felder.</span><div class="pyr" style="margin:0"><div><span>940</span></div><div><span>383</span><span></span></div><div><span>145</span><span>238</span><span></span></div></div></div><span class="pt">2 P.</span></div></div>
+<div class="task"><div class="q"><span class="nr">14</span><div>Schreib den Term mit Klammern und berechne ihn:<br>„Subtrahiere von 120 die Differenz der Zahlen 64 und 29.“</div><span class="pt">2 P.</span></div><div class="lines"><div class="ln">Term und Ergebnis:</div></div></div>
+<div class="task"><div class="q"><span class="nr">15</span><div>Familie Moser fährt in den Tiergarten. Sie kaufen 2 Erwachsenenkarten zu je 19 € und 3 Kinderkarten zu je 9 €. Für Eis zahlen sie 14 €.<br>a) Wie viel kostet der Ausflug? &nbsp; b) Frau Moser zahlt mit einem 100-€-Schein. Wie viel bekommt sie zurück? Schreib Antwortsätze.</div><span class="pt">4 P.</span></div><div class="lines"><div class="ln"></div><div class="ln"></div><div class="ln"></div></div></div>
+</div>
+<div class="loes"><div class="head"><img src="../../tuka.svg" alt=""><div><h1>Lösungen: Probetest 1. Mathe-Schularbeit</h1><p>Für Eltern · 48 Punkte</p></div></div>
+<ol>
+<li><span class="sol">a) 1415 &nbsp; b) 1645 &nbsp; c) 1482 &nbsp; d) 135</span> (je 1 P.) <br>Proben: 1415 - 579 = 836; &nbsp;1645 + 768 = 2413; &nbsp;26 · 57 = 1482; &nbsp;135 · 7 = 945.<br>Bei c) zuerst 57 · 2 = 114, dann eine Stelle weiter rechts 57 · 6 = 342.</li>
+<li><span class="sol">a) 300 070 005 002 &nbsp; b) 400 060 300 &nbsp; c) 12 340 080 &nbsp; d) 2HM 5M 8T 3H</span> (je 1 P.) Leere Stellen bekommen eine 0.</li>
+<li><span class="sol">a) 70 020 &gt; 7200 &gt; 7020 &gt; 7002 &gt; 2700</span> (1 P.) <span class="sol">b) A = 150, B = 350</span> (2 P.) 1 Schritt = 500 : 10 = 50. <span class="sol">c) 599 999 und 600 001</span> (1 P.)</li>
+<li><span class="sol">a) Hunderter (H) und Hunderttausender (HT)</span> (1 P.) <span class="sol">b) 3 795 210 000 und 4 000 000 000</span> (1 P.) Rechts neben der ZT-Stelle steht 4: ab. Rechts neben der Md-Stelle steht 7: auf. <span class="sol">c) Einwohner und Wanderung</span> (1 P.) Hausnummer und PIN-Code darf man nicht runden.</li>
+<li><span class="sol">a) DCLXXIV und MCMXLIX &nbsp; b) 2026 und 444</span> (je 1 P.) 1949 = M CM XL IX. 444 = CD XL IV.</li>
+<li><span class="sol">f, w, w, f</span> (je 1 P.) Eine Gerade hat keinen Anfang und kein Ende. Nur im Quadrat stehen die Diagonalen normal aufeinander.</li>
+<li><span class="sol">Zeichnung prüfen</span> (je 1 P.) h ∥ g mit dem Geodreieck (Hilfslinie auf g), n ⊥ g (Mittellinie auf g). d(P, g) wird auf der Normalen n gemessen, genau bis zu g.</li>
+<li><span class="sol">a) a ∥ b &nbsp; b) Q ∉ k &nbsp; c) s ∩ t = {M}</span> (je 1 P.)</li>
+<li><span class="sol">a) 704 cm &nbsp; b) 3085 m &nbsp; c) 5 m 280 mm &nbsp; d) 460 cm &nbsp; e) 2 km 93 m &nbsp; f) 375 cm</span> (je ½ P.) Falle bei a) und b): 704, nicht 74. 3085, nicht 385.</li>
+<li><span class="sol">u = 2 · 6 + 2 · 4 = 20 cm</span> (1,5 P.) <span class="sol">A = 6 · 4 = 24 cm²</span> (1,5 P.) Einheit cm² nicht vergessen.</li>
+<li><span class="sol">a) 132 &nbsp; b) 618</span> (je 1 P.)</li>
+<li><span class="sol">Überschlag: 9000 - 5000 = 4000; &nbsp;Genau: 4458; &nbsp;Probe: 4458 + 4758 = 9216</span> (je 1 P.)</li>
+<li><span class="sol">Mitte rechts: 557; &nbsp;unten rechts: 319</span> (je 1 P.) 940 - 383 = 557, dann 557 - 238 = 319.</li>
+<li><span class="sol">120 - (64 - 29) = 120 - 35 = 85</span> (Term 1 P., Ergebnis 1 P.)</li>
+<li><span class="sol">a) 2 · 19 + 3 · 9 + 14 = 38 + 27 + 14 = 79 €</span> Antwort: Der Ausflug kostet 79 €. (2,5 P.) <span class="sol">b) 100 - 79 = 21 €</span> Antwort: Sie bekommt 21 € zurück. (1,5 P.)</li>
+</ol>
+<p class="total">Gesamt: 48 Punkte</p></div>
+</main>
+<script>
+const b=document.body, t=document.getElementById('toggle');
+t.addEventListener('click',()=>{b.dataset.mode=b.dataset.mode==='test'?'loes':'test';t.textContent=b.dataset.mode==='test'?'Lösungen zeigen':'Test zeigen';scrollTo(0,0);});
+let back=null;addEventListener('afterprint',()=>{if(back){b.dataset.mode=back;back=null;}});
+document.querySelectorAll('button.print').forEach(x=>x.addEventListener('click',()=>{back=b.dataset.mode;b.dataset.mode=x.dataset.m;setTimeout(()=>print(),50);}));
+</script>
+</body>
+</html>
